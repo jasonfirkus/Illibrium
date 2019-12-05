@@ -11,13 +11,14 @@
 #endif
 using namespace std;
 
+string input;
+string invPlayer[5] = {};
+
+void actions();
 void dineRoomHouse();
 void actionsHouse();
-
-string input;
-string invPlayer[10] = {};
-
-
+void outsideHouseActions();
+void fullInvPlayer();
 
 void no()
 {
@@ -55,6 +56,8 @@ void stats()
 	int healthPlayer;
 	healthPlayer = 100;
 	cout << " Health: " << healthPlayer << endl;
+	getline(cin, input);
+	actionsHouse();
 }
 
 void help()
@@ -65,57 +68,49 @@ void help()
 	cout << "Type 'w' for west" << endl;
 	cout << "Type 'i' for inventory" << endl;
 	cout << "Type 'stats' for your stats" << endl;
+	getline(cin, input);
+	actionsHouse();
 }
 
-
-
-void fullinvPlayer()
+void fullInvPlayer()
 {
-	for (int i = 4; i >= 0; i--)
+	for (int p = 0; p < 5; p++)
 	{
-		cout << invPlayer[i];
+		cout << invPlayer[p];
 	}
+	getline(cin, input);
+	actionsHouse();
 }
 
 void livingRoom()
 {
-	cout << "Living Room. \n You are in the middle of the living room" << endl;
+	cout << " Living Room. \n You are in the middle of the living room" << endl;
+	getline(cin, input);
+	actionsHouse();
 }
 
 void openPackage()
 {
-	while (true && input != "open package")
+	cout << "You open the package and find a black disc the size of a hockey puck and a crimson emerald knife. It is about 9 inches in length." << endl;
+	getline(cin, input);
+	if (input == "pick up knife")
 	{
-		getline(cin, input);
-		if (input == "open package")
-		{
-			cout << "You open the package and find a black disc the size of a hockey puck and a crimson emerald knife.It is about 9 inches in length." << endl;
-			while (input != "pick up knife")
-			{
-				getline(cin, input);
-				if (input == "pick up knife")
-				{
-					string knife = "emerald knife";
-					invPlayer[1] = knife;
-					cout << "picked up knife" << endl;
-				}
-				actionsHouse();
-			}
-		}
-		actionsHouse();
+	string knife = "emerald knife";
+	invPlayer[1] = knife;
+	cout << "picked up knife" << endl;
 	}
+	actionsHouse();
 }
 
 void dineRoomHouse()
 {
-	while (input != "n" && input != "s" && input != "e" && input != "w" && input != "open package" && input != "pick up knife")
-	{
+		cout << " Dining room.\n You go to the dining table and see a package" << endl;
 		getline(cin, input);
-		cout << "Dining room.\n You go to the dining table and see a package" << endl;
-		openPackage();
-		
+		if (input == "open package")
+		{
+			openPackage();
+		}
 		actionsHouse();
-	}
 }
 
 void actionsHouse()
@@ -124,31 +119,71 @@ void actionsHouse()
 	{
 		livingRoom();
 	}
-	else if (input == "w")
+	if (input == "w")
 	{
 		cout << "That is a wall" << endl;
 	}
-	else if (input == "e")
+	if (input == "e")
 	{
 		cout << "You sat on the sofa. Congratulations!!!!" << endl;
 	}
-	else if (input == "n")
+	if (input == "n")
 	{
 		dineRoomHouse();
 	}
-	else
+	actions();
+	if (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" && input != "pick up knife" && input != "help" && input != "stats" && input != "i")
 	{
 		no();
 	}
 }
 
+void outsideHouseActions()
+{
+	if (input == "s")
+	{
+		livingRoom();
+	}
+	if (input == "w")
+	{
+		cout << "That is a wall" << endl;
+	}
+	if (input == "e")
+	{
+		cout << "You sat on the sofa. Congratulations!!!!" << endl;
+	}
+	if (input == "n")
+	{
+		dineRoomHouse();
+	}
+	actions();
+	if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
+	{
+		no();
+	}
+}
 
+void actions()
+{
+	if (input == "i")
+	{
+		fullInvPlayer();
+	}
+	if (input == "stats")
+	{
+		stats();
+	}
+	if (input == "help")
+	{
+		help();
+	}
+}
 
 int main()
 {
 	string c;
 	string name;
-
+	invPlayer[4] = "bobobobobobo";
 	cout << " ___       __   _______   ___       ________  ________  _____ ______   _______        _________  ________       ___  ___       ___       ___  ________  ________  ___  ___  ___  _____ ______" << endl;
 	cout << "|\\  \\     |\\  \\|\\  ___ \\ |\\  \\     |\\   ____\\|\\   __  \\|\\   _ \\  _   \\|\\  ___ \\      |\\___   ___|\\   __  \\     |\\  \\|\\  \\     |\\  \\     |\\  \\|\\   __  \\|\\   __  \\|\\  \\|\\  \\|\\  \\|\\   _ \\  _   \\ " << endl;
 	cout << "\\ \\  \\    \\ \\  \\ \\   __/|\\ \\  \\    \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|     \\|___ \\  \\_\\ \\  \\|\\  \\    \\ \\  \\ \\  \\    \\ \\  \\    \\ \\  \\ \\  \\|\\ /\\ \\  \\|\\  \\ \\  \\ \\  \\\\\\  \\ \\  \\\\\\__\\ \\  \\" << endl;
@@ -190,8 +225,43 @@ int main()
 	cout << endl;
 	help();
 	cout << "There are also basic commands you can perform such as 'pick up ____' or 'open ____' 'attack ____' Type help at any time to view these commands" << endl;
+	
+	while (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" && input != "pick up knife" && input != "help" && input != "stats" && input != "i")
+	{
+		getline(cin, input);
+		if (input == "s")
+		{
 
-	dineRoomHouse();
+		}
+		if (input == "w")
+		{
+			cout << "That is a wall" << endl;
+		}
+		if (input == "e")
+		{
+			cout << "You sat on the sofa. Congratulations!!!!" << endl;
+		}
+		if (input == "n")
+		{
+			dineRoomHouse();
+		}
+		if (input == "i")
+		{
+			fullInvPlayer();
+		}
+		if (input == "stats")
+		{
+			stats();
+		}
+		if (input == "help")
+		{
+			help();
+		}
+		if (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" && input != "pick up knife" && input != "help" && input != "stats" && input != "i")
+		{
+			no();
+		}
+	}
 
 	return 0;
 }
