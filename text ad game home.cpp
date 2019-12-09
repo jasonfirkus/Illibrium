@@ -14,12 +14,20 @@ using namespace std;
 string input;
 string invPlayer[5] = {};
 
+void stats();
+void outsideHouse();
 void actions();
 void dineRoomHouse();
 void actionsHouse();
 void outsideHouseActions();
 void fullInvPlayer();
 void no();
+void help();
+void pickNote();
+void openPackage();
+void livingRoom();
+void pickUpNote();
+void useDisc();
 
 void no()
 {
@@ -33,12 +41,6 @@ void no()
 	west,
 	east,
 }*/
-
-void outsideHouse()
-{
-	cout << " Outside House.\n You are outside the house, you are standing on a lush green lawn. There is a transparent bubble surrounding the perimeter of the house and lawn." << endl;
-	cout << "" << endl;
-}
 
 void stats()
 {
@@ -75,6 +77,22 @@ void help()
 	actionsHouse();
 }
 
+void actions()
+{
+	if (input == "i")
+	{
+		fullInvPlayer();
+	}
+	if (input == "stats")
+	{
+		stats();
+	}
+	if (input == "help")
+	{
+		help();
+	}
+}
+
 void fullInvPlayer()
 {
 	for (int p = 0; p < 5; p++)
@@ -109,64 +127,132 @@ void pickNote()
 void openPackage()
 {
 	cout << "You open the package and find a black disc the size of a hockey puck and a note. It contains the first part of what seems to be a password." << endl;
-	getline(cin, input);
-	do 
+	pickUpNote();
+
+	useDisc();
+
+	while (input != "s")
 	{ 
+		getline(cin, input);
+		if (input == "s")
+		{
+			livingRoom();
+		}
+		if (input == "n" && input == "w" && input == "e")
+		{
+			cout << "That is a wall" << endl;
+		}
+		if (input != "s" && input != "n")
+		{
+			no();
+		}
+	}
+}
+
+void pickUpNote()
+{
+	do
+	{ 
+		getline(cin, input);
 		if (input == "pick up note")
 		{
 			string pass1 = "25";
 			invPlayer[1] = pass1;
 			cout << "picked up note" << endl;
 		}
-		actionsHouse();
-	} while (input != "pick up note" && input != "n" && input != "s" && input != "w" && input != "e" && input != "use disc");
-
-	do
-	{ 
+		if (input == "s")
+		{
+			livingRoom();
+		}
+		if (input == "n" && input == "w" && input == "e")
+		{
+			cout << "That is a wall" << endl;
+		}
 		if (input == "use disc")
 		{
-			cout << " A blue holographic figure appears out of the black disc and speaks too you." << endl;
+			useDisc();
 		}
-		actionsHouse();
-	} while (input != "use disc" && input != "n" && input != "s" && input != "w" && input != "e" && input != "pick up note");
-	pickNote();
-}	
+		if (input != "pick up note" && input != "s" && input != "n" && input != "w" && input != "e")
+		{
+			no();
+		}
+	} while (input != "pick up note" && input != "s");
+}
+
+void useDisc()
+{
+	do
+	{
+		getline(cin, input);
+		if (input == "s")
+		{
+			livingRoom();
+		}
+		if (input == "n" && input == "w" && input == "e")
+		{
+			cout << "That is a wall" << endl;
+		}
+		if (input == "use disc")
+		{
+			cout << "A blue holographic figure appears out of the disc and speaks to you" << endl;
+		}
+		if (input != "pick up note" && input != "s" && input != "n" && input != "w" && input != "e")
+		{
+			no();
+		}
+	} while (input != "use disc" && input != "s");
+}
 
 void dineRoomHouse()
 {
 	cout << " Dining room.\n You go to the dining table and see a package" << endl;
-	getline(cin, input);
-	if (input == "open package")
-	{
-		openPackage();
-	}
-	actionsHouse();
+	do
+	{ 
+		getline(cin, input);
+		if (input == "open package")
+		{
+			openPackage();
+		}
+		if (input == "s")
+		{
+			livingRoom();
+		}
+		if (input == "n" && input == "w" && input == "e")
+		{
+			cout << "That is a wall" << endl;
+		}
+		if (input != "open package" && input != "use disc" && input != "s" && input != "pick up note")
+		{
+			no();
+		}
+	} while (input != "open package" && input != "s");
 }
 
 void actionsHouse()
 {
 
-		if (input == "s")
-		{
-			outsideHouse();
-		}
-		if (input == "w") 
-		{
-			cout << "That is a wall" << endl;
-		}
-		if (input == "e")
-		{
-			cout << "You sat on the sofa. Congratulations!!!!" << endl;
-		}
-		if (input == "n")
-		{
-			dineRoomHouse();
-		}
-		actions();
-		if (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" && input != "pick up note" && input != "help" && input != "stats" && input != "i" && input != "use disc")
-		{
-			no();
-		}
+	if (input == "s")
+	{
+		outsideHouse();
+	}
+	if (input == "w")
+	{
+		cout << "That is a wall" << endl;
+	}
+	if (input == "e")
+	{
+		cout << "You sat on the sofa. Congratulations!!!!" << endl;
+	}
+	if (input == "n")
+	{
+		dineRoomHouse();
+	}
+	actions();
+	if (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" && 
+	input != "pick up note" && input != "help" && input != "stats" && input != "i" && input != "use disc")
+	{
+		no();
+	}
 }
 
 void outsideHouseActions()
@@ -194,26 +280,25 @@ void outsideHouseActions()
 	}
 }
 
-void actions()
+void outsideHouse()
 {
-	if (input == "i")
-	{
-		fullInvPlayer();
-	}
-	if (input == "stats")
-	{
-		stats();
-	}
-	if (input == "help")
-	{
-		help();
-	}
+	cout << " Outside The House.\n You are outside the house, you are standing on a lush green lawn.";
+	cout << "There is a transparent bubble directly in front of you surrounding the perimeter of the house and lawn." << endl;
+	Sleep(2000);
+
+	cout << " To the north is the living room inside the house." << endl;
+	Sleep(2000);
+
+	cout << "To the east is a white door in the bubble which looks to lead to another set of buildings." << endl;
+	Sleep(2000);
+
+	cout << "To the west is a gray door which leads to a single building." << endl;
 }
 
 int main()
 {
-	string c;
 	string name;
+
 	cout << " ___       __   _______   ___       ________  ________  _____ ______   _______        _________  ________       ___  ___       ___       ___  ________  ________  ___  ___  ___  ______   ____" << endl;
 	cout << "|\\  \\     |\\  \\|\\  ___ \\ |\\  \\     |\\   ____\\|\\   __  \\|\\   _ \\  _   \\|\\  ___ \\      |\\___   ___|\\   __  \\     |\\  \\|\\  \\     |\\  \\     |\\  \\|\\   __  \\|\\   __  \\|\\  \\|\\  \\|\\  \\|\\   _ \\  \\\\  \\ " << endl;
 	cout << "\\ \\  \\    \\ \\  \\ \\   __/|\\ \\  \\    \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|     \\|___ \\  \\_\\ \\  \\|\\  \\    \\ \\  \\ \\  \\    \\ \\  \\    \\ \\  \\ \\  \\|\\ /\\ \\  \\|\\  \\ \\  \\ \\  \\\\\\  \\ \\  \\\\ \\__\\\\  \\" << endl;
@@ -223,20 +308,20 @@ int main()
 	cout << "    \\|____________|\\|_______|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|_______|         \\|__|  \\|_______|     \\|__|\\|_______|\\|_______|\\|__|\\|_______|\\|__|\\|__|\\|__|\\|_______|\\|__|     \\|__|" << endl;
 
 	cout << " You are in the year 2070, an evil organization is plotting to take over the world and you must stop them. \n(enter)" << endl;
-	getline(cin, c);
+	getline(cin, input);
 
 	cout << " You will play as a rebel trying to overthrow them. You are also on the moon. \n(enter)" << endl;
-	getline(cin, c);
+	getline(cin, input);
 
 	cout << " What is your name rebel? \n(enter your name)" << endl;
 	cin.ignore(0, '\n');
 	getline(cin, name);
 
 	cout << " Good luck, " << name << "\n(enter)" << endl;
-	getline(cin, c);
+	getline(cin, input);
 
 	cout << " Welcome to Illibrium\n (enter)" << endl;
-	getline(cin, c);
+	getline(cin, input);
 
 	if (system("CLS")) system("clear");
 	cout << endl;
@@ -255,7 +340,8 @@ int main()
 	cout << endl;
 	help();
 
-	while (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" && input != "pick up note" && input != "help" && input != "stats" && input != "i" && input != "use disc")
+	while (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" && 
+	input != "pick up note" && input != "help" && input != "stats" && input != "i" && input != "use disc")
 	{
 		getline(cin, input);
 		if (input == "s")
@@ -286,7 +372,8 @@ int main()
 		{
 			help();
 		}
-		if (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" && input != "pick up note" && input != "help" && input != "stats" && input != "i" && input != "use disc")
+		if (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" && 
+		input != "pick up note" && input != "help" && input != "stats" && input != "i" && input != "use disc")
 		{
 			no();
 		}
