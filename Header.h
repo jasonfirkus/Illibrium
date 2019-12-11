@@ -6,6 +6,7 @@ namespace house
 	void packActions();
 	void dineRoomHouse();
 	void action();
+	void backstory();
 }
 
 namespace global
@@ -14,4 +15,11 @@ namespace global
 	void stats();
 	void help();
 	void actions();
+	void no();
+}
+
+namespace outside
+{
+	void oActions();
+	void oHouse();
 }
