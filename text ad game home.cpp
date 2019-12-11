@@ -15,19 +15,18 @@ using namespace std;
 string input;
 string invPlayer[5] = {};
 
-void stats();
+void global::stats();
 void outsideHouse();
-void actions();
-void dineRoomHouse();
+void global::actions();
+void house::dineRoomHouse();
 void outsideHouseActions();
-void fullInvPlayer();
+void global::fullInvPlayer();
 void no();
-void help();
-void openPackage();
-void livingRoom();
-void pickUpNote();
-void useDisc();
-void house::actions();
+void global::help();
+void house::openPackage();
+void house::livingRoom();
+void house::packActions();
+void house::action();
 
 
 
@@ -44,7 +43,7 @@ void no()
 	east,
 }*/
 
-void stats()
+void global::stats()
 {
 
 	int speedPlayer;
@@ -63,10 +62,10 @@ void stats()
 	healthPlayer = 100;
 	cout << " Health: " << healthPlayer << endl;
 	getline(cin, input);
-	house::actions();
+	house::action();
 }
 
-void help()
+void global::help()
 {
 	cout << "Type 'n' for north" << endl;
 	cout << "Type 'e' for east" << endl;
@@ -76,70 +75,49 @@ void help()
 	cout << "Type 'stats' for your stats" << endl;
 	cout << "There are also basic commands you can perform such as 'pick up ____' or 'open ____' 'attack ____' Type help at any time to view these commands" << endl;
 	getline(cin, input);
-	house::actions();
+	house::action();
 }
 
-void actions()
+void global::actions()
 {
 	if (input == "i")
 	{
-		fullInvPlayer();
+		global::fullInvPlayer();
 	}
 	if (input == "stats")
 	{
-		stats();
+		global::stats();
 	}
 	if (input == "help")
 	{
-		help();
+		global::help();
 	}
 }
 
-void fullInvPlayer()
+void global::fullInvPlayer()
 {
 	for (int p = 0; p < 5; p++)
 	{
 		cout << invPlayer[p];
 	}
 	getline(cin, input);
-	house::actions();
+	house::action();
 }
 
-void livingRoom()
+void house::livingRoom()
 {
 	cout << " Living Room. \n You are in the middle of the living room" << endl;
 	getline(cin, input);
 
-	house::actions();
+	house::action();
 }
 
-void openPackage()
+void house::openPackage()
 {
 	cout << "You open the package and find a black disc the size of a hockey puck and a note. It contains the first part of what seems to be a password." << endl;
 
-	pickUpNote();
-
-	//This is the usedisc function but for some reason it won't work if I use the function so I just used the code from it
-	do
-	{
-		getline(cin, input);
-		if (input == "use disc")
-		{
-			cout << "A blue holographic figure appears out of the disc and speaks to you" << endl;
-		}
-		if (input == "s")
-		{
-			livingRoom();
-		}
-		if (input == "n" && input == "w" && input == "e")
-		{
-			cout << "That is a wall" << endl;
-		}
-		if (input != "use disc" && input != "s" && input != "n" && input != "w" && input != "e" && input != "pick up note")
-		{
-			no();
-		}
-	} while (input != "use disc" && input != "s");
+	house::packActions();
+	house::packActions();
 	
 	while (input != "s")
 	{
@@ -159,7 +137,7 @@ void openPackage()
 	}
 }
 
-void pickUpNote()
+void house::packActions()
 {
 	do
 	{
@@ -173,7 +151,7 @@ void pickUpNote()
 		}
 		if (input == "s")
 		{
-			livingRoom();
+			house::livingRoom();
 		}
 		if (input == "n" && input == "w" && input == "e")
 		{
@@ -187,34 +165,10 @@ void pickUpNote()
 		{
 			no();
 		}
-	} while (input != "pick up note" && input != "s");
+	} while (input != "pick up note" && input != "s" && input != "use disc");
 }
 
-void useDisc()
-{
-	do
-	{
-		getline(cin, input);
-		if (input == "use disc")
-		{
-			cout << "A blue holographic figure appears out of the disc and speaks to you" << endl;
-		}
-		if (input == "s")
-		{
-			livingRoom();
-		}
-		if (input == "n" && input == "w" && input == "e")
-		{
-			cout << "That is a wall" << endl;
-		}
-		if (input != "use disc" && input != "s" && input != "n" && input != "w" && input != "e" && input != "pick up note")
-		{
-			no();
-		}
-	} while (input != "use disc" && input != "s"); 
-}
-
-void dineRoomHouse()
+void house::dineRoomHouse()
 {
 	cout << " Dining room.\n You go to the dining table and see a package" << endl;
 	do
@@ -222,11 +176,11 @@ void dineRoomHouse()
 		getline(cin, input);
 		if (input == "open package")
 		{
-			openPackage();
+			house::openPackage();
 		}
 		if (input == "s")
 		{
-			livingRoom();
+			house::livingRoom();
 		}
 		if (input == "n" && input == "w" && input == "e")
 		{
@@ -239,7 +193,7 @@ void dineRoomHouse()
 	} while (input != "open package" && input != "s");
 }
 
-void house::actions()
+void house::action()
 {
 
 	if (input == "s")
@@ -256,9 +210,9 @@ void house::actions()
 	}
 	if (input == "n")
 	{
-		dineRoomHouse();
+		house::dineRoomHouse();
 	}
-	actions();
+	global::actions();
 	if (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" &&
 		input != "pick up note" && input != "help" && input != "stats" && input != "i" && input != "use disc")
 	{
@@ -270,7 +224,7 @@ void outsideHouseActions()
 {
 	if (input == "s")
 	{
-		livingRoom();
+		house::livingRoom();
 	}
 	if (input == "w")
 	{
@@ -282,9 +236,9 @@ void outsideHouseActions()
 	}
 	if (input == "n")
 	{
-		dineRoomHouse();
+		house::dineRoomHouse();
 	}
-	actions();
+	global::actions();
 	if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
 	{
 		no();
@@ -322,7 +276,7 @@ int main()
 	getline(cin, input);
 	if (input == "sk") // To skip to open package function for testing
 	{
-		openPackage();
+		house::openPackage();
 	}
 
 	cout << " You will play as a rebel trying to overthrow them. You are also on the moon. \n(enter)" << endl;
@@ -354,7 +308,7 @@ int main()
 	Sleep(500);
 
 	cout << endl;
-	help();
+	global::help();
 
 	while (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i" && input != "use disc")
 	{
@@ -373,21 +327,21 @@ int main()
 		}
 		if (input == "n")
 		{
-			dineRoomHouse();
+			house::dineRoomHouse();
 		}
 		if (input == "i")
 		{
-			fullInvPlayer();
+			global::fullInvPlayer();
 		}
 		if (input == "stats")
 		{
-			stats();
+			global::stats();
 		}
 		if (input == "help")
 		{
-			help();
+			global::help();
 		}
-		if (input != "n" && input != "s" && input != "w" &&   input != "e" && input != "help" && input != "stats" && input != "i")
+		if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
 		{
 			no();
 		}
