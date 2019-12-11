@@ -9,28 +9,30 @@
 #else
 #include <stdlib.h>
 #endif
-#include "Header.h"
+#include "Header1.h"
 using namespace std;
 
 string input;
+string name;
 string invPlayer[5] = {};
 
 void global::stats();
-void outsideHouse();
+void outside::oActions();
 void global::actions();
 void house::dineRoomHouse();
-void outsideHouseActions();
+void outside::oHouse();
 void global::fullInvPlayer();
-void no();
+void global::no();
 void global::help();
 void house::openPackage();
 void house::livingRoom();
 void house::packActions();
 void house::action();
+void house::backstory();
 
 
 
-void no()
+void global::no()
 {
 	cout << "What?" << endl;
 }
@@ -67,13 +69,13 @@ void global::stats()
 
 void global::help()
 {
-	cout << "Type 'n' for north" << endl;
-	cout << "Type 'e' for east" << endl;
-	cout << "Type 's' for south" << endl;
-	cout << "Type 'w' for west" << endl;
-	cout << "Type 'i' for inventory" << endl;
-	cout << "Type 'stats' for your stats" << endl;
-	cout << "There are also basic commands you can perform such as 'pick up ____' or 'open ____' 'attack ____' Type help at any time to view these commands" << endl;
+	cout << " Type 'n' for north" << endl;
+	cout << " Type 'e' for east" << endl;
+	cout << " Type 's' for south" << endl;
+	cout << " Type 'w' for west" << endl;
+	cout << " Type 'i' for inventory" << endl;
+	cout << " Type 'stats' for your stats" << endl;
+	cout << " There are also basic commands you can perform such as 'pick up ____' or 'open ____' 'attack ____' Type help at any time to view these commands" << endl;
 	getline(cin, input);
 	house::action();
 }
@@ -106,7 +108,9 @@ void global::fullInvPlayer()
 
 void house::livingRoom()
 {
-	cout << " Living Room. \n You are in the middle of the living room" << endl;
+	cout << " Living Room. \n  You are in the middle of the living room\n To the east is a floating couch." << endl;
+	cout << " To the north is the dining room" << endl;
+	cout << " To the south is the backyard of the house" << endl;
 	getline(cin, input);
 
 	house::action();
@@ -118,13 +122,13 @@ void house::openPackage()
 
 	house::packActions();
 	house::packActions();
-	
+
 	while (input != "s")
 	{
 		getline(cin, input);
 		if (input == "s")
 		{
-			livingRoom();
+			house::livingRoom();
 		}
 		if (input == "n" && input == "w" && input == "e")
 		{
@@ -132,9 +136,39 @@ void house::openPackage()
 		}
 		if (input != "s" && input != "n")
 		{
-			no();
+			global::no();
 		}
 	}
+}
+
+void house::backstory()
+{
+	//This is explaining the three password segments and the Quantum order
+
+	cout << endl;
+
+	cout << " A blue holographic figure appears out of the disc and speaks to you. It says 'on that note contains the key to saving mankind." << endl;
+	Sleep(1700);
+
+	cout << " The Quantum Order wants to gain absolute control of the world through the use of qauntum computers." << endl;
+	Sleep(1700);
+
+	cout << " They will be able to see everyone's information and will keep a constant watch over the entire world. Nobody will be free from their eyes" << endl;
+	Sleep(1700);
+
+	cout << " The only way to stop them is to use the password in the absolute point terminal which will cause a chain reaction that will destroy all " << endl;
+	Sleep(1700);
+
+	cout << " quantum computers around the world in the absolute point terminal which will cause a chain reaction that will destroy all quantum computers around the world" << endl;
+	Sleep(1700);
+
+	cout << " The password has been split up into three segments. The note included in this package has the first segment." << endl;
+	Sleep(1700);
+
+	cout << " You must find the other two segments and free humanity from the Quantum Order." << endl;
+	Sleep(1700);
+
+	cout << " Help us " << name << " you are our only hope.' (not stolen shamelessly from Star Wars btw)" << endl;
 }
 
 void house::packActions()
@@ -159,11 +193,11 @@ void house::packActions()
 		}
 		if (input == "use disc")
 		{
-			cout << "A blue holographic figure appears out of the disc and speaks to you" << endl;
+			house::backstory();
 		}
 		if (input != "pick up note" && input != "s" && input != "n" && input != "w" && input != "e" && input != "use disc")
 		{
-			no();
+			global::no();
 		}
 	} while (input != "pick up note" && input != "s" && input != "use disc");
 }
@@ -188,7 +222,7 @@ void house::dineRoomHouse()
 		}
 		if (input != "open package" && input != "use disc" && input != "s" && input != "pick up note")
 		{
-			no();
+			global::no();
 		}
 	} while (input != "open package" && input != "s");
 }
@@ -198,7 +232,7 @@ void house::action()
 
 	if (input == "s")
 	{
-		outsideHouse();
+		outside::oHouse();
 	}
 	if (input == "w")
 	{
@@ -216,53 +250,75 @@ void house::action()
 	if (input != "n" && input != "s" && input != "w" && input != "e" && input != "open package" &&
 		input != "pick up note" && input != "help" && input != "stats" && input != "i" && input != "use disc")
 	{
-		no();
+		global::no();
 	}
 }
 
-void outsideHouseActions()
+void outside::oActions()
 {
 	if (input == "s")
 	{
-		house::livingRoom();
+		cout << " You walked into the bubble and were instantly vaporized. Your bones were turned into air molecules which floated away into space" << endl;
+		cout << "  .----------------.  .----------------.  .----------------.  .----------------.   .----------------.  .----------------.  .----------------.  .----------------.  .----------------. " << endl;
+		cout << " | .--------------. || .--------------. || .--------------. || .--------------. | | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |" << endl;
+		cout << " | |    ______    | || |      __      | || | ____    ____ | || |  _________   | | | |     ____     | || | ____   ____  | || |  _________   | || |  _______     | || |              | |" << endl;
+		cout << " | |  .' ___  |   | || |     /  \\     | || ||_   \\  /   _|| || | |_   ___  |  | | | |   .'    `.   | || ||_  _| |_  _| | || | |_   ___  |  | || | |_   __ \\    | || |      _       | |" << endl;
+		cout << " | | / .'   \\_|   | || |    / /\\ \\    | || |  |   \\/   |  | || |   | |_  \\_|  | | | |  /  .--.  \\  | || |  \\ \\   / /   | || |   | |_  \\_|  | || |   | |__) |   | || |     | |      | |" << endl;
+		cout << " | | | |    ____  | || |   / ____ \\   | || |  | |\\  /| |  | || |   |  _|  _   | | | |  | |    | |  | || |   \\ \\ / /    | || |   |  _|  _   | || |   |  __ /    | || |     | |      | |" << endl;
+		cout << " | | \\ `.___]  _| | || | _/ /    \\ \\_ | || | _| |_\\/_| |_ | || |  _| |___/ |  | | | |  \\  `--'  /  | || |    \\ ' /     | || |  _| |___/ |  | || |  _| |  \\ \\_  | || |     | |      | |" << endl;
+		cout << " | |  `._____.'   | || ||____|  |____|| || ||_____||_____|| || | |_________|  | | | |   `.____.'   | || |     \\_/      | || | |_________|  | || | |____| |___| | || |     |_|      | |" << endl;
+		cout << " | |              | || |              | || |              | || |              | | | |              | || |              | || |              | || |              | || |     (_)      | |" << endl;
+		cout << " | '--------------' || '--------------' || '--------------' || '--------------' | | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |" << endl;
+		cout << "  '----------------'  '----------------'  '----------------'  '----------------'   '----------------'  '----------------'  '----------------'  '----------------'  '----------------' " << endl;
 	}
 	if (input == "w")
 	{
-		cout << "That is a wall" << endl;
+		
 	}
 	if (input == "e")
 	{
-		cout << "You sat on the sofa. Congratulations!!!!" << endl;
+		
 	}
 	if (input == "n")
 	{
-		house::dineRoomHouse();
+		house::livingRoom(); //Takes you back to the start
 	}
 	global::actions();
 	if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
 	{
-		no();
+		global::no();
 	}
 }
 
-void outsideHouse()
+void outside::oHouse()
 {
-	cout << " Outside The House.\n You are outside the house, you are standing on a lush green lawn.";
-	cout << "There is a transparent bubble directly in front of you surrounding the perimeter of the house and lawn." << endl;
-	Sleep(2000);
+	cout << " Outside The House.\n You are outside the house, you are standing on a lush green lawn." << endl;
+	Sleep(700);
 
-	cout << " To the north is the living room inside the house." << endl;
-	Sleep(2000);
+	cout << " There is a transparent bubble directly in front of you surrounding the perimeter of the house and lawn." << endl;
+	Sleep(700);
 
-	cout << "To the east is a white door in the bubble which looks to lead to another set of buildings." << endl;
-	Sleep(2000);
+	cout << " To the north is the living room inside the house where you started." << endl;
+	Sleep(700);
 
-	cout << "To the west is a gray door which leads to a single building." << endl;
+	cout << " To the east is a white door in the bubble which looks to lead to another set of buildings." << endl; //this continues to the main story
+	Sleep(700);
+
+	cout << " To the west is a gray door which leads to a single building." << endl; //This is the barracks
+	getline(cin, input);
+	cout << endl;
+	outside::oActions();
 }
 
 int main()
 {
-	string name;
+	cout << "Press enter to continue" << endl;
+	getline(cin, input);
+
+	cout << "Please run this game in fullscreen for an optimal experience" << endl;
+	getline(cin, input);
+
+	if (system("CLS")) system("clear");
 
 	cout << " ___       __   _______   ___       ________  ________  _____ ______   _______        _________  ________       ___  ___       ___       ___  ________  ________  ___  ___  ___  ______   ____" << endl;
 	cout << "|\\  \\     |\\  \\|\\  ___ \\ |\\  \\     |\\   ____\\|\\   __  \\|\\   _ \\  _   \\|\\  ___ \\      |\\___   ___|\\   __  \\     |\\  \\|\\  \\     |\\  \\     |\\  \\|\\   __  \\|\\   __  \\|\\  \\|\\  \\|\\  \\|\\   _ \\  \\\\  \\ " << endl;
@@ -271,6 +327,10 @@ int main()
 	cout << "  \\ \\  \\|\\__\\_\\  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\\\\\  \\ \\  \\    \\ \\  \\ \\  \\_|\\ \\        \\ \\  \\ \\ \\  \\\\\\  \\    \\ \\  \\ \\  \\____\\ \\  \\____\\ \\  \\ \\  \\|\\  \\ \\  \\\\  \\\\ \\  \\ \\  \\\\\\  \\ \\  \\    \\ \\  \\" << endl;
 	cout << "   \\ \\____________\\ \\_______\\ \\_______\\ \\_______\\ \\_______\\ \\__\\    \\ \\__\\ \\_______\\        \\ \\__\\ \\ \\_______\\    \\ \\__\\ \\_______\\ \\_______\\ \\__\\ \\_______\\ \\__\\\\ _\\\\ \\__\\ \\_______\\ \\__\\    \\ \\__\\" << endl;
 	cout << "    \\|____________|\\|_______|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|_______|         \\|__|  \\|_______|     \\|__|\\|_______|\\|_______|\\|__|\\|_______|\\|__|\\|__|\\|__|\\|_______|\\|__|     \\|__|" << endl;
+
+	cout << endl;
+	cout << "Welcome to Illibrium" << endl;
+	getline(cin, input);
 
 	cout << " You are in the year 2070, an evil organization is plotting to take over the world and you must stop them. \n(enter)" << endl;
 	getline(cin, input);
@@ -308,6 +368,7 @@ int main()
 	Sleep(500);
 
 	cout << endl;
+
 	global::help();
 
 	while (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i" && input != "use disc")
@@ -315,7 +376,7 @@ int main()
 		getline(cin, input);
 		if (input == "s")
 		{
-			outsideHouse();
+			outside::oActions();
 		}
 		if (input == "w")
 		{
@@ -343,7 +404,7 @@ int main()
 		}
 		if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
 		{
-			no();
+			global::no();
 		}
 	}
 
