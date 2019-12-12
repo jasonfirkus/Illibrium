@@ -22,4 +22,7 @@ namespace outside
 {
 	void oActions();
 	void oHouse();
+	void westHall();
 }
+
+ 
