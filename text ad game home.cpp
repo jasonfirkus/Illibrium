@@ -9,9 +9,13 @@
 #else
 #include <stdlib.h>
 #endif
-#include "Header.h"
+#include "Header1.h"
 using namespace std;
 
+string cyb1 = " Cyberkey 1";
+string gun = " Neodynium Exodus Rifle";
+string barracksinv = "gun";
+string dineRoomInv = "note";
 string input;
 string name;
 string invPlayer[5] = {};
@@ -32,7 +36,7 @@ void house::backstory();
 void barracks::westHall();
 void barracks::westHall2();
 void barracks::barracks();
-
+void guard::airlock();
 
 void global::no()
 {
@@ -49,6 +53,7 @@ void global::no()
 
 void global::stats()
 {
+	cout << endl;
 
 	int speedPlayer;
 	speedPlayer = 100;
@@ -65,12 +70,12 @@ void global::stats()
 	int healthPlayer;
 	healthPlayer = 100;
 	cout << " Health: " << healthPlayer << endl;
-	getline(cin, input);
-	house::action();
 }
 
 void global::help()
 {
+	cout << endl;
+
 	cout << " Type 'n' for north" << endl;
 	cout << " Type 'e' for east" << endl;
 	cout << " Type 's' for south" << endl;
@@ -78,8 +83,6 @@ void global::help()
 	cout << " Type 'i' for inventory" << endl;
 	cout << " Type 'stats' for your stats" << endl;
 	cout << " There are also basic commands you can perform such as 'pick up ____' or 'open ____' 'attack ____' Type help at any time to view these commands" << endl;
-	getline(cin, input);
-	house::action();
 }
 
 void global::actions()
@@ -100,12 +103,13 @@ void global::actions()
 
 void global::fullInvPlayer()
 {
+	cout << endl;
+
+	cout << "You have a:" << endl;
 	for (int p = 0; p < 5; p++)
 	{
 		cout << invPlayer[p];
 	}
-	getline(cin, input);
-	house::action();
 }
 
 void house::livingRoom()
@@ -136,7 +140,8 @@ void house::openPackage()
 		{
 			cout << "That is a wall" << endl;
 		}
-		if (input != "s" && input != "n")
+		global::actions();
+		if (input != "s" && input != "n" && input != "i" && input != "stats" && input != "help")
 		{
 			global::no();
 		}
@@ -178,11 +183,10 @@ void house::packActions()
 	do
 	{
 		getline(cin, input);
-		if (input == "pick up note")
+		if (input == "pick up note" && dineRoomInv == "note")
 		{
-			string cyb1 = "Cyberkey 1";
 			invPlayer[1] = cyb1;
-
+			dineRoomInv = "";
 			cout << "picked up note" << endl;
 		}
 		if (input == "s")
@@ -197,7 +201,8 @@ void house::packActions()
 		{
 			house::backstory();
 		}
-		if (input != "pick up note" && input != "s" && input != "n" && input != "w" && input != "e" && input != "use disc")
+		global::actions();
+		if (input != "pick up note" && input != "s" && input != "n" && input != "w" && input != "e" && input != "use disc" && input != "i" && input != "stats" && input != "help")
 		{
 			global::no();
 		}
@@ -222,7 +227,7 @@ void house::dineRoomHouse()
 		{
 			cout << "That is a wall" << endl;
 		}
-		if (input != "open package" && input != "use disc" && input != "s" && input != "pick up note")
+		if (input != "open package" && input != "use disc" && input != "s" && input != "pick up note" && input != "i" && input != "stats" && input != "help")
 		{
 			global::no();
 		}
@@ -259,7 +264,7 @@ void house::action()
 void barracks::oActions()
 {
 	do {
-	    getline(cin, input);
+		getline(cin, input);
 		if (input == "s")
 		{
 			cout << " You walked into the bubble and were instantly vaporized. Your bones were turned into air molecules which floated away into space" << endl;
@@ -292,8 +297,8 @@ void barracks::oActions()
 		{
 			global::no();
 		}
-    } while (input != "s" && input != "w" && input != "e" && input != "n");
-	
+	} while (input != "s" && input != "w" && input != "e" && input != "n");
+
 }
 
 void barracks::oHouse()
@@ -307,20 +312,20 @@ void barracks::oHouse()
 	cout << " To the north is the living room inside the house where you started." << endl;
 	Sleep(700);
 
-	cout << " To the east is a white door in the bubble which looks to lead to another set of buildings." << endl; //this continues to the main story
+	cout << " To the east is a white doorway in the bubble which looks to lead to another set of buildings." << endl; //this continues to the main story
 	Sleep(700);
 
-	cout << " To the west is a gray door which leads to a single building." << endl; //This is the barracks
+	cout << " To the west is a gray doorway which leads to a single building." << endl; //This is the barracks
 	barracks::oActions();
 }
 
 void barracks::westHall()
 {
-	cout << "West Hall\n It is a long glowing hallway. There are flying orbs around you providing light. You see a door at the end of the hallway." << endl;
+	cout << " West Hall\n It is a long glowing hallway. There are flying orbs around you providing light. You see a door at the end of the hallway." << endl;
 
-	cout << "To continue down the hallway go south." << endl;
+	cout << " To continue down the hallway go south." << endl;
 
-	cout << "To go back go east" << endl;
+	cout << " To go back go east" << endl;
 
 	do {
 		getline(cin, input);
@@ -359,11 +364,11 @@ void barracks::westHall()
 
 void barracks::westHall2()
 {
-	cout << "End of West Hall.\n You reach the end of the hall." << endl;
+	cout << " End of West Hall.\n You reach the end of the hall." << endl;
 
-	cout << "To the east there is a door leading into a room which looks to be stocked with guns and weapons." << endl;
+	cout << " To the east there is a door leading into a room which looks to be stocked with guns and weapons." << endl;
 
-	cout << "To the north is the exit." << endl;
+	cout << " To the north is the exit." << endl;
 	do {
 		getline(cin, input);
 		if (input == "n")
@@ -400,20 +405,22 @@ void barracks::westHall2()
 
 void barracks::barracks()
 {
-	cout << "Barracks.\n You enter inside the room to see rack upon rack of neodynium exodus rifles (gun)." << endl;
-	cout << "Most of them are locked into the rack but you spot a few that aren't." << endl;
-	if (toTest = "test")
+	cout << " Barracks.\n You enter inside the room to see rack upon rack of neodynium exodus rifles (gun)." << endl;
+	cout << " All of them are locked into the racks but you spot one that isn't." << endl;
+	if (barracksinv != "gun")
 	{
+		cout << " You already took the gun" << endl;
+	}
 	do {
 		getline(cin, input);
-		if (input == "pick up gun")
+		if (input == "pick up gun" && barracksinv == "gun")
 		{
-			string toTest = "test";
-			string gun = "neodynium exodus rifle";
-			invPlayer[2] = gun;
 			cout << "picked up gun" << endl;
+			invPlayer[2] = gun;
+			barracksinv = "";
+
 		}
-		if (input != "pick up gun" && input != "w")
+		if (input != "pick up gun" && input != "w" && input != "i" && input != "stats" && input != "help")
 		{
 			cout << "That is not something you can do" << endl;
 		}
@@ -421,9 +428,14 @@ void barracks::barracks()
 		{
 			barracks::westHall2();
 		}
-	} while (input != "w")
-	}
-	
+		global::actions();
+	} while (input != "w");
+}
+
+void guard::airlock()
+{
+	cout << "Airlock." << endl;
+	cout << "The airlock is a small white room with "
 }
 
 int main()
@@ -483,16 +495,14 @@ int main()
 	cout << " To the east there is a floating sofa" << endl;
 	Sleep(500);
 
-	cout << endl;
-
 	global::help();
 
-	while (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i" && input != "use disc")
+	do
 	{
 		getline(cin, input);
 		if (input == "s")
 		{
-			barracks::oActions();
+			barracks::oHouse();
 		}
 		if (input == "w")
 		{
@@ -522,7 +532,7 @@ int main()
 		{
 			global::no();
 		}
-	}
+	} while (input != "n" && input != "s" && input != "w" && input != "e" && input != "use disc");
 
 	return 0;
 }
