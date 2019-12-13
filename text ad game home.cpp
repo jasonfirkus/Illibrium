@@ -9,7 +9,7 @@
 #else
 #include <stdlib.h>
 #endif
-#include "Header1.h"
+#include "Header.h"
 using namespace std;
 
 string input;
@@ -17,10 +17,10 @@ string name;
 string invPlayer[5] = {};
 
 void global::stats();
-void outside::oActions();
+void barracks::oActions();
 void global::actions();
 void house::dineRoomHouse();
-void outside::oHouse();
+void barracks::oHouse();
 void global::fullInvPlayer();
 void global::no();
 void global::help();
@@ -29,7 +29,9 @@ void house::livingRoom();
 void house::packActions();
 void house::action();
 void house::backstory();
-
+void barracks::westHall();
+void barracks::westHall2();
+void barracks::barracks();
 
 
 void global::no()
@@ -143,32 +145,32 @@ void house::openPackage()
 
 void house::backstory()
 {
-	//This is explaining the three password segments and the Quantum order
+	//This is explaining the three password segments and the Quantum order from the black disc
 
 	cout << endl;
 
-	cout << " A blue holographic figure appears out of the disc and speaks to you. It says 'on that note contains the key to saving mankind." << endl;
+	cout << " A blue holographic figure appears out of the disc and speaks to you. It says 'included in this package is a note that contains the key to saving world from the Quantum Order." << endl;
 	Sleep(1700);
 
 	cout << " The Quantum Order wants to gain absolute control of the world through the use of qauntum computers." << endl;
 	Sleep(1700);
 
-	cout << " They will be able to see everyone's information and will keep a constant watch over the entire world. Nobody will be free from their eyes" << endl;
+	cout << " They will be able to see everyone's information and will keep a constant watch over the entire world. Nobody will be free from their eyes." << endl;
 	Sleep(1700);
 
 	cout << " The only way to stop them is to use the password in the absolute point terminal which will cause a chain reaction that will destroy all " << endl;
 	Sleep(1700);
 
-	cout << " quantum computers around the world in the absolute point terminal which will cause a chain reaction that will destroy all quantum computers around the world" << endl;
+	cout << " quantum computers around the world. The password has been split into three segments." << endl;
 	Sleep(1700);
 
-	cout << " The password has been split up into three segments. The note included in this package has the first segment." << endl;
+	cout << " The note included in this package has the first segment." << endl;
 	Sleep(1700);
 
 	cout << " You must find the other two segments and free humanity from the Quantum Order." << endl;
 	Sleep(1700);
 
-	cout << " Help us " << name << " you are our only hope.' (not stolen shamelessly from Star Wars btw)" << endl;
+	cout << " Help us " << name << " you are our only hope. (not stolen shamelessly from Star Wars btw)" << endl;
 }
 
 void house::packActions()
@@ -232,7 +234,7 @@ void house::action()
 
 	if (input == "s")
 	{
-		outside::oHouse();
+		barracks::oHouse();
 	}
 	if (input == "w")
 	{
@@ -254,43 +256,47 @@ void house::action()
 	}
 }
 
-void outside::oActions()
+void barracks::oActions()
 {
-	if (input == "s")
-	{
-		cout << " You walked into the bubble and were instantly vaporized. Your bones were turned into air molecules which floated away into space" << endl;
-		cout << "  .----------------.  .----------------.  .----------------.  .----------------.   .----------------.  .----------------.  .----------------.  .----------------.  .----------------. " << endl;
-		cout << " | .--------------. || .--------------. || .--------------. || .--------------. | | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |" << endl;
-		cout << " | |    ______    | || |      __      | || | ____    ____ | || |  _________   | | | |     ____     | || | ____   ____  | || |  _________   | || |  _______     | || |              | |" << endl;
-		cout << " | |  .' ___  |   | || |     /  \\     | || ||_   \\  /   _|| || | |_   ___  |  | | | |   .'    `.   | || ||_  _| |_  _| | || | |_   ___  |  | || | |_   __ \\    | || |      _       | |" << endl;
-		cout << " | | / .'   \\_|   | || |    / /\\ \\    | || |  |   \\/   |  | || |   | |_  \\_|  | | | |  /  .--.  \\  | || |  \\ \\   / /   | || |   | |_  \\_|  | || |   | |__) |   | || |     | |      | |" << endl;
-		cout << " | | | |    ____  | || |   / ____ \\   | || |  | |\\  /| |  | || |   |  _|  _   | | | |  | |    | |  | || |   \\ \\ / /    | || |   |  _|  _   | || |   |  __ /    | || |     | |      | |" << endl;
-		cout << " | | \\ `.___]  _| | || | _/ /    \\ \\_ | || | _| |_\\/_| |_ | || |  _| |___/ |  | | | |  \\  `--'  /  | || |    \\ ' /     | || |  _| |___/ |  | || |  _| |  \\ \\_  | || |     | |      | |" << endl;
-		cout << " | |  `._____.'   | || ||____|  |____|| || ||_____||_____|| || | |_________|  | | | |   `.____.'   | || |     \\_/      | || | |_________|  | || | |____| |___| | || |     |_|      | |" << endl;
-		cout << " | |              | || |              | || |              | || |              | | | |              | || |              | || |              | || |              | || |     (_)      | |" << endl;
-		cout << " | '--------------' || '--------------' || '--------------' || '--------------' | | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |" << endl;
-		cout << "  '----------------'  '----------------'  '----------------'  '----------------'   '----------------'  '----------------'  '----------------'  '----------------'  '----------------' " << endl;
-	}
-	if (input == "w")
-	{
-		outside::westHall();
-	}
-	if (input == "e")
-	{
-		
-	}
-	if (input == "n")
-	{
-		house::livingRoom(); //Takes you back to the start
-	}
-	global::actions();
-	if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
-	{
-		global::no();
-	}
+	do {
+	    getline(cin, input);
+		if (input == "s")
+		{
+			cout << " You walked into the bubble and were instantly vaporized. Your bones were turned into air molecules which floated away into space" << endl;
+			cout << "  .----------------.  .----------------.  .----------------.  .----------------.   .----------------.  .----------------.  .----------------.  .----------------.  .----------------. " << endl;
+			cout << " | .--------------. || .--------------. || .--------------. || .--------------. | | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |" << endl;
+			cout << " | |    ______    | || |      __      | || | ____    ____ | || |  _________   | | | |     ____     | || | ____   ____  | || |  _________   | || |  _______     | || |              | |" << endl;
+			cout << " | |  .' ___  |   | || |     /  \\     | || ||_   \\  /   _|| || | |_   ___  |  | | | |   .'    `.   | || ||_  _| |_  _| | || | |_   ___  |  | || | |_   __ \\    | || |      _       | |" << endl;
+			cout << " | | / .'   \\_|   | || |    / /\\ \\    | || |  |   \\/   |  | || |   | |_  \\_|  | | | |  /  .--.  \\  | || |  \\ \\   / /   | || |   | |_  \\_|  | || |   | |__) |   | || |     | |      | |" << endl;
+			cout << " | | | |    ____  | || |   / ____ \\   | || |  | |\\  /| |  | || |   |  _|  _   | | | |  | |    | |  | || |   \\ \\ / /    | || |   |  _|  _   | || |   |  __ /    | || |     | |      | |" << endl;
+			cout << " | | \\ `.___]  _| | || | _/ /    \\ \\_ | || | _| |_\\/_| |_ | || |  _| |___/ |  | | | |  \\  `--'  /  | || |    \\ ' /     | || |  _| |___/ |  | || |  _| | \\ \\_  | || |     | |      | |" << endl;
+			cout << " | |  `._____.'   | || ||____|  |____|| || ||_____||_____|| || | |_________|  | | | |   `.____.'   | || |     \\_/      | || | |_________|  | || | |____| |___| | || |     |_|      | |" << endl;
+			cout << " | |              | || |              | || |              | || |              | | | |              | || |              | || |              | || |              | || |     (_)      | |" << endl;
+			cout << " | '--------------' || '--------------' || '--------------' || '--------------' | | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |" << endl;
+			cout << "  '----------------'  '----------------'  '----------------'  '----------------'   '----------------'  '----------------'  '----------------'  '----------------'  '----------------' " << endl;
+		}
+		if (input == "w")
+		{
+			barracks::westHall();
+		}
+		if (input == "e")
+		{
+			barracks::oHouse();
+		}
+		if (input == "n")
+		{
+			house::livingRoom(); //Takes you back to the start
+		}
+		global::actions();
+		if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
+		{
+			global::no();
+		}
+    } while (input != "s" && input != "w" && input != "e" && input != "n");
+	
 }
 
-void outside::oHouse()
+void barracks::oHouse()
 {
 	cout << " Outside The House.\n You are outside the house, you are standing on a lush green lawn." << endl;
 	Sleep(700);
@@ -305,45 +311,96 @@ void outside::oHouse()
 	Sleep(700);
 
 	cout << " To the west is a gray door which leads to a single building." << endl; //This is the barracks
-	getline(cin, input);
-	cout << endl;
-	outside::oActions();
+	barracks::oActions();
 }
 
-void outside::westHall()
+void barracks::westHall()
 {
-	cout << "West Hall\nYou enter . It is very futuristic with glowing floating orbs zipping around." << endl;
-	getline(cin, input);
-	if (input == "s")
-	{
+	cout << "West Hall\n It is a long glowing hallway. There are flying orbs around you providing light. You see a door at the end of the hallway." << endl;
 
-	}
-	if (input == "w" && input == "n")
-	{
-		cout << "You run at mach 20 into a molybdenum wall and shatter your spleen and die." << endl;
-		cout << "  .----------------.  .----------------.  .----------------.  .----------------.   .----------------.  .----------------.  .----------------.  .----------------.  .----------------. " << endl;
-		cout << " | .--------------. || .--------------. || .--------------. || .--------------. | | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |" << endl;
-		cout << " | |    ______    | || |      __      | || | ____    ____ | || |  _________   | | | |     ____     | || | ____   ____  | || |  _________   | || |  _______     | || |              | |" << endl;
-		cout << " | |  .' ___  |   | || |     /  \\     | || ||_   \\  /   _|| || | |_   ___  |  | | | |   .'    `.   | || ||_  _| |_  _| | || | |_   ___  |  | || | |_   __ \\    | || |      _       | |" << endl;
-		cout << " | | / .'   \\_|   | || |    / /\\ \\    | || |  |   \\/   |  | || |   | |_  \\_|  | | | |  /  .--.  \\  | || |  \\ \\   / /   | || |   | |_  \\_|  | || |   | |__) |   | || |     | |      | |" << endl;
-		cout << " | | | |    ____  | || |   / ____ \\   | || |  | |\\  /| |  | || |   |  _|  _   | | | |  | |    | |  | || |   \\ \\ / /    | || |   |  _|  _   | || |   |  __ /    | || |     | |      | |" << endl;
-		cout << " | | \\ `.___]  _| | || | _/ /    \\ \\_ | || | _| |_\\/_| |_ | || |  _| |___/ |  | | | |  \\  `--'  /  | || |    \\ ' /     | || |  _| |___/ |  | || |  _| |  \\ \\_  | || |     | |      | |" << endl;
-		cout << " | |  `._____.'   | || ||____|  |____|| || ||_____||_____|| || | |_________|  | | | |   `.____.'   | || |     \\_/      | || | |_________|  | || | |____| |___| | || |     |_|      | |" << endl;
-		cout << " | |              | || |              | || |              | || |              | | | |              | || |              | || |              | || |              | || |     (_)      | |" << endl;
-		cout << " | '--------------' || '--------------' || '--------------' || '--------------' | | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |" << endl;
-		cout << "  '----------------'  '----------------'  '----------------'  '----------------'   '----------------'  '----------------'  '----------------'  '----------------'  '----------------' " << endl;
+	cout << "To continue down the hallway go south." << endl;
 
-	}
-	if (input == "e")
-	{
-		outside::oHouse();
-	}
-	global::actions();
-	if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
-	{
-		global::no();
-	}
-	
+	cout << "To go back go east" << endl;
+
+	do {
+		getline(cin, input);
+		if (input == "s")
+		{
+			barracks::westHall2();
+		}
+		if (input == "w" && input == "n")
+		{
+			cout << "You run at mach 20 into a molybdenum wall shattering your spleen and die." << endl;
+			cout << "  .----------------.  .----------------.  .----------------.  .----------------.   .----------------.  .----------------.  .----------------.  .----------------.  .----------------. " << endl;
+			cout << " | .--------------. || .--------------. || .--------------. || .--------------. | | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |" << endl;
+			cout << " | |    ______    | || |      __      | || | ____    ____ | || |  _________   | | | |     ____     | || | ____   ____  | || |  _________   | || |  _______     | || |              | |" << endl;
+			cout << " | |  .' ___  |   | || |     /  \\     | || ||_   \\  /   _|| || | |_   ___  |  | | | |   .'    `.   | || ||_  _| |_  _| | || | |_   ___  |  | || | |_   __ \\    | || |      _       | |" << endl;
+			cout << " | | / .'   \\_|   | || |    / /\\ \\    | || |  |   \\/   |  | || |   | |_  \\_|  | | | |  /  .--.  \\  | || |  \\ \\   / /   | || |   | |_  \\_|  | || |   | |__) |   | || |     | |      | |" << endl;
+			cout << " | | | |    ____  | || |   / ____ \\   | || |  | |\\  /| |  | || |   |  _|  _   | | | |  | |    | |  | || |   \\ \\ / /    | || |   |  _|  _   | || |   |  __ /    | || |     | |      | |" << endl;
+			cout << " | | \\ `.___]  _| | || | _/ /    \\ \\_ | || | _| |_\\/_| |_ | || |  _| |___/ |  | | | |  \\  `--'  /  | || |    \\ ' /     | || |  _| |___/ |  | || |  _| |  \\ \\_  | || |     | |      | |" << endl;
+			cout << " | |  `._____.'   | || ||____|  |____|| || ||_____||_____|| || | |_________|  | | | |   `.____.'   | || |     \\_/      | || | |_________|  | || | |____| |___| | || |     |_|      | |" << endl;
+			cout << " | |              | || |              | || |              | || |              | | | |              | || |              | || |              | || |              | || |     (_)      | |" << endl;
+			cout << " | '--------------' || '--------------' || '--------------' || '--------------' | | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |" << endl;
+			cout << "  '----------------'  '----------------'  '----------------'  '----------------'   '----------------'  '----------------'  '----------------'  '----------------'  '----------------' " << endl;
+
+		}
+		if (input == "e")
+		{
+			barracks::oHouse();
+		}
+		global::actions();
+		if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
+		{
+			global::no();
+		}
+
+	} while (input != "s" && input != "e");
+}
+
+void barracks::westHall2()
+{
+	cout << "End of West Hall.\n You reach the end of the hall." << endl;
+
+	cout << "To the east there is a door leading into a room which looks to be stocked with guns and weapons." << endl;
+
+	cout << "To the north is the exit." << endl;
+	do {
+		getline(cin, input);
+		if (input == "n")
+		{
+			barracks::westHall();
+		}
+		if (input == "w" && input == "s")
+		{
+			cout << "You run at mach 20 into a molybdenum wall shattering your spleen and die." << endl;
+			cout << "  .----------------.  .----------------.  .----------------.  .----------------.   .----------------.  .----------------.  .----------------.  .----------------.  .----------------. " << endl;
+			cout << " | .--------------. || .--------------. || .--------------. || .--------------. | | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |" << endl;
+			cout << " | |    ______    | || |      __      | || | ____    ____ | || |  _________   | | | |     ____     | || | ____   ____  | || |  _________   | || |  _______     | || |              | |" << endl;
+			cout << " | |  .' ___  |   | || |     /  \\     | || ||_   \\  /   _|| || | |_   ___  |  | | | |   .'    `.   | || ||_  _| |_  _| | || | |_   ___  |  | || | |_   __ \\    | || |      _       | |" << endl;
+			cout << " | | / .'   \\_|   | || |    / /\\ \\    | || |  |   \\/   |  | || |   | |_  \\_|  | | | |  /  .--.  \\  | || |  \\ \\   / /   | || |   | |_  \\_|  | || |   | |__) |   | || |     | |      | |" << endl;
+			cout << " | | | |    ____  | || |   / ____ \\   | || |  | |\\  /| |  | || |   |  _|  _   | | | |  | |    | |  | || |   \\ \\ / /    | || |   |  _|  _   | || |   |  __ /    | || |     | |      | |" << endl;
+			cout << " | | \\ `.___]  _| | || | _/ /    \\ \\_ | || | _| |_\\/_| |_ | || |  _| |___/ |  | | | |  \\  `--'  /  | || |    \\ ' /     | || |  _| |___/ |  | || |  _| |  \\ \\_  | || |     | |      | |" << endl;
+			cout << " | |  `._____.'   | || ||____|  |____|| || ||_____||_____|| || | |_________|  | | | |   `.____.'   | || |     \\_/      | || | |_________|  | || | |____| |___| | || |     |_|      | |" << endl;
+			cout << " | |              | || |              | || |              | || |              | | | |              | || |              | || |              | || |              | || |     (_)      | |" << endl;
+			cout << " | '--------------' || '--------------' || '--------------' || '--------------' | | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |" << endl;
+			cout << "  '----------------'  '----------------'  '----------------'  '----------------'   '----------------'  '----------------'  '----------------'  '----------------'  '----------------' " << endl;
+
+		}
+		if (input == "e")
+		{
+			barracks::barracks();
+		}
+		global::actions();
+		if (input != "n" && input != "s" && input != "w" && input != "e" && input != "help" && input != "stats" && input != "i")
+		{
+			global::no();
+		}
+	} while (input != "n" && input != "e");
+}
+
+void barracks::barracks()
+{
+
 }
 
 int main()
@@ -412,7 +469,7 @@ int main()
 		getline(cin, input);
 		if (input == "s")
 		{
-			outside::oActions();
+			barracks::oActions();
 		}
 		if (input == "w")
 		{
