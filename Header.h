@@ -18,11 +18,11 @@ namespace global
 	void no();
 }
 
-namespace outside
+namespace barracks
 {
 	void oActions();
 	void oHouse();
 	void westHall();
+	void westHall2();
+	void barracks();
 }
-
- 
