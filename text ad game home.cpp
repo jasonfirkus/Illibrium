@@ -400,7 +400,30 @@ void barracks::westHall2()
 
 void barracks::barracks()
 {
-
+	cout << "Barracks.\n You enter inside the room to see rack upon rack of neodynium exodus rifles (gun)." << endl;
+	cout << "Most of them are locked into the rack but you spot a few that aren't." << endl;
+	if (toTest = "test")
+	{
+	do {
+		getline(cin, input);
+		if (input == "pick up gun")
+		{
+			string toTest = "test";
+			string gun = "neodynium exodus rifle";
+			invPlayer[2] = gun;
+			cout << "picked up gun" << endl;
+		}
+		if (input != "pick up gun" && input != "w")
+		{
+			cout << "That is not something you can do" << endl;
+		}
+		if (input == "w")
+		{
+			barracks::westHall2();
+		}
+	} while (input != "w")
+	}
+	
 }
 
 int main()
