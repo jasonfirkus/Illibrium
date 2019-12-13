@@ -26,3 +26,8 @@ namespace barracks
 	void westHall2();
 	void barracks();
 }
+
+namespace guard
+{
+	void airlock();
+}
