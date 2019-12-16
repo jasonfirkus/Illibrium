@@ -1,5 +1,6 @@
 #pragma once
-namespace house
+
+namespace House
 {
 	void openPackage();
 	void livingRoom();
@@ -9,16 +10,17 @@ namespace house
 	void backstory();
 }
 
-namespace global
+namespace Global
 {
 	void fullInvPlayer();
 	void stats();
 	void help();
 	void actions();
 	void no();
+	void gameOver();
 }
 
-namespace barracks
+namespace Barracks
 {
 	void oActions();
 	void oHouse();
@@ -27,7 +29,24 @@ namespace barracks
 	void barracks();
 }
 
-namespace guard
+namespace Guard
 {
 	void airlock();
+	void guardFight();
+	void examineGuardOne();
 }
+
+namespace DeadEndOne
+{
+	void eastHall();
+	void eastHallCont();
+}
+
+class Player
+{
+	public:
+		int speed;
+		int damage;
+		int defense;
+		int health;
+};
