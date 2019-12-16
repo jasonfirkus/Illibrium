@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #endif
 #include "Header.h"
+#include <chrono>
 using namespace std;
 
 //These are for the room inventory's
@@ -499,6 +500,8 @@ void Guard::airlock()
 			invPlayer[3] = " Space Suit";
 			airlockInv = "";
 		}
+		Global::actions();
+
 		notEqual("s", "e", "w", "pick up space suit");
 
 	} while (input != "s" && input != "e" && input != "w");
@@ -519,6 +522,8 @@ void DeadEndOne::eastHall()
 		{
 			DeadEndOne::eastHallCont();
 		}
+		Global::actions();
+
 		notEqual("w", "e", "", "");
 
 	} while (input != "w" && input != "e");
@@ -535,6 +540,8 @@ void DeadEndOne::eastHallCont()
 		{
 			DeadEndOne::eastHall();
 		}
+		Global::actions();
+
 		notEqual("w", "", "", "");
 
 	} while (input != "w");
@@ -555,7 +562,7 @@ void Guard::guardFight()
 		}
 		if (input == "e")
 		{
-
+			Guard::corridorImpossible();
 		}
 		if (input == "attack guard")
 		{
@@ -565,6 +572,8 @@ void Guard::guardFight()
 		{
 			Guard::examineGuardOne();
 		}
+		Global::actions();
+
 		notEqual("n", "attack guard", "examine guard", "e");
 
 	} while (input != "n" && input != "e" && input != "attack guard");
@@ -588,6 +597,34 @@ void Guard::examineGuardOne()
 	cout << " Defense: ";
 	guard.showVariables("defense");
 	cout << endl;
+}
+
+void Guard::corridorImpossible()
+{
+	cout << "Corridor." << endl;
+	cout << "You walk down the corridor and at the end you find another corridor with a guard blocking it." << endl;
+	cout << "The guard sees you and charges you. You have 30 seconds until the guard reaches you." << endl;
+	chrono::steady_clock::time_point tend = chrono::steady_clock::now()
+										  + chrono::seconds(30);
+	while (chrono::steady_clock::now() < tend)
+	{
+		do
+		{
+			getline(cin, input);
+			if (input == "attack guard")
+			{
+
+			}
+			if (input == "examine guard")
+			{
+
+			}
+			notEqual("attack guard", "examine guard", "", "");
+
+			Global::actions();
+
+		} while (input != "examine guard" && input != "attack guard");
+	}
 }
 
 int main()
