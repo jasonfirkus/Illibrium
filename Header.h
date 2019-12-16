@@ -34,6 +34,7 @@ namespace Guard
 	void airlock();
 	void guardFight();
 	void examineGuardOne();
+	void corridorImpossible();
 }
 
 namespace DeadEndOne
