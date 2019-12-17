@@ -656,16 +656,17 @@ void Guard::corridorImpossible()
 	switch (presssedKey)
 	{
 	case '1':
-		
-
-		
+		Guard::attackImpossible();
+			
 	case '2':
 
 		Guard::examineImpossible();
 
 	case '3':
 
-		cout << "You try to run away but this guard has 1 billion speed and easily catches up with you." << endl;
+		cout << "You try to run away but the guard has 1 billion speed and easily catches up with you." << endl;
+		Sleep(500);
+			
 		cout << "The guard runs up and eats you. You died." << endl;
 
 		Global::gameOver();
@@ -699,6 +700,30 @@ void Guard::examineImpossible()
 	cout << " Speed: ";
 	guard.showVariables("speed");
 	cout << endl;
+}
+
+void Guard::attackImpossible()
+{
+
+	do
+	{
+		getline(cin, input);
+		if (input == "use gun")
+		{
+			cout << "You shoot the guard but it does 0 damage as the guard has 1 billion defense" << endl;
+			Sleep(500);
+
+			cout << "The guard runs up and eats you. You died" << endl;
+			Global::gameOver();
+		}
+		if (input == "use fist")
+		{
+			cout << "You run up to the guard to punch him but before you can he eats you. You died." << endl;
+			Global::gameOver();
+		}
+		Global::actions();
+		
+	} while (input != "use fist" && input != "use gun");
 }
 
 int main()
