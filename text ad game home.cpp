@@ -110,7 +110,6 @@ class GuardImpossible
 
 void Global::gameOver()
 {
-	cout << " You walked into the bubble and were instantly vaporized. Your bones were turned into air molecules which floated away into space" << endl;
 	cout << "  .----------------.  .----------------.  .----------------.  .----------------.   .----------------.  .----------------.  .----------------.  .----------------.  .----------------. " << endl;
 	cout << " | .--------------. || .--------------. || .--------------. || .--------------. | | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |" << endl;
 	cout << " | |    ______    | || |      __      | || | ____    ____ | || |  _________   | | | |     ____     | || | ____   ____  | || |  _________   | || |  _______     | || |              | |" << endl;
@@ -369,6 +368,8 @@ void Barracks::oActions()
 		getline(cin, input);
 		if (input == "s")
 		{
+			cout << " You walked into the bubble and were instantly vaporized. Your bones were turned into air molecules which floated away into space" << endl;
+
 			Global::gameOver();
 		}
 		if (input == "w")
