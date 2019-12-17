@@ -50,6 +50,7 @@ void DeadEndOne::eastHall();
 void DeadEndOne::eastHallCont();
 void Guard::guardFight();
 void Global::gameOver();
+void Guard::examineImpossible();
 
 
 class GuardEasy
@@ -72,10 +73,39 @@ class GuardEasy
 		}
 
 	private:
-		string check;
 		int health = 10;
 		int damage = 10;
 		int defense = 5;
+};
+
+class GuardImpossible
+{
+	public:
+		void showVariables(string show)
+		{
+			if (show == "health")
+			{
+				cout << health << endl;
+			}
+			if (show == "damage")
+			{
+				cout << damage << endl;
+			}
+			if (show == "defense")
+			{
+				cout << defense << endl;
+			}
+			if (show == "speed")
+			{
+				cout << speed << endl;
+			}
+		}
+
+	private:
+		int health = 1000000;
+		int damage = 1000000; 
+		int defense = 100000;
+		int speed = 1000000;
 };
 
 void Global::gameOver()
@@ -601,30 +631,87 @@ void Guard::examineGuardOne()
 
 void Guard::corridorImpossible()
 {
+	long long int secondsUntilGuardEat = 30;
+	unsigned char presssed_key = NULL;
+	long long int seconds_from_1970 = time(NULL);
+
 	cout << "Corridor." << endl;
 	cout << "You walk down the corridor and at the end you find another corridor with a guard blocking it." << endl;
-	cout << "The guard sees you and charges you. You have 30 seconds until the guard reaches you." << endl;
-	chrono::steady_clock::time_point tend = chrono::steady_clock::now()
-										  + chrono::seconds(30);
-	while (chrono::steady_clock::now() < tend)
+
+	while (true)
 	{
-		do
-		{
-			getline(cin, input);
-			if (input == "attack guard")
-			{
-
-			}
-			if (input == "examine guard")
-			{
-
-			}
-			notEqual("attack guard", "examine guard", "", "");
-
-			Global::actions();
-
-		} while (input != "examine guard" && input != "attack guard");
+		if (_kbhit()) {
+			presssed_key = getchar();
+			break;
+		}
+		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
+		system("cls");
+		cout << text_to_see << "The guard sees you and charges you. You have " << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << " until the guard reaches you" << endl;
+		Sleep(200);
 	}
+	system("cls");
+	switch (presssed_key)
+	{
+	case '1':
+		
+
+		
+	case '2':
+
+		Guard::examineImpossible();
+
+	case '3':
+
+		cout << "You try to run away but this guard has 1 billion speed and easily catches up with you." << endl;
+		cout << "The guard runs up and eats you. You died." << endl;
+
+		Global::gameOver();
+		
+	default:
+
+		Global::no();
+
+	}
+	do
+	{
+		getline(cin, input);
+		if (input == "attack guard")
+		{
+
+		}
+		if (input == "examine guard")
+		{
+			Guard::examineImpossible();
+		}
+		notEqual("attack guard", "examine guard", "", "");
+
+		Global::actions();
+
+	} while (input != "examine guard" && input != "attack guard");
+}
+
+void Guard::examineImpossible()
+{
+	GuardImpossible guard;
+
+	cout << endl;
+	cout << " Zero-Point Quantum Guard" << endl;
+
+	cout << " Health: ";
+	guard.showVariables("health");
+	cout << endl;
+
+	cout << " Damage: ";
+	guard.showVariables("damage");
+	cout << endl;
+
+	cout << " Defense: ";
+	guard.showVariables("defense");
+	cout << endl;
+
+	cout << " Speed: ";
+	guard.showVariables("speed");
+	cout << endl;
 }
 
 int main()
