@@ -632,26 +632,28 @@ void Guard::examineGuardOne()
 
 void Guard::corridorImpossible()
 {
-	long long int secondsUntilGuardEat = 30;
-	unsigned char presssed_key = NULL;
-	long long int seconds_from_1970 = time(NULL);
+	long long int secondsUntilGuardEat = 30; //The long long means the number can be a 64 bit integer. Basically a big number
+	unsigned char pressedKey = NULL; //Unsigned char is used when dealing with numbers. unsigned is for -255 to 255
+	long long int seconds_from_1970 = time(NULL); //this makes the time work.
 
 	cout << "Corridor." << endl;
 	cout << "You walk down the corridor and at the end you find another corridor with a guard blocking it." << endl;
 
 	while (true)
 	{
-		if (_kbhit()) {
-			presssed_key = getchar();
+		if (_kbhit()) //kbhit will not wait for an input from the user before running the rest of the program
+		{ 
+			pressedKey = getchar(); //getchar is getline but only a character
 			break;
 		}
 		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
-		system("cls");
+		system("cls"); //Clears screen 
+		
 		cout << "The guard sees you and charges you. You have " << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << " until the guard reaches you" << endl;
-		Sleep(200);
+		Sleep(1000);
 	}
-	system("cls");
-	switch (presssed_key)
+	system("cls"); //Clears screen
+	switch (presssedKey)
 	{
 	case '1':
 		
