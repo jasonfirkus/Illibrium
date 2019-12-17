@@ -35,6 +35,7 @@ namespace Guard
 	void guardFight();
 	void examineGuardOne();
 	void corridorImpossible();
+	void examineImpossible();
 }
 
 namespace DeadEndOne
