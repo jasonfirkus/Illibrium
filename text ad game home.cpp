@@ -646,7 +646,7 @@ void Guard::corridorImpossible()
 		}
 		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
 		system("cls");
-		cout << text_to_see << "The guard sees you and charges you. You have " << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << " until the guard reaches you" << endl;
+		cout << "The guard sees you and charges you. You have " << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << " until the guard reaches you" << endl;
 		Sleep(200);
 	}
 	system("cls");
@@ -672,22 +672,6 @@ void Guard::corridorImpossible()
 		Global::no();
 
 	}
-	do
-	{
-		getline(cin, input);
-		if (input == "attack guard")
-		{
-
-		}
-		if (input == "examine guard")
-		{
-			Guard::examineImpossible();
-		}
-		notEqual("attack guard", "examine guard", "", "");
-
-		Global::actions();
-
-	} while (input != "examine guard" && input != "attack guard");
 }
 
 void Guard::examineImpossible()
