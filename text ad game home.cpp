@@ -4,13 +4,14 @@
 #include <chrono>
 #include <Windows.h>
 #include <conio.h>
+#include <ctime>
+#include <time.h>
 #ifdef __cplusplus__
 #include <cstdlib>
 #else
 #include <stdlib.h>
 #endif
-#include "Header.h"
-#include <chrono>
+#include "Header1.h"
 using namespace std;
 
 //These are for the room inventory's
@@ -51,61 +52,99 @@ void DeadEndOne::eastHallCont();
 void Guard::guardFight();
 void Global::gameOver();
 void Guard::examineImpossible();
-
+void Guard::attackEasy();
 
 class GuardEasy
 {
-	public:
-		void showVariables(string show)
+public:
+	void showVariables(string show)
+	{
+		if (show == "health")
 		{
-			if (show == "health")
-			{
-				cout << health << endl;
-			}
-			if (show == "damage")
-			{
-				cout << damage << endl;
-			}
-			if (show == "defense")
-			{
-				cout << defense << endl;
-			}
+			cout << health << endl;
 		}
+		if (show == "damage")
+		{
+			cout << damage << endl;
+		}
+		if (show == "defense")
+		{
+			cout << defense << endl;
+		}
+	}
 
-	private:
-		int health = 10;
-		int damage = 10;
-		int defense = 5;
+	void addToVariables(string identify, int addBy)
+	{
+		if (identify == "health")
+		{
+			health + addBy;
+		}
+		if (identify == "defense")
+		{
+			defense + addBy;
+		}
+		if (identify == "damage")
+		{
+			damage + addBy;
+		}
+	}
+
+	void minusVariables(string identify, int minusBy)
+	{
+		if (identify == "health")
+		{
+			health - minusBy;
+		}
+		if (identify == "defense")
+		{
+			defense - minusBy;
+		}
+		if (identify == "damage")
+		{
+			damage - minusBy;
+		}
+	}
+
+	int returnVariables()
+	{
+		int reeturn = defense;
+		return reeturn;
+	}
+
+private:
+	int health = 10;
+	int damage = 10;
+	int defense = 5;
 };
 
 class GuardImpossible
 {
-	public:
-		void showVariables(string show)
+public:
+	void showVariables(string show)
+	{
+		if (show == "health")
 		{
-			if (show == "health")
-			{
-				cout << health << endl;
-			}
-			if (show == "damage")
-			{
-				cout << damage << endl;
-			}
-			if (show == "defense")
-			{
-				cout << defense << endl;
-			}
-			if (show == "speed")
-			{
-				cout << speed << endl;
-			}
+			cout << health << endl;
 		}
+		if (show == "damage")
+		{
+			cout << damage << endl;
+		}
+		if (show == "defense")
+		{
+			cout << defense << endl;
+		}
+		if (show == "speed")
+		{
+			cout << speed << endl;
+		}
+	}
 
-	private:
-		int health = 1000000;
-		int damage = 1000000; 
-		int defense = 100000;
-		int speed = 1000000;
+private:
+	int health = 1000000;
+	int damage = 1000000;
+	int defense = 100000;
+	int speed = 1000000;
 };
 
 void Global::gameOver()
@@ -116,7 +155,7 @@ void Global::gameOver()
 	cout << " | |  .' ___  |   | || |     /  \\     | || ||_   \\  /   _|| || | |_   ___  |  | | | |   .'    `.   | || ||_  _| |_  _| | || | |_   ___  |  | || | |_   __ \\    | || |      _       | |" << endl;
 	cout << " | | / .'   \\_|   | || |    / /\\ \\    | || |  |   \\/   |  | || |   | |_  \\_|  | | | |  /  .--.  \\  | || |  \\ \\   / /   | || |   | |_  \\_|  | || |   | |__) |   | || |     | |      | |" << endl;
 	cout << " | | | |    ____  | || |   / ____ \\   | || |  | |\\  /| |  | || |   |  _|  _   | | | |  | |    | |  | || |   \\ \\ / /    | || |   |  _|  _   | || |   |  __ /    | || |     | |      | |" << endl;
-	cout << " | | \\ `.___]  _| | || | _/ /    \\ \\_ | || | _| |_\\/_| |_ | || |  _| |___/ |  | | | |  \\  `--'  /  | || |    \\ ' /     | || |  _| |___/ |  | || |  _| | \\ \\_  | || |     | |      | |" << endl;
+	cout << " | | \\ `.___]  _| | || | _/ /    \\ \\_ | || | _| |_\\/_| |_ | || |  _| |___/ |  | | | |  \\  `--'  /  | || |    \\ ' /     | || |  _| |___/ |  | || |  _| | \\ \\__  | || |     | |      | |" << endl;
 	cout << " | |  `._____.'   | || ||____|  |____|| || ||_____||_____|| || | |_________|  | | | |   `.____.'   | || |     \\_/      | || | |_________|  | || | |____| |___| | || |     |_|      | |" << endl;
 	cout << " | |              | || |              | || |              | || |              | | | |              | || |              | || |              | || |              | || |     (_)      | |" << endl;
 	cout << " | '--------------' || '--------------' || '--------------' || '--------------' | | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |" << endl;
@@ -133,6 +172,7 @@ void notEqual(string notA, string notB, string notC, string notD)
 {
 	string notDirections[4] = { notA, notB, notC, notD };
 	bool valid = false;
+
 	for (int i = 0; i < 4; i++)
 	{
 		if (input == notDirections[i])
@@ -142,7 +182,7 @@ void notEqual(string notA, string notB, string notC, string notD)
 	}
 	if (!valid && input != "help" && input != "stats" && input != "i")
 	{
-		cout << "What" << endl;
+		cout << "What?" << endl;
 	}
 }
 
@@ -597,7 +637,7 @@ void Guard::guardFight()
 		}
 		if (input == "attack guard")
 		{
-
+			Guard::attackEasy();
 		}
 		if (input == "examine guard")
 		{
@@ -632,32 +672,36 @@ void Guard::examineGuardOne()
 
 void Guard::corridorImpossible()
 {
-	long long int secondsUntilGuardEat = 30; //The long long means the number can be a 64 bit integer. Basically a big number
+	long long int secondsUntilGuardEat = 5; //The long long means the number can be a 64 bit integer. Basically a big number
 	unsigned char pressedKey = NULL; //Unsigned char is used when dealing with numbers. unsigned is for -255 to 255
 	long long int seconds_from_1970 = time(NULL); //this makes the time work.
 
 	cout << "Corridor." << endl;
 	cout << "You walk down the corridor and at the end you find another corridor with a guard blocking it." << endl;
+	cout << "'1' to attack the guard" << endl;
+	cout << "'2' to examine the guard" << endl;
+	cout << "'3' to go west" << endl;
+	cout << "If you do nothing the guard attack you" << endl;
 
 	while (true)
 	{
 		if (_kbhit()) //kbhit will not wait for an input from the user before running the rest of the program
-		{ 
+		{
 			pressedKey = getchar(); //getchar is getline but only a character
 			break;
 		}
 		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
 		system("cls"); //Clears screen 
-		
-		cout << "The guard sees you and charges you. You have " << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << " until the guard reaches you" << endl;
+
+		cout << "The guard sees you and charges. You have " << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << " seconds until the guard reaches you" << endl;
 		Sleep(1000);
 	}
 	system("cls"); //Clears screen
-	switch (presssedKey)
+	switch (pressedKey)
 	{
 	case '1':
 		Guard::attackImpossible();
-			
+
 	case '2':
 
 		Guard::examineImpossible();
@@ -666,14 +710,15 @@ void Guard::corridorImpossible()
 
 		cout << "You try to run away but the guard has 1 billion speed and easily catches up with you." << endl;
 		Sleep(500);
-			
+
 		cout << "The guard runs up and eats you. You died." << endl;
 
 		Global::gameOver();
-		
+
 	default:
 
-		Global::no();
+		cout << "You took to long. The guard ran up and ate your face off." << endl;
+		Global::gameOver();
 
 	}
 }
@@ -704,7 +749,7 @@ void Guard::examineImpossible()
 
 void Guard::attackImpossible()
 {
-
+	cout << "Choose a weapon to attack the guard with" << endl;
 	do
 	{
 		getline(cin, input);
@@ -722,8 +767,43 @@ void Guard::attackImpossible()
 			Global::gameOver();
 		}
 		Global::actions();
-		
+
 	} while (input != "use fist" && input != "use gun");
+}
+
+void Guard::attackEasy()
+{
+	srand(time(NULL));
+	GuardEasy guard;
+	Player player;
+	cout << "What do you want to attack the guard with" << endl;
+	do
+	{
+		getline(cin, input);
+		if (input == "gun")
+		{
+			int random = ((rand() % 5) + 1);
+			int finalDamage = player.damage + 5 + random - guard.returnVariables();
+			guard.minusVariables("health", finalDamage);
+
+			cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
+
+		}
+		if (input == "fist")
+		{
+			int randomes = ((rand() % 5) + 1);
+			int finalDamageFist = player.damage + randomes - guard.returnVariables();
+			guard.minusVariables("health", finalDamageFist);
+			cout << "You attack the guard with your fist. It does " << finalDamageFist << endl;
+		}
+		Global::actions();
+
+		notEqual("gun", "fist", "", "");
+
+	} while (input != "gun" && input != "fist");
+	
+	
+	
 }
 
 int main()
@@ -732,13 +812,17 @@ int main()
 	getline(cin, input);
 
 	//This is to skip to certain functions for testing
-	if (input == "guard airlock") 
+	if (input == "guard airlock")
 	{
 		Guard::airlock();
 	}
 	if (input == "guard fight")
 	{
 		Guard::guardFight();
+	}
+	if (input == "dead")
+	{
+		Global::gameOver();
 	}
 
 	cout << "Please run this game in fullscreen for an optimal experience" << endl;
@@ -761,7 +845,7 @@ int main()
 	cout << " You are in the year 2070, an evil organization is plotting to take over the world and you must stop them. \n(enter)" << endl;
 	getline(cin, input);
 	// To skip to open package function for testing
-	if (input == "sk") 
+	if (input == "sk")
 	{
 		House::openPackage();
 	}
@@ -826,12 +910,12 @@ int main()
 }
 
 /*
-do 
+do
 {
 	if (input == "")
 	{
 
-	} 
+	}
 	notEqual("", "", "", "");
 
 } while (input != "" && input != "" && input != "" && input != "");
