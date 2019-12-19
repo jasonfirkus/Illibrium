@@ -39,6 +39,7 @@ namespace Guard
 	void attackImpossible();
 	void attackEasy();
 	void guardAttacks();
+	void damageGuard();
 }
 
 namespace DeadEndOne
@@ -53,5 +54,5 @@ public:
 	int speed = 100;
 	int damage = 5;
 	int defense = 5;
-	int health = 100;
+	int health = 20;
 };
