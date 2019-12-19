@@ -11,7 +11,7 @@
 #else
 #include <stdlib.h>
 #endif
-#include "Header1.h"
+#include "Header.h"
 using namespace std;
 
 //These are for the room inventory's
@@ -53,6 +53,7 @@ void Guard::guardFight();
 void Global::gameOver();
 void Guard::examineImpossible();
 void Guard::attackEasy();
+void Guard::guardAttacks();
 
 class GuardEasy
 {
@@ -61,15 +62,15 @@ public:
 	{
 		if (show == "health")
 		{
-			cout << health << endl;
+			cout << health;
 		}
 		if (show == "damage")
 		{
-			cout << damage << endl;
+			cout << damage;
 		}
 		if (show == "defense")
 		{
-			cout << defense << endl;
+			cout << defense;
 		}
 	}
 
@@ -77,15 +78,15 @@ public:
 	{
 		if (identify == "health")
 		{
-			health + addBy;
+			health = health + addBy;
 		}
 		if (identify == "defense")
 		{
-			defense + addBy;
+			defense = defense + addBy;
 		}
 		if (identify == "damage")
 		{
-			damage + addBy;
+			damage = damage + addBy;
 		}
 	}
 
@@ -93,15 +94,15 @@ public:
 	{
 		if (identify == "health")
 		{
-			health - minusBy;
+			health = health - minusBy;
 		}
 		if (identify == "defense")
 		{
-			defense - minusBy;
+			defense = defense - minusBy;
 		}
 		if (identify == "damage")
 		{
-			damage - minusBy;
+			damage = damage - minusBy;
 		}
 	}
 
@@ -147,8 +148,15 @@ private:
 	int speed = 1000000;
 };
 
+void print(string print)
+{
+	cout << print << endl;
+}
+
 void Global::gameOver()
 {
+	cout << endl;
+
 	cout << "  .----------------.  .----------------.  .----------------.  .----------------.   .----------------.  .----------------.  .----------------.  .----------------.  .----------------. " << endl;
 	cout << " | .--------------. || .--------------. || .--------------. || .--------------. | | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |" << endl;
 	cout << " | |    ______    | || |      __      | || | ____    ____ | || |  _________   | | | |     ____     | || | ____   ____  | || |  _________   | || |  _______     | || |              | |" << endl;
@@ -165,6 +173,8 @@ void Global::gameOver()
 
 void Global::no()
 {
+	cout << endl;
+
 	cout << "What?" << endl;
 }
 
@@ -186,14 +196,6 @@ void notEqual(string notA, string notB, string notC, string notD)
 	}
 }
 
-/*enum directions
-{
-	north,
-	south,
-	west,
-	east,
-}*/
-
 void Global::stats()
 {
 	cout << endl;
@@ -209,7 +211,7 @@ void Global::stats()
 	player.defense = 5;
 	cout << " Defense: " << player.defense << endl;
 
-	player.health = 100;
+	player.health = 20;
 	cout << " Health: " << player.health << endl;
 }
 
@@ -233,6 +235,8 @@ void Global::help()
 
 void Global::actions()
 {
+	cout << endl;
+
 	if (input == "i")
 	{
 		Global::fullInvPlayer();
@@ -676,22 +680,22 @@ void Guard::corridorImpossible()
 	unsigned char pressedKey = NULL; //Unsigned char is used when dealing with numbers. unsigned is for -255 to 255
 	long long int seconds_from_1970 = time(NULL); //this makes the time work.
 
-	cout << "Corridor." << endl;
-	cout << "You walk down the corridor and at the end you find another corridor with a guard blocking it." << endl;
-	cout << "'1' to attack the guard" << endl;
-	cout << "'2' to examine the guard" << endl;
-	cout << "'3' to go west" << endl;
-	cout << "If you do nothing the guard attack you" << endl;
-
 	while (true)
 	{
 		if (_kbhit()) //kbhit will not wait for an input from the user before running the rest of the program
 		{
-			pressedKey = getchar(); //getchar is getline but only a character
+			pressedKey = _getch(); //getchar is getline but only a character
 			break;
 		}
 		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
 		system("cls"); //Clears screen 
+
+		cout << "Corridor." << endl;
+		cout << "You walk down the corridor and at the end you find another corridor with a guard blocking it." << endl;
+		cout << "'1' to attack the guard" << endl;
+		cout << "'2' to examine the guard" << endl;
+		cout << "'3' to go west" << endl;
+		cout << "If you do nothing the guard attack you" << endl; 
 
 		cout << "The guard sees you and charges. You have " << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << " seconds until the guard reaches you" << endl;
 		Sleep(1000);
@@ -773,9 +777,11 @@ void Guard::attackImpossible()
 
 void Guard::attackEasy()
 {
-	srand(time(NULL));
+	srand(time(NULL)); // This makes the random # gen not gen the same number
+
 	GuardEasy guard;
 	Player player;
+
 	cout << "What do you want to attack the guard with" << endl;
 	do
 	{
@@ -788,22 +794,75 @@ void Guard::attackEasy()
 
 			cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
 
+			cout << "The guard has ";
+			guard.showVariables("health");
+			cout << " health left" << endl;
+
+			Guard::guardAttacks();
+
 		}
 		if (input == "fist")
 		{
 			int randomes = ((rand() % 5) + 1);
 			int finalDamageFist = player.damage + randomes - guard.returnVariables();
 			guard.minusVariables("health", finalDamageFist);
-			cout << "You attack the guard with your fist. It does " << finalDamageFist << endl;
+
+			cout << "You fisted the guard with your fist. It does " << finalDamageFist << endl;
+
+			cout << "The guard has "; 
+			guard.showVariables("health");
+			cout << " health left" << endl;
+
+			Guard::guardAttacks();
 		}
 		Global::actions();
 
-		notEqual("gun", "fist", "", "");
-
+		if (input != "gun" && input != "fist" && input != "help" && input != "stats" && input != "i")
+		{
+			Global::no();
+		}
 	} while (input != "gun" && input != "fist");
-	
-	
-	
+}
+
+void Guard::guardAttacks()
+{
+	srand(time(NULL));
+
+	input == "";
+
+	long long int secondsUntilGuardEat = 2; //The long long means the number can be a 64 bit integer. Basically a big number
+	unsigned char pressedKey = NULL; //Unsigned char is used when dealing with numbers. unsigned is for -255 to 255
+	long long int seconds_from_1970 = time(NULL); //this makes the time work.
+
+	print("The guard raises his gun and fires at you.");
+
+	while (true)
+	{
+		if (_kbhit()) //kbhit will not wait for an input from the user before running the rest of the program
+		{
+			getline(cin, input); //getchar is getline but only a character
+			break;
+		}
+		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
+		system("cls"); //Clears screen 
+
+		cout << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << endl;
+		Sleep(500);
+	}
+	system("cls"); //Clears screen
+	if (input == "dodge")
+	{
+		int dodge = ((rand() % 4) + 1);
+		if (dodge >= 2)
+		{
+			print("You dodged the guards shot!");
+		}
+		else
+		{
+			print("You failed at dodging the guard's shot.");
+			print("");
+		}
+	}
 }
 
 int main()
@@ -916,7 +975,11 @@ do
 	{
 
 	}
+	Global::actions();
+
 	notEqual("", "", "", "");
 
 } while (input != "" && input != "" && input != "" && input != "");
 */
+
+//use getch to not have to press enter when entering information

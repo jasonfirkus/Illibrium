@@ -38,6 +38,7 @@ namespace Guard
 	void examineImpossible();
 	void attackImpossible();
 	void attackEasy();
+	void guardAttacks();
 }
 
 namespace DeadEndOne
