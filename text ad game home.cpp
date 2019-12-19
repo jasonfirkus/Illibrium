@@ -11,7 +11,7 @@
 #else
 #include <stdlib.h>
 #endif
-#include "Header.h"
+#include "Header1.h"
 using namespace std;
 
 //These are for the room inventory's
@@ -28,6 +28,8 @@ string name;
 //Inventory Player
 string invPlayer[10] = {};
 
+//Using the gun when attacking bonus
+int gunBonus = 5;
 
 void Global::stats();
 void Barracks::oActions();
@@ -106,11 +108,20 @@ public:
 		}
 	}
 
-	int returnVariables()
+	int guardEasyReturnDefense()
 	{
-		int reeturn = defense;
-		return reeturn;
+		return defense;
 	}
+	int guardEasyReturnHealth()
+	{
+		return health;
+	}
+	int guardEasyReturnDamage()
+	{
+		return damage;
+	}
+
+
 
 private:
 	int health = 10;
@@ -695,7 +706,7 @@ void Guard::corridorImpossible()
 		cout << "'1' to attack the guard" << endl;
 		cout << "'2' to examine the guard" << endl;
 		cout << "'3' to go west" << endl;
-		cout << "If you do nothing the guard attack you" << endl; 
+		cout << "If you do nothing the guard attack you" << endl;
 
 		cout << "The guard sees you and charges. You have " << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << " seconds until the guard reaches you" << endl;
 		Sleep(1000);
@@ -789,7 +800,7 @@ void Guard::attackEasy()
 		if (input == "gun")
 		{
 			int random = ((rand() % 5) + 1);
-			int finalDamage = player.damage + 5 + random - guard.returnVariables();
+			int finalDamage = player.damage + gunBonus + random - guard.guardEasyReturnDefense();
 			guard.minusVariables("health", finalDamage);
 
 			cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
@@ -804,12 +815,12 @@ void Guard::attackEasy()
 		if (input == "fist")
 		{
 			int randomes = ((rand() % 5) + 1);
-			int finalDamageFist = player.damage + randomes - guard.returnVariables();
+			int finalDamageFist = player.damage + randomes - guard.guardEasyReturnDefense();
 			guard.minusVariables("health", finalDamageFist);
 
 			cout << "You fisted the guard with your fist. It does " << finalDamageFist << endl;
 
-			cout << "The guard has "; 
+			cout << "The guard has ";
 			guard.showVariables("health");
 			cout << " health left" << endl;
 
@@ -827,42 +838,94 @@ void Guard::attackEasy()
 void Guard::guardAttacks()
 {
 	srand(time(NULL));
-
+	int dodge;
 	input == "";
+	GuardEasy guard;
+	Player player;
 
-	long long int secondsUntilGuardEat = 2; //The long long means the number can be a 64 bit integer. Basically a big number
+	long long int secondsUntilGuardEat = 5; //The long long means the number can be a 64 bit integer. Basically a big number
 	unsigned char pressedKey = NULL; //Unsigned char is used when dealing with numbers. unsigned is for -255 to 255
 	long long int seconds_from_1970 = time(NULL); //this makes the time work.
-
-	print("The guard raises his gun and fires at you.");
 
 	while (true)
 	{
 		if (_kbhit()) //kbhit will not wait for an input from the user before running the rest of the program
 		{
-			getline(cin, input); //getchar is getline but only a character
+			pressedKey = getchar();//getchar is getline but only a character
 			break;
 		}
 		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
 		system("cls"); //Clears screen 
 
+		print("The guard raises his gun and fires at you.");
+
 		cout << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << endl;
 		Sleep(500);
 	}
 	system("cls"); //Clears screen
-	if (input == "dodge")
+	if (pressedKey = 1)
 	{
-		int dodge = ((rand() % 4) + 1);
-		if (dodge >= 2)
+		dodge = ((rand() % 4) + 1);
+		if (dodge <= 4)
 		{
 			print("You dodged the guards shot!");
+			getline(cin, input);
+
+			Guard::damageGuard();
+
+			print("You killed the guard! Congratulations");
+			cout << "You gained 5 defense, 5 damage and 20 health" << endl;
+			player.damage = 10;
+			player.health = 40;
+			player.defense = 10;
+
+			
+
 		}
 		else
 		{
-			print("You failed at dodging the guard's shot.");
-			print("");
+			int finalDamageGuard = guard.guardEasyReturnDamage() - player.defense;
+			player.health - finalDamageGuard;
+
+			print("You didn't dodge the guard's shot");
+			cout << "The guard's shot hits you in the chest. It does " << finalDamageGuard << " damage." << endl;
+
+			getline(cin, input);
+
+			Guard::damageGuard();
+
+			print("You killed the guard! Congratulations");
+			cout << "You gained 5 defense, 5 damage and 20 health" << endl;
+			player.damage = 10;
+			player.health = 40;
+			player.defense = 10;
 		}
 	}
+	else
+	{
+		Global::no();
+	}
+}
+
+void Guard::damageGuard()
+{
+	Player player;
+	GuardEasy guard;
+	int finalDamage;
+
+	do
+	{
+		if (input == "attack guard")
+		{ 
+			int random = ((rand() % 5) + 1);
+			int finalDamage = player.damage + gunBonus + random - guard.guardEasyReturnDefense();
+			guard.minusVariables("health", finalDamage);
+		}
+		Global::actions();
+
+	} while (input != "attack guard");
+
+	cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
 }
 
 int main()
@@ -882,6 +945,10 @@ int main()
 	if (input == "dead")
 	{
 		Global::gameOver();
+	}
+	if (input == "fighte")
+	{
+		Guard::guardAttacks();
 	}
 
 	cout << "Please run this game in fullscreen for an optimal experience" << endl;
@@ -924,7 +991,7 @@ int main()
 
 	if (system("CLS")) system("clear");
 
-	cout << endl;
+	cout << endl; 
 
 	cout << " You are in the living room of your house." << endl;
 	Sleep(500);
