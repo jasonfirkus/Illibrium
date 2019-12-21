@@ -11,7 +11,7 @@
 #else
 #include <stdlib.h>
 #endif
-#include "Header1.h"
+#include "Header.h"
 using namespace std;
 
 //These are for the room inventory's
@@ -129,7 +129,7 @@ private:
 	int defense = 5;
 };
 
-class GuardImpossible
+class GuardImpossible : public GuardEasy
 {
 public:
 	void showVariables(string show)
@@ -635,6 +635,8 @@ void DeadEndOne::eastHallCont()
 
 void Guard::guardFight()
 {
+	cout << endl;
+
 	cout << " Main Hub." << endl;
 	cout << " The corridor opens up into a massive rooom. The walls are white with blue accents. The ceiling is about 7 metres high." << endl;
 	cout << " To the south is another corridor leading to the shipping bay. Blocking the corridor is a guard who looks to be holding a gun." << endl;
@@ -768,16 +770,20 @@ void Guard::attackImpossible()
 	do
 	{
 		getline(cin, input);
-		if (input == "use gun")
+		if (input == "gun")
 		{
+			cout << endl;
+
 			cout << "You shoot the guard but it does 0 damage as the guard has 1 billion defense" << endl;
 			Sleep(500);
 
 			cout << "The guard runs up and eats you. You died" << endl;
 			Global::gameOver();
 		}
-		if (input == "use fist")
+		if (input == "fist")
 		{
+			cout << endl;
+
 			cout << "You run up to the guard to punch him but before you can he eats you. You died." << endl;
 			Global::gameOver();
 		}
@@ -792,6 +798,7 @@ void Guard::attackEasy()
 
 	GuardEasy guard;
 	Player player;
+	cout << endl;
 
 	cout << "What do you want to attack the guard with" << endl;
 	do
@@ -799,6 +806,8 @@ void Guard::attackEasy()
 		getline(cin, input);
 		if (input == "gun")
 		{
+			cout << endl;
+
 			int random = ((rand() % 5) + 1);
 			int finalDamage = player.damage + gunBonus + random - guard.guardEasyReturnDefense();
 			guard.minusVariables("health", finalDamage);
@@ -809,29 +818,31 @@ void Guard::attackEasy()
 			guard.showVariables("health");
 			cout << " health left" << endl;
 
+			getline(cin, input);
 			Guard::guardAttacks();
 
 		}
 		if (input == "fist")
 		{
+			cout << endl;
+
 			int randomes = ((rand() % 5) + 1);
 			int finalDamageFist = player.damage + randomes - guard.guardEasyReturnDefense();
 			guard.minusVariables("health", finalDamageFist);
 
-			cout << "You fisted the guard with your fist. It does " << finalDamageFist << endl;
+			cout << "You fisted the guard with your fist. It does " << finalDamageFist << " damage." << endl;
 
 			cout << "The guard has ";
 			guard.showVariables("health");
 			cout << " health left" << endl;
 
+			getline(cin, input);
 			Guard::guardAttacks();
 		}
 		Global::actions();
 
-		if (input != "gun" && input != "fist" && input != "help" && input != "stats" && input != "i")
-		{
-			Global::no();
-		}
+		notEqual("gun", "fist", "", "");
+
 	} while (input != "gun" && input != "fist");
 }
 
@@ -839,7 +850,7 @@ void Guard::guardAttacks()
 {
 	srand(time(NULL));
 	int dodge;
-	input == "";
+
 	GuardEasy guard;
 	Player player;
 
@@ -851,23 +862,26 @@ void Guard::guardAttacks()
 	{
 		if (_kbhit()) //kbhit will not wait for an input from the user before running the rest of the program
 		{
-			pressedKey = getchar();//getchar is getline but only a character
+			pressedKey = _getch();//getchar is getline but only a character
 			break;
 		}
 		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
 		system("cls"); //Clears screen 
 
 		print("The guard raises his gun and fires at you.");
+		print("1 to dodge the attack");
 
 		cout << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << endl;
 		Sleep(500);
 	}
 	system("cls"); //Clears screen
-	if (pressedKey = 1)
+	if (pressedKey == 1)
 	{
 		dodge = ((rand() % 4) + 1);
 		if (dodge <= 4)
 		{
+			cout << endl;
+
 			print("You dodged the guards shot!");
 			getline(cin, input);
 
@@ -879,13 +893,15 @@ void Guard::guardAttacks()
 			player.health = 40;
 			player.defense = 10;
 
-			
+
 
 		}
 		else
 		{
 			int finalDamageGuard = guard.guardEasyReturnDamage() - player.defense;
-			player.health - finalDamageGuard;
+			player.health = player.health - finalDamageGuard;
+
+			cout << endl;
 
 			print("You didn't dodge the guard's shot");
 			cout << "The guard's shot hits you in the chest. It does " << finalDamageGuard << " damage." << endl;
@@ -896,6 +912,7 @@ void Guard::guardAttacks()
 
 			print("You killed the guard! Congratulations");
 			cout << "You gained 5 defense, 5 damage and 20 health" << endl;
+
 			player.damage = 10;
 			player.health = 40;
 			player.defense = 10;
@@ -911,19 +928,21 @@ void Guard::damageGuard()
 {
 	Player player;
 	GuardEasy guard;
-	int finalDamage;
+
+	int random = ((rand() % 5) + 1);
+	int finalDamage = player.damage + gunBonus + random - guard.guardEasyReturnDefense();
 
 	do
 	{
 		if (input == "attack guard")
-		{ 
-			int random = ((rand() % 5) + 1);
-			int finalDamage = player.damage + gunBonus + random - guard.guardEasyReturnDefense();
+		{
 			guard.minusVariables("health", finalDamage);
 		}
 		Global::actions();
 
 	} while (input != "attack guard");
+
+	cout << endl;
 
 	cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
 }
@@ -991,7 +1010,7 @@ int main()
 
 	if (system("CLS")) system("clear");
 
-	cout << endl; 
+	cout << endl;
 
 	cout << " You are in the living room of your house." << endl;
 	Sleep(500);
