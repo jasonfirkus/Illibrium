@@ -11,7 +11,7 @@
 #else
 #include <stdlib.h>
 #endif
-#include "Header.h"
+#include "organize.h"
 using namespace std;
 
 //These are for the room inventory's
@@ -30,32 +30,6 @@ string invPlayer[10] = {};
 
 //Using the gun when attacking bonus
 int gunBonus = 5;
-
-void Global::stats();
-void Barracks::oActions();
-void Global::actions();
-void House::dineRoomHouse();
-void Barracks::oHouse();
-void Global::fullInvPlayer();
-void Global::no();
-void Global::help();
-void House::openPackage();
-void House::livingRoom();
-void House::packActions();
-void House::action();
-void House::backstory();
-void Barracks::westHall();
-void Barracks::westHall2();
-void Barracks::barracks();
-void Guard::airlock();
-void notEqual(string notA, string notB, string notC, string notD);
-void DeadEndOne::eastHall();
-void DeadEndOne::eastHallCont();
-void Guard::guardFight();
-void Global::gameOver();
-void Guard::examineImpossible();
-void Guard::attackEasy();
-void Guard::guardAttacks();
 
 class GuardEasy
 {
@@ -124,7 +98,8 @@ public:
 
 
 private:
-	int health = 10;
+
+	int health = 11;
 	int damage = 10;
 	int defense = 5;
 };
@@ -184,9 +159,7 @@ void Global::gameOver()
 
 void Global::no()
 {
-	cout << endl;
-
-	cout << "What?" << endl;
+	print("What?");
 }
 
 void notEqual(string notA, string notB, string notC, string notD)
@@ -203,7 +176,7 @@ void notEqual(string notA, string notB, string notC, string notD)
 	}
 	if (!valid && input != "help" && input != "stats" && input != "i")
 	{
-		cout << "What?" << endl;
+		Global::no();
 	}
 }
 
@@ -745,6 +718,7 @@ void Guard::examineImpossible()
 	GuardImpossible guard;
 
 	cout << endl;
+
 	cout << " Zero-Point Quantum Guard" << endl;
 
 	cout << " Health: ";
@@ -762,6 +736,9 @@ void Guard::examineImpossible()
 	cout << " Speed: ";
 	guard.showVariables("speed");
 	cout << endl;
+
+	getline(cin, input);
+	Guard::corridorImpossible();
 }
 
 void Guard::attackImpossible()
@@ -807,6 +784,7 @@ void Guard::attackEasy()
 		if (input == "gun")
 		{
 			cout << endl;
+			srand(time(NULL));
 
 			int random = ((rand() % 5) + 1);
 			int finalDamage = player.damage + gunBonus + random - guard.guardEasyReturnDefense();
@@ -849,7 +827,7 @@ void Guard::attackEasy()
 void Guard::guardAttacks()
 {
 	srand(time(NULL));
-	int dodge;
+	int dodge = ((rand() % 4) + 1);
 
 	GuardEasy guard;
 	Player player;
@@ -862,7 +840,7 @@ void Guard::guardAttacks()
 	{
 		if (_kbhit()) //kbhit will not wait for an input from the user before running the rest of the program
 		{
-			pressedKey = _getch();//getchar is getline but only a character
+			pressedKey = getchar();//getchar is getline but only a character
 			break;
 		}
 		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
@@ -877,7 +855,6 @@ void Guard::guardAttacks()
 	system("cls"); //Clears screen
 	if (pressedKey == 1)
 	{
-		dodge = ((rand() % 4) + 1);
 		if (dodge <= 4)
 		{
 			cout << endl;
