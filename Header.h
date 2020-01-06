@@ -9,6 +9,8 @@ void printVar(string printText, int printVar);
 void end();
 void print_slow(const string&, unsigned int);
 void print_slow_no_space(const string&, unsigned int);
+void print_slow_15(const string&);
+
 
 namespace House
 {
@@ -26,8 +28,8 @@ namespace Global
 	void stats();
 	void help();
 	void actions();
-	void no();
 	void gameOver();
+	void no();
 }
 
 namespace Barracks
