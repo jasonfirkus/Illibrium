@@ -11,13 +11,12 @@
 #else
 #include <stdlib.h>
 #endif
-#include "Header.h"
+#include "Header1.h"
+
 
 using std::cout;
 using std::flush;
 using std::string;
-using std::this_thread::sleep_for;
-using std::chrono::milliseconds;
 using namespace std;
 
 //These are for the room inventory's and items that you can pickup
@@ -40,7 +39,12 @@ int gunBonus = 5;
 //For colouring
 bool colour = true;
 
-void end() 
+void Global::no()
+{
+	cout << "what" << endl;
+}
+
+void end()
 {
 	cout << endl;
 }
@@ -53,11 +57,6 @@ void printVar(string printText, int printVar)
 void print(string print)
 {
 	cout << print << endl;
-}
-
-void Global::no()
-{
-	print("What?");
 }
 
 void Global::gameOver()
@@ -202,28 +201,30 @@ void House::backstory()
 
 	end();
 
-	cout << " A blue holographic figure appears out of the disc and speaks to you. It says 'included in this package is a note that contains the key to saving world from the Quantum Order." << endl;
-	Sleep(1700);
+	print_slow_15(" A blue holographic figure appears out of the disc and speaks to you. It says 'included in this package is a note that contains the key to saving world from the Quantum Order.");
 
-	cout << " The Quantum Order wants to gain absolute control of the world through the use of qauntum computers." << endl;
-	Sleep(1700);
 
-	cout << " They will be able to see everyone's information and will keep a constant watch over the entire world. Nobody will be free from their eyes." << endl;
-	Sleep(1700);
+	print_slow_15(" The Quantum Order wants to gain absolute control of the world through the use of qauntum computers.");
 
-	cout << " The only way to stop them is to use the password in the absolute point terminal which will cause a chain reaction that will destroy all " << endl;
-	Sleep(1700);
 
-	cout << " quantum computers around the world. The password has been split into three segments." << endl;
-	Sleep(1700);
+		print_slow_15(" They will be able to see everyone's information and will keep a constant watch over the entire world. Nobody will be free from their eyes.");
+	
 
-	cout << " The note included in this package has the first segment." << endl;
-	Sleep(1700);
+	print_slow_15(" The only way to stop them is to use the password in the absolute point terminal which will cause a chain reaction that will destroy all ");
+	
 
-	cout << " You must find the other two segments and free humanity from the Quantum Order." << endl;
-	Sleep(1700);
+	print_slow_15(" quantum computers around the world. The password has been split into three segments.");
+	
 
-	cout << " Help us " << name << " you are our only hope. (not stolen shamelessly from Star Wars btw)" << endl;
+	print_slow_15(" The note included in this package has the first segment.");
+	
+
+	print_slow_15(" You must find the other two segments and free humanity from the Quantum Order.");
+	
+
+	print_slow_no_space(" Help us ", 15);  
+	print_slow_no_space(name, 15); 
+	print_slow_no_space(" you are our only hope. (not stolen shamelessly from Star Wars btw)", 15);
 }
 
 void House::packActions()
@@ -338,29 +339,25 @@ void Barracks::oActions()
 
 void Barracks::oHouse()
 {
-	cout << " Outside The House.\n You are outside the house, you are standing on a lush green lawn." << endl;
-	Sleep(700);
-
-	cout << " There is a transparent bubble directly in front of you surrounding the perimeter of the house and lawn." << endl;
-	Sleep(700);
-
-	cout << " To the north is the living room inside the house where you started." << endl;
-	Sleep(700);
-
-	cout << " To the east is a white doorway in the bubble which looks to lead to another set of buildings." << endl; //this continues to the main story
-	Sleep(700);
-
-	cout << " To the west is a gray doorway which leads to a single building." << endl; //This is the barracks
+	print_slow_15(" Outside The House.\n You are outside the house, you are standing on a lush green lawn.");
+	
+	print_slow_15(" There is a transparent bubble directly in front of you surrounding the perimeter of the house and lawn.");
+	
+	print_slow_15(" To the north is the living room inside the house where you started.");
+	
+	print_slow_15(" To the east is a white doorway in the bubble which looks to lead to another set of buildings."); //this continues to the main story
+	
+	print_slow_15(" To the west is a gray doorway which leads to a single building."); //This is the barracks
 	Barracks::oActions();
 }
 
 void Barracks::westHall()
 {
-	cout << " West Hall\n It is a long glowing hallway. There are flying orbs around you providing light. You see a door at the end of the hallway." << endl;
+	print_slow_15(" West Hall\n It is a long glowing hallway. There are flying orbs around you providing light. You see a door at the end of the hallway.");
 
-	cout << " To continue down the hallway go south." << endl;
+	print_slow_15(" To continue down the hallway go south.");
 
-	cout << " To go back go east" << endl;
+	print_slow_15(" To go back go east");
 
 	do {
 		getline(cin, input);
@@ -385,11 +382,11 @@ void Barracks::westHall()
 
 void Barracks::westHall2()
 {
-	cout << " End of West Hall.\n You reach the end of the hall." << endl;
+	print_slow_15(" End of West Hall.\n You reach the end of the hall.");
 
-	cout << " To the east there is a door leading into a room which looks to be stocked with guns and weapons." << endl;
+	print_slow_15(" To the east there is a door leading into a room which looks to be stocked with guns and weapons.");
 
-	cout << " To the north is the exit." << endl;
+	print_slow_15(" To the north is the exit.");
 	do {
 		getline(cin, input);
 		if (input == "n")
@@ -413,8 +410,8 @@ void Barracks::westHall2()
 
 void Barracks::barracks()
 {
-	cout << " Barracks.\n You enter inside the room to see rack upon rack of neodynium exodus rifles (gun)." << endl;
-	cout << " All of them are locked into the racks but you spot one that isn't." << endl;
+	print_slow_15(" Barracks.\n You enter inside the room to see rack upon rack of neodynium exodus rifles (gun).");
+	print_slow_15(" All of them are locked into the racks but you spot one that isn't.");
 	if (barracksinv != "gun")
 	{
 		cout << " You already took the gun" << endl;
@@ -443,10 +440,10 @@ void Barracks::barracks()
 
 void Guard::airlock()
 {
-	cout << " Airlock." << endl;
-	cout << " The airlock is a small white room. There are a couple space suits and an array of tools. " << endl;
-	cout << " To the south is a corridor leaing to a bigger building" << endl;
-	cout << " To the east is another corridor which goes to a small building." << endl;
+	print_slow_15(" Airlock.");
+	print_slow_15(" The airlock is a small white room. There are a couple space suits and an array of tools. ");
+	print_slow_15(" To the south is a corridor leaing to a bigger building");
+	print_slow_15(" To the east is another corridor which goes to a small building.");
 
 	//If you've already taken a suit then this says "You already took a space suit"
 	if (airlockInv != " Space Suit")
@@ -484,8 +481,8 @@ void Guard::airlock()
 
 void DeadEndOne::eastHall()
 {
-	cout << " East Hall." << endl;
-	cout << " It is a well lit corridor, the walls are glowing blue." << endl;
+	print_slow_15(" East Hall.");
+	print_slow_15(" It is a well lit corridor, the walls are glowing blue.");
 
 	do {
 		getline(cin, input);
@@ -506,8 +503,8 @@ void DeadEndOne::eastHall()
 
 void DeadEndOne::eastHallCont()
 {
-	cout << " End of East Hall." << endl;
-	cout << " Lmao this was just a dead end. Go back fool." << endl;
+	print_slow(" End of East Hall.", 15);
+	print_slow(" Lmao this was just a dead end. Go back fool.", 15);
 
 	do {
 		getline(cin, input);
@@ -526,10 +523,10 @@ void Guard::guardFight()
 {
 	end();
 
-	cout << " Main Hub." << endl;
-	cout << " The corridor opens up into a massive rooom. The walls are white with blue accents. The ceiling is about 7 metres high." << endl;
-	cout << " To the south is another corridor leading to the shipping bay. Blocking the corridor is a guard who looks to be holding a gun." << endl;
-	cout << " To the east is another corridor leading to a different bay." << endl;
+	print_slow(" Main Hub.", 15);
+	print_slow(" The corridor opens up into a massive rooom. The walls are white with blue accents. The ceiling is about 7 metres high.", 15);
+	print_slow(" To the south is another corridor leading to the shipping bay. Blocking the corridor is a guard who looks to be holding a gun.", 15);
+	print_slow(" To the east is another corridor leading to a different bay.", 15);
 	do
 	{
 		getline(cin, input);
@@ -795,7 +792,7 @@ void Guard::guardAttacks()
 
 			if (randomIfDodged <= 2)
 			{
-				
+
 
 				wcout << "You dodged the guard's shot!" << endl;
 				end();
@@ -821,7 +818,7 @@ void Guard::guardAttacks()
 
 		//// Render ////
 		LONGLONG currentNumber_s = currentNumber_100ns / 10000000 + 1;
-		if (currentNumber_s != displayedNumber) 
+		if (currentNumber_s != displayedNumber)
 		{
 			system("cls");
 
@@ -891,7 +888,7 @@ void Guard::damageGuard()
 
 	cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
 	end();
-} 
+}
 
 void print_slow(const string& message, unsigned int typeSpeed)
 {
@@ -903,7 +900,7 @@ void print_slow(const string& message, unsigned int typeSpeed)
 		{
 			Sleep(typeSpeed);
 		}
-		SHORT key = GetKeyState(' ');    
+		SHORT key = GetKeyState(' ');
 		if (key & 0x8000)
 		{
 			stop = true;
@@ -930,9 +927,29 @@ void print_slow_no_space(const string& message, unsigned int typeSpeed)
 	}
 }
 
+void print_slow_15(const string& message)
+{
+	Sleep(200);
+	bool stop = false;
+	for (const char c : message)
+	{
+		cout << c << flush;
+		if (stop == false)
+		{
+			Sleep(15);
+		}
+		SHORT key = GetKeyState(' ');
+		if (key & 0x8000)
+		{
+			stop = true;
+		}
+	}
+	end();
+}
+
 int main()
 {
-	system("color b");
+	system("color 3");
 
 	getline(cin, input);
 
@@ -957,7 +974,7 @@ int main()
 	print(" Please run this game in fullscreen for an optimal experience");
 	system("pause");
 
-	Sleep(200); 
+	Sleep(200);
 	print_slow("You can press space to skip the typing animation and to continue", 15);
 	system("pause");
 
@@ -989,7 +1006,7 @@ int main()
 	Sleep(200);
 	print_slow(" You will play as a rebel trying to overthrow them. You are also on the moon.", 15);
 	end();
-	system("pause");                                                                                
+	system("pause");
 	end();
 
 	Sleep(200);
@@ -1020,7 +1037,7 @@ int main()
 
 	Sleep(200);
 	print_slow(" To the north there is a dining room with the remains of last nights dinner and what looks to be a package.", 15);
-	
+
 	Sleep(200);
 	print_slow(" To the south there is a door leading to the backyard", 15);
 
