@@ -1,34 +1,15 @@
-//#ifndef GLOBAL_H 
-//#define GLOBAL_H
-
 #pragma once
-/*
-void Global::stats();
-void Barracks::oActions();
-void Global::actions();
-void House::dineRoomHouse();
-void Barracks::oHouse();
-void Global::fullInvPlayer();
-void Global::no();
-void Global::help();
-void House::openPackage();
-void House::livingRoom();
-void House::packActions();
-void House::action();
-void House::backstory();
-void Barracks::westHall();
-void Barracks::westHall2();
-void Barracks::barracks();
-void Guard::airlock();
+
+#include <string>
+#include <iostream>
+using namespace std;
+
 void notEqual(string notA, string notB, string notC, string notD);
-void DeadEndOne::eastHall();
-void DeadEndOne::eastHallCont();
-void Guard::guardFight();
-void Global::gameOver();
-void Guard::examineImpossible();
-void Guard::attackEasy();
-void Guard::guardAttacks();
-*/
+void printVar(string printText, int printVar);
+void end();
+void print_slow(const string&, unsigned int);
+void print_slow_no_space(const string&, unsigned int);
+
 namespace House
 {
 	void openPackage();
@@ -69,6 +50,7 @@ namespace Guard
 	void attackEasy();
 	void guardAttacks();
 	void damageGuard();
+	void failDodge();
 }
 
 namespace DeadEndOne
@@ -86,4 +68,105 @@ public:
 	int health = 20;
 };
 
-//#endif // GLOBAL_H
+class GuardEasy
+{
+public:
+	void showVariables(string show)
+	{
+		if (show == "health")
+		{
+			cout << health;
+		}
+		if (show == "damage")
+		{
+			cout << damage;
+		}
+		if (show == "defense")
+		{
+			cout << defense;
+		}
+	}
+
+	void addToVariables(string identify, int addBy)
+	{
+		if (identify == "health")
+		{
+			health = health + addBy;
+		}
+		if (identify == "defense")
+		{
+			defense = defense + addBy;
+		}
+		if (identify == "damage")
+		{
+			damage = damage + addBy;
+		}
+	}
+
+	void minusVariables(string identify, int minusBy)
+	{
+		if (identify == "health")
+		{
+			health = health - minusBy;
+		}
+		if (identify == "defense")
+		{
+			defense = defense - minusBy;
+		}
+		if (identify == "damage")
+		{
+			damage = damage - minusBy;
+		}
+	}
+
+	int guardEasyReturnDefense()
+	{
+		return defense;
+	}
+	int guardEasyReturnHealth()
+	{
+		return health;
+	}
+	int guardEasyReturnDamage()
+	{
+		return damage;
+	}
+
+
+
+private:
+
+	int health = 11;
+	int damage = 10;
+	int defense = 5;
+};
+
+class GuardImpossible : public GuardEasy
+{
+public:
+	void showVariables(string show)
+	{
+		if (show == "health")
+		{
+			cout << health << endl;
+		}
+		if (show == "damage")
+		{
+			cout << damage << endl;
+		}
+		if (show == "defense")
+		{
+			cout << defense << endl;
+		}
+		if (show == "speed")
+		{
+			cout << speed << endl;
+		}
+	}
+
+private:
+	int health = 1000000;
+	int damage = 1000000;
+	int defense = 100000;
+	int speed = 1000000;
+};
