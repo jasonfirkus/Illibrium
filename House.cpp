@@ -56,24 +56,17 @@ void House::backstory()
 
 	print_slow_15(" A blue holographic figure appears out of the disc and speaks to you. It says 'included in this package is a note that contains the key to saving world from the Quantum Order.");
 
-
 	print_slow_15(" The Quantum Order wants to gain absolute control of the world through the use of qauntum computers.");
-
 
 	print_slow_15(" They will be able to see everyone's information and will keep a constant watch over the entire world. Nobody will be free from their eyes.");
 
-
 	print_slow_15(" The only way to stop them is to use the password in the absolute point terminal which will cause a chain reaction that will destroy all ");
-
 
 	print_slow_15(" quantum computers around the world. The password has been split into three segments.");
 
-
 	print_slow_15(" The note included in this package has the first segment.");
 
-
 	print_slow_15(" You must find the other two segments and free humanity from the Quantum Order.");
-
 
 	print_slow_no_space(" Help us ", 15);
 	print_slow_no_space(name, 15);

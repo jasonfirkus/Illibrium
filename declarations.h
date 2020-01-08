@@ -26,6 +26,10 @@ extern string invPlayer[10];
 extern int gunBonus;
 extern bool colour;
 
+void print_room_1(string, string);
+void print_room_2(string, string, string);
+void print_room_3(string, string, string, string);
+void print_room_4(string, string, string, string, string);
 void not_equal(string, string, string, string);
 void printVar(string, int);
 void end();
@@ -36,7 +40,11 @@ void print(string);
 
 namespace Hanger
 {
-	void entry();
+	void landingBay();
+	void firstShip();
+	void secondShip();
+	void thirdShip();
+	void fourthShip();
 }
 
 namespace House

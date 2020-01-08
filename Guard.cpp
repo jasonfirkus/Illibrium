@@ -371,7 +371,7 @@ void Guard::guardAttacks()
 	end();
 	system("pause");
 
-	Hanger::entry();
+	Hanger::landingBay();
 }
 
 void Guard::failDodge()

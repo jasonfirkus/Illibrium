@@ -12,10 +12,6 @@
 #include <stdlib.h>
 #endif
 #include "declarations.h"
-
-
-
-
 using namespace std;
 
 //These are for the room inventory's and items that you can pickup
@@ -33,10 +29,48 @@ string name = "Good luck, " + name;
 string invPlayer[10] = {};
 
 //Using the gun when attacking bonus
-int gunBonus = 5;
+unsigned const int gunBonus = 5;
 
 //For colouring
 bool colour = true;
+
+void print_room_1(string title, string desc1)
+{
+	end();
+
+	print_slow_15(title);
+	print_slow_15(desc1);
+}
+
+void print_room_2(string title, string desc1, string desc2)
+{
+	end();
+
+	print_slow_15(title);
+	print_slow_15(desc1);
+	print_slow_15(desc2);
+}
+
+void print_room_3(string title, string desc1, string desc2, string desc3)
+{
+	end();
+
+	print_slow_15(title);
+	print_slow_15(desc1);
+	print_slow_15(desc2);
+	print_slow_15(desc3);
+}
+
+void print_room_4(string title, string desc1, string desc2, string desc3, string desc4)
+{
+	end();
+
+	print_slow_15(title);
+	print_slow_15(desc1);
+	print_slow_15(desc2);
+	print_slow_15(desc3);
+	print_slow_15(desc4);
+}
 
 void end()
 {
@@ -294,8 +328,6 @@ int main()
 		not_equal("n", "s", "e", "w");
 
 	} while (input != "n" && input != "s" && input != "w" && input != "e" && input != "use disc" && input != "attack guard");
-
-	cout << "Working" << endl;
 }
 
 /*
