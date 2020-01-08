@@ -34,7 +34,6 @@ void print_slow_no_space(const string&, unsigned int);
 void print_slow_15(const string&);
 void print(string);
 
-
 namespace Hanger
 {
 	void entry();
@@ -92,18 +91,18 @@ namespace DeadEndOne
 class Player
 {
 public:
-	int speed = 100;
-	int damage = 5;
-	int defense = 5;
-	int health = 20;
+	static int speed;
+	static int damage;
+	static int defense;
+	static int health;
 };
 
 class GuardEasy
 {
 private:
-	int health = 11;
-	int damage = 10;
-	int defense = 5;
+	static int health; 
+	static int damage;
+	static int defense;
 
 public:
 	void showVariables(string show)
@@ -192,8 +191,8 @@ public:
 	}
 
 private:
-	int health = 1000000;
-	int damage = 1000000;
-	int defense = 100000;
-	int speed = 1000000;
+	static int health;
+	static int damage;
+	static int defense;
+	static int speed;
 };
