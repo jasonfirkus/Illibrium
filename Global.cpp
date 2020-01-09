@@ -14,6 +14,77 @@
 #include "declarations.h"
 using namespace std;
 
+void Global::timer(int time1, int time2, string desc1, string desc2, string desc3, string desc4, function_identifier func1, function_identifier func2)
+{
+	// Initialization
+	ULARGE_INTEGER initialTime;
+	ULARGE_INTEGER currentTime;
+	FILETIME ft;
+	GetSystemTimeAsFileTime(&ft);
+	initialTime.LowPart = ft.dwLowDateTime;
+	initialTime.HighPart = ft.dwHighDateTime;
+	LONGLONG countdownStartTime = time1; // 100 Nano seconds
+	LONGLONG displayedNumber = time2; // Prevent 31 to be displayed
+
+	// Game loop
+	while (true)
+	{
+		GetSystemTimeAsFileTime(&ft); // 100 nano seconds
+		currentTime.LowPart = ft.dwLowDateTime;
+		currentTime.HighPart = ft.dwHighDateTime;
+
+		//// Read Input ////
+		bool keyPressed = false;
+
+		SHORT key = GetKeyState('1');
+		if (key & 0x8000)
+		{
+			keyPressed = true;
+		}
+
+		//// Game Logic ////
+		LONGLONG elapsedTime = currentTime.QuadPart - initialTime.QuadPart;
+		LONGLONG currentNumber_100ns = countdownStartTime - elapsedTime;
+
+		if (currentNumber_100ns <= 0)
+		{
+			system("cls");
+
+			cout << desc1 << endl;
+
+			func1();
+
+
+			break;
+		}
+		if (keyPressed)
+		{
+			system("cls");
+
+			cout << desc2 << endl;
+
+			func2();
+			break;
+		}
+
+	
+		//// Render ////
+		LONGLONG currentNumber_s = currentNumber_100ns / 10000000 + 1;
+		if (currentNumber_s != displayedNumber)
+		{
+			system("cls");
+			cout << desc3 << endl;
+
+			end();
+
+			cout << "You have " << currentNumber_s << desc4 << endl;
+			displayedNumber = currentNumber_s;
+		}
+	}
+	end();
+	system("pause");
+}
+
 void Global::no()
 {
 	cout << "Nani?" << endl;
