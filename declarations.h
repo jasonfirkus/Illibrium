@@ -1,6 +1,10 @@
 #pragma once
 #include <string>
 #include <iostream>
+#define P_ print(
+#define E_ );
+#define IF_(x, y) if (input == x) {y}
+
 using namespace std;
 
 /*
@@ -14,6 +18,8 @@ any function with Guard:: means it is a function to do with the first with the g
 any function with DeadEndOne::, well that's kind of obvious
 */
 
+typedef void (*function_identifier)();
+
 extern string cyb1;
 extern string gun;
 extern string barracksinv;
@@ -23,7 +29,7 @@ extern string input;
 extern string name;
 extern string invPlayer[10];
 
-extern int gunBonus;
+extern const unsigned short int gunBonus;
 extern bool colour;
 
 void print_room_1(string, string);
@@ -40,11 +46,13 @@ void print(string);
 
 namespace Hanger
 {
+	void ifStealthy();
 	void landingBay();
 	void firstShip();
 	void secondShip();
 	void thirdShip();
 	void fourthShip();
+	void gShipAttacks();
 }
 
 namespace House
@@ -65,6 +73,7 @@ namespace Global
 	void actions();
 	void gameOver();
 	void no();
+	void timer(int, int, string, string, string, string, function_identifier, function_identifier);
 }
 
 namespace Barracks
@@ -108,12 +117,12 @@ public:
 class GuardEasy
 {
 private:
-	static int health; 
+	static int health;
 	static int damage;
 	static int defense;
 
 public:
-	void showVariables(string show)
+	static void showVariables(string show)
 	{
 		if (show == "health")
 		{
@@ -145,7 +154,7 @@ public:
 		}
 	}
 
-	void minusVariables(string identify, int minusBy)
+	static void minusVariables(string identify, int minusBy)
 	{
 		if (identify == "health")
 		{
@@ -161,7 +170,7 @@ public:
 		}
 	}
 
-	int guardEasyReturnDefense()
+	static int guardEasyReturnDefense()
 	{
 		return defense;
 	}
@@ -173,6 +182,20 @@ public:
 	{
 		return damage;
 	}
+};
+
+class GuardShip : public GuardEasy
+{
+public:
+	int extraDamage()
+	{
+		int random = ((rand() % 5) + 1);
+		return random;
+	}
+private:
+	static int health;
+	static int damage;
+	static int defense;
 };
 
 class GuardImpossible : public GuardEasy
