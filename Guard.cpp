@@ -397,7 +397,7 @@ void Guard::failDodge()
 	player.health = 40;
 	player.defense = 10;
 
-	
+
 
 }
 
