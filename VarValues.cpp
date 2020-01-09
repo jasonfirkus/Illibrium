@@ -18,6 +18,10 @@ int GuardEasy::health = 11;
 int GuardEasy::damage = 10;
 int GuardEasy::defense = 5;
 
+int GuardShip::health = 20;
+int GuardShip::damage = 15;
+int GuardShip::defense = 5;
+
 int Player::speed = 100;
 int Player::damage = 5;
 int Player::defense = 5;
