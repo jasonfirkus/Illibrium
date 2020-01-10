@@ -4,6 +4,7 @@
 #define P_ print(
 #define E_ );
 #define IF_(x, y) if (input == x) {y}
+#define SP_ cout << endl;
 
 using namespace std;
 
@@ -53,6 +54,7 @@ namespace Hanger
 	void thirdShip();
 	void fourthShip();
 	void gShipAttacks();
+	void playerAttacks();
 }
 
 namespace House
@@ -74,6 +76,7 @@ namespace Global
 	void gameOver();
 	void no();
 	void timer(int, int, string, string, string, string, function_identifier, function_identifier);
+	int extraDamage();
 }
 
 namespace Barracks
@@ -170,15 +173,15 @@ public:
 		}
 	}
 
-	static int guardEasyReturnDefense()
+	static int easyReturnDefense()
 	{
 		return defense;
 	}
-	int guardEasyReturnHealth()
+	static int easyReturnHealth()
 	{
 		return health;
 	}
-	int guardEasyReturnDamage()
+	static int easyReturnDamage()
 	{
 		return damage;
 	}
