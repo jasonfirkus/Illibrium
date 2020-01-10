@@ -239,7 +239,7 @@ void Guard::attackEasy()
 			srand(time(NULL));
 
 			int random = ((rand() % 5) + 1);
-			int finalDamage = player.damage + gunBonus + random - guard.guardEasyReturnDefense();
+			int finalDamage = player.damage + gunBonus + random - guard.easyReturnDefense();
 			guard.minusVariables("health", finalDamage);
 
 			cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
@@ -257,7 +257,7 @@ void Guard::attackEasy()
 			end();
 
 			int randomes = ((rand() % 5) + 1);
-			int finalDamageFist = player.damage + randomes - guard.guardEasyReturnDefense();
+			int finalDamageFist = player.damage + randomes - guard.easyReturnDefense();
 			guard.minusVariables("health", finalDamageFist);
 
 			cout << "You fisted the guard with your fist. It does " << finalDamageFist << " damage." << endl;
@@ -339,8 +339,7 @@ void Guard::guardAttacks()
 				print("You killed the guard! Congratulations");
 				cout << "You gained 5 defense, 5 damage and 20 health" << endl;
 				player.damage = 10;
-				player.health = 40;
-				player.defense = 10;
+				player.health = 30;
 
 				break;
 			}
@@ -379,7 +378,7 @@ void Guard::failDodge()
 	GuardEasy guard;
 	Player player;
 
-	int finalDamageGuard = guard.guardEasyReturnDamage() - player.defense;
+	int finalDamageGuard = guard.easyReturnDamage() - player.defense;
 	player.health = player.health - finalDamageGuard;
 
 	end();
@@ -407,7 +406,7 @@ void Guard::damageGuard()
 	GuardEasy guard;
 
 	int random = ((rand() % 5) + 1);
-	int finalDamage = player.damage + gunBonus + random - guard.guardEasyReturnDefense();
+	int finalDamage = player.damage + gunBonus + random - guard.easyReturnDefense();
 
 	system("pause");
 	system("cls");
