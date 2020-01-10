@@ -29,7 +29,7 @@ string name = "Good luck, " + name;
 string invPlayer[10] = {};
 
 //Using the gun when attacking bonus
-unsigned const int gunBonus = 5;
+const unsigned short int gunBonus = 5;
 
 //For colouring
 bool colour = true;
@@ -225,6 +225,8 @@ int main()
 	{
 		Guard::guardAttacks();
 	}
+	IF_("help", Global::help();)
+	IF_("hanger", Hanger::landingBay();)
 
 	print(" Please run this game in fullscreen for an optimal experience");
 	end();
