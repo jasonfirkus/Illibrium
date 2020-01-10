@@ -14,6 +14,14 @@
 #include "declarations.h"
 using namespace std;
 
+int Global::extraDamage()
+{
+	srand(time(NULL));
+	int random = ((rand() % 5) + 1);
+	return random;
+	
+}
+
 void Global::timer(int time1, int time2, string desc1, string desc2, string desc3, string desc4, function_identifier func1, function_identifier func2)
 {
 	// Initialization
