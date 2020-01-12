@@ -1,18 +1,14 @@
-#include <string>
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include <Windows.h>
-#include <conio.h>
-#include <ctime>
-#include <time.h>
-#ifdef __cplusplus__
-#include <cstdlib>
-#else
-#include <stdlib.h>
-#endif
+#include "precompiled.h"
 #include "declarations.h"
 using namespace std;
+
+bool timerDone = false;
+bool stop = false;
+bool keyDPressed = false;
+bool keyOPressed = false;
+bool keyD2Pressed = false;
+bool keyGPressed = false;
+bool keyEPressed = false;
 
 void Guard::airlock()
 {
@@ -29,7 +25,7 @@ void Guard::airlock()
 
 	do {
 
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "s")
 		{
 			Guard::guardFight(); //Towards guard fight
@@ -47,6 +43,10 @@ void Guard::airlock()
 			cout << "picked up space suit" << endl;
 			invPlayer[3] = " Space Suit";
 			airlockInv = "";
+		}
+		else
+		{
+			cout << "You already picked up a space suit" << endl;
 		}
 		Global::actions();
 
@@ -68,7 +68,7 @@ void Guard::guardFight()
 	system("pause");
 	do
 	{
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "n")
 		{
 			Guard::airlock();
@@ -84,6 +84,13 @@ void Guard::guardFight()
 		if (input == "examine guard")
 		{
 			Guard::examineGuardOne();
+		}
+		if (input == "s")
+		{
+			print("You walk towards the guard who becomes very confused and tells you to stop."); 
+			P_ "You ignore him and continue walking straight into him. The guard raises his gun and fires at you" T_
+
+			Guard::walkedIntoGuard();
 		}
 		Global::actions();
 
@@ -114,55 +121,32 @@ void Guard::examineGuardOne()
 
 void Guard::corridorImpossible()
 {
-	long long int secondsUntilGuardEat = 5; //The long long means the number can be a 64 bit integer. Basically a big number
-	unsigned char pressedKey = NULL; //Unsigned char is used when dealing with numbers. unsigned is for -255 to 255
-	long long int seconds_from_1970 = time(NULL); //this makes the time work.
+	print_slow("Corridor.", 30);
+	print_slow("You walk down the corridor and at the end you find another corridor with a door at the end. In front of the door is a guard.", 15);
 
-	while (true)
+	do
 	{
-		if (_kbhit()) //kbhit will not wait for an input from the user before running the rest of the program
+		end(); cout << ">>"; getline(cin, input);
+		if (input == "examine guard")
 		{
-			pressedKey = _getch(); //getchar is getline but only a character
-			break;
+			Guard::examineImpossible();
 		}
-		if (seconds_from_1970 + secondsUntilGuardEat <= time(NULL))break;
-		system("cls"); //Clears screen 
+		if (input == "attack guard")
+		{
+			Guard::attackImpossible();
+		}
+		if (input == "w")
+		{
+			cout << "You try to run away but the guard has 1 billion speed and easily catches up with you." << endl;
+			Sleep(500);
 
-		print_slow("Corridor.", 30);
-		print_slow("You walk down the corridor and at the end you find another corridor with a guard blocking it.", 15);
-		print_slow("'1' to attack the guard", 30);
-		print_slow("'2' to examine the guard", 30);
-		print_slow("'3' to go west", 30);
-		print_slow("If you do nothing the guard attack you", 15);
+			cout << "The guard runs up and eats you. You died." << endl;
+			Global::gameOver();
+		}
+		Global::actions();
 
-		cout << "The guard sees you and charges. You have " << seconds_from_1970 + secondsUntilGuardEat - time(NULL) << " seconds until the guard reaches you" << endl;
-		Sleep(1000);
-	}
-	system("cls"); //Clears screen
-	switch (pressedKey)
-	{
-	case '1':
-		Guard::attackImpossible();
-
-	case '2':
-
-		Guard::examineImpossible();
-
-	case '3':
-
-		cout << "You try to run away but the guard has 1 billion speed and easily catches up with you." << endl;
-		Sleep(500);
-
-		cout << "The guard runs up and eats you. You died." << endl;
-
-		Global::gameOver();
-
-	default:
-
-		cout << "You took to long. The guard ran up and ate your face off." << endl;
-		Global::gameOver();
-
-	}
+		not_equal("examine guard", "attack guard", "w", "");
+	} while (input != "examine guard" && input != "w" && input != "attack guard");
 }
 
 void Guard::examineImpossible()
@@ -189,7 +173,7 @@ void Guard::examineImpossible()
 	guard.showVariables("speed");
 	end();
 
-	getline(cin, input);
+	end(); cout << ">>"; getline(cin, input);
 	Guard::corridorImpossible();
 }
 
@@ -198,7 +182,7 @@ void Guard::attackImpossible()
 	cout << "Choose a weapon to attack the guard with" << endl;
 	do
 	{
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "gun")
 		{
 			end();
@@ -232,14 +216,12 @@ void Guard::attackEasy()
 	cout << "What do you want to attack the guard with" << endl;
 	do
 	{
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "gun")
 		{
 			end();
-			srand(time(NULL));
-
-			int random = ((rand() % 5) + 1);
-			int finalDamage = player.damage + gunBonus + random - guard.easyReturnDefense();
+			
+			int finalDamage = player.damage + gunBonus + Global::extraDamage(); - guard.easyReturnDefense();
 			guard.minusVariables("health", finalDamage);
 
 			cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
@@ -248,9 +230,36 @@ void Guard::attackEasy()
 			guard.showVariables("health");
 			cout << " health left" << endl;
 
-			getline(cin, input);
-			Guard::guardAttacks();
-
+			thread one(Guard::guardAttacks);
+			while (timerDone != true)
+			{
+				SHORT keyD = GetKeyState('D');
+				SHORT keyO = GetKeyState('O');
+				SHORT keyD2 = GetKeyState('D');
+				SHORT keyG = GetKeyState('G');
+				SHORT keyE = GetKeyState('E');
+				if (keyD & 0x8000)
+				{
+					keyDPressed = true;
+				}
+				if (keyO & 0x8000)
+				{
+					keyOPressed = true;
+				}
+				if (keyD2 & 0x8000)
+				{
+					keyD2Pressed = true;
+				}
+				if (keyG & 0x8000)
+				{
+					keyGPressed = true;
+				}
+				if (keyE & 0x8000)
+				{
+					keyEPressed = true;
+				}
+			}
+			one.join();
 		}
 		if (input == "fist")
 		{
@@ -266,7 +275,36 @@ void Guard::attackEasy()
 			guard.showVariables("health");
 			cout << " health left" << endl;
 
-			getline(cin, input);
+			thread one(Guard::guardAttacks);
+			while (timerDone != true)
+			{
+				SHORT keyD = GetKeyState('D');
+				SHORT keyO = GetKeyState('O');
+				SHORT keyD2 = GetKeyState('D');
+				SHORT keyG = GetKeyState('G');
+				SHORT keyE = GetKeyState('E');
+				if (keyD & 0x8000)
+				{
+					keyDPressed = true;
+				}
+				if (keyO & 0x8000)
+				{
+					keyOPressed = true;
+				}
+				if (keyD2 & 0x8000)
+				{
+					keyD2Pressed = true;
+				}
+				if (keyG & 0x8000)
+				{
+					keyGPressed = true;
+				}
+				if (keyE & 0x8000)
+				{
+					keyEPressed = true;
+				}
+			}
+			one.join();
 			Guard::guardAttacks();
 		}
 		Global::actions();
@@ -294,8 +332,6 @@ void Guard::guardAttacks()
 	LONGLONG countdownStartTime = 30000000; // 100 Nano seconds
 	LONGLONG displayedNumber = 4; // Prevent 31 to be displayed
 
-
-
 	// Game loop
 	while (true)
 	{
@@ -304,13 +340,7 @@ void Guard::guardAttacks()
 		currentTime.HighPart = ft.dwHighDateTime;
 
 		//// Read Input ////
-		bool dodge = false;
 
-		SHORT key = GetKeyState('1');
-		if (key & 0x8000)
-		{
-			dodge = true;
-		}
 
 		//// Game Logic ////
 		LONGLONG elapsedTime = currentTime.QuadPart - initialTime.QuadPart;
@@ -323,9 +353,10 @@ void Guard::guardAttacks()
 			cout << "You took too long, the guard's shot hit you." << endl;
 			Guard::failDodge();
 
+			timerDone = true;
 			break;
 		}
-		if (dodge)
+		if (keyDPressed == true && keyOPressed == true && keyD2Pressed == true && keyGPressed == true && keyEPressed == true)
 		{
 			system("cls");
 
@@ -351,21 +382,32 @@ void Guard::guardAttacks()
 				break;
 			}
 		}
-
-		//// Render ////
 		LONGLONG currentNumber_s = currentNumber_100ns / 10000000 + 1;
-		if (currentNumber_s != displayedNumber)
+		system("cls");
+
+		cout << "You have " << currentNumber_s << " seconds to dodge the guard's shot" << endl;
+		displayedNumber = currentNumber_s;
+		if (keyDPressed == true)
 		{
-			system("cls");
-
-			cout << "The guard shoots at you." << endl;
-			cout << "'1' To dodge the guards shot" << endl;
-
-			end();
-
-			cout << "You have " << currentNumber_s << " seconds to dodge the guard's shot" << endl;
-			displayedNumber = currentNumber_s;
+			cout << "d";
 		}
+		if (keyOPressed == true)
+		{
+			cout << "o";
+		}
+		if (keyD2Pressed == true)
+		{
+			cout << "d";
+		}
+		if (keyGPressed == true)
+		{
+			cout << "g";
+		}
+		if (keyEPressed == true)
+		{
+			cout << "e";
+		}
+		Sleep(70);
 	}
 	end();
 	system("pause");
@@ -416,7 +458,7 @@ void Guard::damageGuard()
 		guard.showVariables("health");
 		cout << " health left" << endl;
 
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "attack guard")
 		{
 			guard.minusVariables("health", finalDamage);
@@ -430,4 +472,9 @@ void Guard::damageGuard()
 
 	cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
 	end();
+}
+
+void Guard::walkedIntoGuard()
+{
+
 }
