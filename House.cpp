@@ -1,16 +1,4 @@
-#include <string>
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include <Windows.h>
-#include <conio.h>
-#include <ctime>
-#include <time.h>
-#ifdef __cplusplus__
-#include <cstdlib>
-#else
-#include <stdlib.h>
-#endif
+#include "precompiled.h"
 #include "declarations.h"
 using namespace std;
 
@@ -19,7 +7,7 @@ void House::livingRoom()
 	print_slow(" Living Room. \n  You are in the middle of the living room, to the east is a floating couch.", 15);
 	print_slow(" To the north is the dining room", 15);
 	print_slow(" To the south is the backyard of the house", 15);
-	getline(cin, input);
+	end(); cout << ">>"; getline(cin, input);
 
 	House::action();
 }
@@ -33,7 +21,7 @@ void House::openPackage()
 
 	while (input != "s")
 	{
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "s")
 		{
 			House::livingRoom();
@@ -77,7 +65,7 @@ void House::packActions()
 {
 	do
 	{
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "pick up note" && dineRoomInv == "note")
 		{
 			invPlayer[1] = cyb1;
@@ -109,7 +97,7 @@ void House::dineRoomHouse()
 	cout << " Dining room.\n You go to the dining table and see a package" << endl;
 	do
 	{
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "open package")
 		{
 			House::openPackage();
