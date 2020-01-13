@@ -1,16 +1,4 @@
-#include <string>
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include <Windows.h>
-#include <conio.h>
-#include <ctime>
-#include <time.h>
-#ifdef __cplusplus__
-#include <cstdlib>
-#else
-#include <stdlib.h>
-#endif
+#include "precompiled.h"
 #include "declarations.h"
 using namespace std;
 
@@ -111,7 +99,8 @@ void DeadEndOne::eastHall()
 	print_slow_15(" It is a well lit corridor, the walls are glowing blue.");
 
 	do {
-		getline(cin, input);
+		cout << ">";
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "w")
 		{
 			Guard::airlock();
@@ -133,7 +122,7 @@ void DeadEndOne::eastHallCont()
 	print_slow(" Lmao this was just a dead end. Go back fool.", 15);
 
 	do {
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "w")
 		{
 			DeadEndOne::eastHall();
@@ -206,7 +195,8 @@ int main()
 {
 	system("color 3");
 
-	getline(cin, input);
+	cout << "Press enter to continue" << endl;
+	end(); getline(cin, input);
 
 	//This is to skip to certain functions for testing
 	if (input == "guard airlock")
@@ -272,6 +262,8 @@ int main()
 	Sleep(200);
 	print_slow(" What is your name rebel? \n(enter your name)", 15);
 	cin.ignore(0, '\n');
+	end();
+	cout << ">>";
 	getline(cin, name);
 	end();
 
@@ -308,7 +300,7 @@ int main()
 
 	do
 	{
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "s")
 		{
 			Barracks::oHouse();
@@ -332,18 +324,127 @@ int main()
 	} while (input != "n" && input != "s" && input != "w" && input != "e" && input != "use disc" && input != "attack guard");
 }
 
-/*
-do
+/* This is the actual timer
+srand(time(NULL));
+int randomIfDodged = ((rand() % 4) + 1);
+
+// Initialization
+ULARGE_INTEGER initialTime;
+ULARGE_INTEGER currentTime;
+FILETIME ft;
+GetSystemTimeAsFileTime(&ft);
+initialTime.LowPart = ft.dwLowDateTime;
+initialTime.HighPart = ft.dwHighDateTime;
+LONGLONG countdownStartTime = 100000000; // 100 Nano seconds
+LONGLONG displayedNumber = 11; // Prevent 31 to be displayed
+
+// Game loop
+while (true)
 {
-	if (input == "")
+	GetSystemTimeAsFileTime(&ft); // 100 nano seconds
+	currentTime.LowPart = ft.dwLowDateTime;
+	currentTime.HighPart = ft.dwHighDateTime;
+
+	//// Read Input ////
+
+
+	//// Game Logic ////
+	LONGLONG elapsedTime = currentTime.QuadPart - initialTime.QuadPart;
+	LONGLONG currentNumber_100ns = countdownStartTime - elapsedTime;
+
+	if (currentNumber_100ns <= 0)
 	{
+		system("cls");
 
+		cout << "" << endl;
+
+		timerDone = true;
+		break;
 	}
-	Global::actions();
+	if (keyDPressed == true && keyOPressed == true && keyD2Pressed == true && keyGPressed == true && keyEPressed == true)
+	{
+		system("cls");
 
-	not_equal("", "", "", "");
+		if (randomIfDodged <= 2)
+		{
+			wcout << "" << endl;
+			end();
 
-} while (input != "" && input != "" && input != "" && input != "");
+			print("");
+			cout << "" << endl;
+
+			break;
+		}
+		else
+		{
+			cout << "" << endl;
+
+			break;
+		}
+	}
+
+
+	LONGLONG currentNumber_s = currentNumber_100ns / 10000000 + 1;
+	system("cls");
+
+	cout << "You have " << currentNumber_s << " " << endl;
+	displayedNumber = currentNumber_s;
+	if (keyDPressed == true)
+	{
+		cout << "d";
+	}
+	if (keyOPressed == true)
+	{
+		cout << "o";
+	}
+	if (keyD2Pressed == true)
+	{
+		cout << "d";
+	}
+	if (keyGPressed == true)
+	{
+		cout << "g";
+	}
+	if (keyEPressed == true)
+	{
+		cout << "e";
+	}
+	Sleep(70);
+}
+end();
+system("pause");
+
+//Put this in the function that you are calling the timer function
+			thread one(Guard::guardAttacks);
+			while (timerDone != true)
+			{
+				SHORT keyD = GetKeyState('D');
+				SHORT keyO = GetKeyState('O');
+				SHORT keyD2 = GetKeyState('D');
+				SHORT keyG = GetKeyState('G');
+				SHORT keyE = GetKeyState('E');
+				if (keyD & 0x8000)
+				{
+					keyDPressed = true;
+				}
+				if (keyO & 0x8000)
+				{
+					keyOPressed = true;
+				}
+				if (keyD2 & 0x8000)
+				{
+					keyD2Pressed = true;
+				}
+				if (keyG & 0x8000)
+				{
+					keyGPressed = true;
+				}
+				if (keyE & 0x8000)
+				{
+					keyEPressed = true;
+				}
+			}
+			one.join();
 */
 
 

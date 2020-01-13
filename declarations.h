@@ -1,8 +1,7 @@
 #pragma once
-#include <string>
-#include <iostream>
+#include "precompiled.h"
 #define P_ print(
-#define E_ );
+#define T_ );
 #define IF_(x, y) if (input == x) {y}
 #define SP_ cout << endl;
 
@@ -32,6 +31,13 @@ extern string invPlayer[10];
 
 extern const unsigned short int gunBonus;
 extern bool colour;
+extern bool timerDone;
+extern bool stop;
+extern bool keyDPressed;
+extern bool keyOPressed;
+extern bool keyD2Pressed;
+extern bool keyGPressed;
+extern bool keyEPressed;
 
 void print_room_1(string, string);
 void print_room_2(string, string, string);
@@ -100,6 +106,7 @@ namespace Guard
 	void guardAttacks();
 	void damageGuard();
 	void failDodge();
+	void walkedIntoGuard();
 }
 
 namespace DeadEndOne
