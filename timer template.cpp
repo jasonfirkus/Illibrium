@@ -20,7 +20,6 @@ bool keyEPressed = false;
 
 void timer()
 {
-	// Initialization
 	ULARGE_INTEGER initialTime;
 	ULARGE_INTEGER currentTime;
 	FILETIME ft;
@@ -30,7 +29,6 @@ void timer()
 	LONGLONG countdownStartTime = 100000000; // Add 6 zeroes to however long you want the timer to run
 	LONGLONG displayedNumber = 11; //This is the the number above +1 without the zeroes
 
-	// Game loop
 	while (true)
 	{
 		GetSystemTimeAsFileTime(&ft);
@@ -91,7 +89,7 @@ void timer()
 
 int main()
 {
-	thread one(timer);
+	thread one(timer);  //Start separate thread with function timer
 	while (timerDone != true)
 	{
 		SHORT keyD = GetKeyState('D');
@@ -99,7 +97,8 @@ int main()
 		SHORT keyD2 = GetKeyState('D');
 		SHORT keyG = GetKeyState('G');
 		SHORT keyE = GetKeyState('E');
-		if (keyD & 0x8000) //To see if the user types dodge
+		//To see if the user types dodge
+		if (keyD & 0x8000) 
 		{
 			keyDPressed = true;
 		}
