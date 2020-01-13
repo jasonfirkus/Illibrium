@@ -1,23 +1,11 @@
-#include <string>
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include <Windows.h>
-#include <conio.h>
-#include <ctime>
-#include <time.h>
-#ifdef __cplusplus__
-#include <cstdlib>
-#else
-#include <stdlib.h>
-#endif
+#include "precompiled.h"
 #include "declarations.h"
 using namespace std;
 
 void Barracks::oActions()
 {
 	do {
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "s")
 		{
 			cout << " You walked into the bubble and were instantly vaporized. Your bones were turned into air molecules which floated away into space" << endl;
@@ -67,7 +55,7 @@ void Barracks::westHall()
 	print_slow_15(" To go back go east");
 
 	do {
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "s")
 		{
 			Barracks::westHall2();
@@ -95,7 +83,7 @@ void Barracks::westHall2()
 
 	print_slow_15(" To the north is the exit.");
 	do {
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "n")
 		{
 			Barracks::westHall();
@@ -124,7 +112,7 @@ void Barracks::barracks()
 		cout << " You already took the gun" << endl;
 	}
 	do {
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		if (input == "pick up gun" && barracksinv == "gun")
 		{
 			cout << "picked up gun" << endl;
