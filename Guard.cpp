@@ -22,7 +22,6 @@ void Guard::airlock()
 	{
 		cout << " You already took a space suit" << endl;
 	}
-
 	do {
 
 		end(); cout << ">>"; getline(cin, input);
@@ -437,9 +436,6 @@ void Guard::failDodge()
 	player.damage = 10;
 	player.health = 40;
 	player.defense = 10;
-
-
-
 }
 
 void Guard::damageGuard()
@@ -476,5 +472,18 @@ void Guard::damageGuard()
 
 void Guard::walkedIntoGuard()
 {
+	GuardEasy guard;
+	Player player;
 
+	int finalDamageGuard = guard.easyReturnDamage() - player.defense;
+	player.health = player.health - finalDamageGuard;
+
+	end();
+	cout << "The guard's shot hits you in the chest. It does " << finalDamageGuard << " damage." << endl;
+
+	end();
+	Guard::damageGuard();
+
+	print("The guard attacks back. He shoots at you");
+	Guard::guardAttacks();
 }
