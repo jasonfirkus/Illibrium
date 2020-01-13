@@ -1,16 +1,4 @@
-#include <string>
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include <Windows.h>
-#include <conio.h>
-#include <ctime>
-#include <time.h>
-#ifdef __cplusplus__
-#include <cstdlib>
-#else
-#include <stdlib.h>
-#endif
+#include "precompiled.h"
 #include "declarations.h"
 using namespace std;
 
@@ -33,7 +21,7 @@ void Hanger::landingBay()
 
 	do
 	{
-		getline(cin, input);
+		end(); cout << ">>"; getline(cin, input);
 		SP_
 		if (input == "get on first ship")
 		{
@@ -100,8 +88,7 @@ void Hanger::ifStealthy()
 }
 
 void Hanger::gShipAttacks()
-{
-	
+{	
 	int finalDamageGuard = GuardShip::easyReturnDamage() - Player::defense + Global::extraDamage();
 	Player::health = Player::health - finalDamageGuard;
 
@@ -124,5 +111,5 @@ void Hanger::playerAttacks()
 	GuardShip::showVariables("health");
 	cout << " health left" << endl;
 
-	getline(cin, input);
+	end(); cout << ">>"; getline(cin, input);
 }
