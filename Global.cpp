@@ -1,18 +1,8 @@
-#include <string>
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include <Windows.h>
-#include <conio.h>
-#include <ctime>
-#include <time.h>
-#ifdef __cplusplus__
-#include <cstdlib>
-#else
-#include <stdlib.h>
-#endif
+#include "precompiled.h"
 #include "declarations.h"
 using namespace std;
+
+
 
 int Global::extraDamage()
 {
