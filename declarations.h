@@ -4,6 +4,8 @@
 #define T_ );
 #define IF_(x, y) if (input == x) {y}
 #define SP_ cout << endl;
+#define CLS system("cls");
+#define WAIT system("pause");
 
 using namespace std;
 
@@ -39,6 +41,8 @@ extern bool keyD2Pressed;
 extern bool keyGPressed;
 extern bool keyEPressed;
 
+void refresh();
+void seconds();
 void print_room_1(string, string);
 void print_room_2(string, string, string);
 void print_room_3(string, string, string, string);
@@ -50,6 +54,12 @@ void print_slow(const string&, unsigned int);
 void print_slow_no_space(const string&, unsigned int);
 void print_slow_15(const string&);
 void print(string);
+
+namespace Timer
+{
+	void hangerGuard();
+}
+
 
 namespace Hanger
 {
