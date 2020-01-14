@@ -15,6 +15,8 @@ bool keyA3_Pressed = false;
 bool keyR_Pressed = false;
 bool keyD_Pressed = false;
 
+bool timerHangerDone = false;
+
 
 void Hanger::landingBay()
 {
@@ -96,8 +98,74 @@ void Hanger::ifStealthy()
 	else
 	{
 		print(" You weren't sneaky enough.\n The guard heard a sound coming from the boxes and he starts walking over to them.");
+		SP_
 		system("pause");
-		Global::timer(30000000, 4, ranOutOfTime, pressedButton, options, timeDesc, Hanger::gShipAttacks, Hanger::playerAttacks);
+		SP_
+		thread one(Timer::hangerGuard);
+		while (timerHangerDone != true)
+		{
+			SHORT keyA = GetKeyState('A');
+			SHORT keyT = GetKeyState('T');
+			SHORT keyT2 = GetKeyState('T');
+			SHORT keyA2 = GetKeyState('A');
+			SHORT keyC = GetKeyState('C');
+			SHORT keyK = GetKeyState('K');
+			SHORT keySpace = GetKeyState(VK_SPACE);
+			SHORT keyG = GetKeyState('G');
+			SHORT keyU = GetKeyState('U');
+			SHORT keyA3 = GetKeyState('A');
+			SHORT keyR = GetKeyState('R');
+			SHORT keyD = GetKeyState('D');
+			if (keyA & 0x8000)
+			{
+				keyA_Pressed = true;
+			}
+			if (keyT & 0x8000)
+			{
+				keyT_Pressed = true;
+			}
+			if (keyT2 & 0x8000)
+			{
+				keyT2_Pressed = true;
+			}
+			if (keyA2 & 0x8000)
+			{
+				keyA2_Pressed = true;
+			}
+			if (keyC & 0x8000)
+			{
+				keyC_Pressed = true;
+			}
+			if (keyK & 0x8000)
+			{
+				keyK_Pressed = true;
+			}
+			if (keySpace & 0x8000)
+			{
+				keySpace_Pressed = true;
+			}
+			if (keyG & 0x8000)
+			{
+				keyG_Pressed = true;
+			}
+			if (keyU & 0x8000)
+			{
+				keyU_Pressed = true;
+			}
+			if (keyA3 & 0x8000)
+			{
+				keyA3_Pressed = true;
+			}
+			if (keyR & 0x8000)
+			{
+				keyR_Pressed = true;
+			}
+			if (keyD & 0x8000)
+			{
+				keyD_Pressed = true;
+			}
+		}
+		one.join();
 	}
 }
 
@@ -146,9 +214,6 @@ void Timer::hangerGuard()
 		currentTime.LowPart = ft.dwLowDateTime;
 		currentTime.HighPart = ft.dwHighDateTime;
 
-		//// Read Input ////
-
-
 		//// Game Logic ////
 		LONGLONG elapsedTime = currentTime.QuadPart - initialTime.QuadPart;
 		LONGLONG currentNumber_100ns = countdownStartTime - elapsedTime;
@@ -159,7 +224,7 @@ void Timer::hangerGuard()
 
 			P_ "You didn't attack the guard in time." T_
 
-			timerDone = true;
+			timerHangerDone = true;
 			break;
 		}
 		if (keyA_Pressed == true && keyT_Pressed == true && keyT2_Pressed == true && keyA2_Pressed == true 
@@ -167,64 +232,75 @@ void Timer::hangerGuard()
 		&& keyU_Pressed == true && keyA3_Pressed == true && keyR_Pressed == true && keyD_Pressed == true)
 		{
 			system("cls");
-			P_ "Jump out of cover and blast the guard at point-blank range." T_
+			P_ "You jump out of cover and blast the guard at point-blank range." T_
 			SP_
 
 			break;
-			
 		}
 		LONGLONG currentNumber_s = currentNumber_100ns / 10000000 + 1;
-		system("cls");
-
+		CLS
 		cout << "You have " << currentNumber_s << " seconds until the guard reaches you." << endl;
 		displayedNumber = currentNumber_s;
+
 		if (keyA_Pressed == true)
-		{
+		{ //You cannnot fix the multiple typing do to the screen refreshing maybe if s
 			cout << "a";
+			
 		}
 		if (keyT_Pressed == true)
 		{
 			cout << "t";
+			
 		}
 		if (keyT2_Pressed == true)
 		{
 			cout << "t";
+			
 		}
-		if (keyA_Pressed == true)
+		if (keyA2_Pressed == true)
 		{
 			cout << "a";
+			
 		}
 		if (keyC_Pressed == true)
 		{
 			cout << "c";
+			
 		}
 		if (keyK_Pressed == true)
 		{
 			cout << "k";
+			
 		}
 		if (keySpace_Pressed == true)
 		{
 			cout << " ";
+			
 		}
 		if (keyG_Pressed == true)
 		{
 			cout << "g";
+			
 		}
 		if (keyU_Pressed == true)
 		{
 			cout << "u";
+			
 		}
-		if (keyA_Pressed == true)
+		if (keyA3_Pressed == true)
 		{
 			cout << "a";
+			
 		}
 		if (keyR_Pressed == true)
 		{
 			cout << "r";
+			
 		}
 		if (keyD_Pressed == true)
 		{
 			cout << "d";
+
 		}
 		Sleep(70);
 	}
@@ -232,7 +308,7 @@ void Timer::hangerGuard()
 	system("pause");
 
 	//Put this in the function that you are calling the timer function
-	thread one(Guard::guardAttacks);
+	/*thread one(Timer::hangerGuard);
 	while (timerDone != true)
 	{
 		SHORT keyA = GetKeyState('A');
@@ -296,5 +372,39 @@ void Timer::hangerGuard()
 			keyEPressed = true;
 		}
 	}
-	one.join();
+	one.join();*/
+}
+
+void refresh()
+{
+	while (timerHangerDone != true)
+	{
+		CLS
+		Sleep(70);
+	}
+}
+
+void seconds()
+{
+	ULARGE_INTEGER initialTime;
+	ULARGE_INTEGER currentTime;
+	FILETIME ft;
+	GetSystemTimeAsFileTime(&ft);
+	initialTime.LowPart = ft.dwLowDateTime;
+	initialTime.HighPart = ft.dwHighDateTime;
+	LONGLONG countdownStartTime = 100000000; // 100 Nano seconds
+	LONGLONG displayedNumber = 11; // Prevent 31 to be displayed
+
+	GetSystemTimeAsFileTime(&ft); // 100 nano seconds
+	currentTime.LowPart = ft.dwLowDateTime;
+	currentTime.HighPart = ft.dwHighDateTime;
+
+		//// Game Logic ////
+	LONGLONG elapsedTime = currentTime.QuadPart - initialTime.QuadPart;
+	LONGLONG currentNumber_100ns = countdownStartTime - elapsedTime;
+	LONGLONG currentNumber_s = currentNumber_100ns / 10000000 + 1;
+
+	cout << "You have " << currentNumber_s << " seconds until the guard reaches you." << endl;
+	displayedNumber = currentNumber_s;
+	Sleep(70);
 }
