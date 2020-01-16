@@ -29,7 +29,7 @@ extern string dineRoomInv;
 extern string airlockInv;
 extern string input;
 extern string name;
-extern string invPlayer[10];
+extern string invPlayer[11];
 
 extern const unsigned short int gunBonus;
 extern bool colour;
@@ -81,6 +81,7 @@ namespace House
 	void dineRoomHouse();
 	void action();
 	void backstory();
+	void killPuppy();
 }
 
 namespace Global
