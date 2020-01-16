@@ -14,7 +14,7 @@ string input;
 string name = "Good luck, " + name;
 
 //Inventory Player
-string invPlayer[10] = {};
+string invPlayer[11] = {};
 
 //Using the gun when attacking bonus
 const unsigned short int gunBonus = 5;
@@ -99,7 +99,6 @@ void DeadEndOne::eastHall()
 	print_slow_15(" It is a well lit corridor, the walls are glowing blue.");
 
 	do {
-		cout << ">";
 		end(); cout << ">>"; getline(cin, input);
 		if (input == "w")
 		{
@@ -217,6 +216,7 @@ int main()
 	}
 	IF_("help", Global::help();)
 	IF_("hanger", Hanger::landingBay();)
+	IF_("pak", House::dineRoomHouse();)
 
 	print(" Please run this game in fullscreen for an optimal experience");
 	end();
