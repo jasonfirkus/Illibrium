@@ -17,7 +17,6 @@ void House::openPackage()
 	cout << " You open the package and find a black disc the size of a hockey puck and a note. It contains the first part of what seems to be a password." << endl;
 
 	House::packActions();
-	House::packActions();
 
 	while (input != "s")
 	{
@@ -89,12 +88,25 @@ void House::packActions()
 		{
 			Global::no();
 		}
-	} while (input != "pick up note" && input != "s" && input != "use disc");
+	} while (input != "s");
 }
 
 void House::dineRoomHouse()
 {
-	cout << " Dining room.\n You go to the dining table and see a package" << endl;
+	srand(time(NULL));
+	int rands = ((rand() % 3) + 1);
+	print_slow_15(" Dining room.\n You go to the dining table and see a package");
+	print_slow_no_space(" You see ", 30);
+	if (rands == 1)
+	{
+		print_slow_no_space("your golden brown puppie", 30);
+	}
+	if (rands == 2)
+	{
+		print_slow_no_space(" a golden brown puppie", 30);
+	}
+	print_slow_15(" sitting next to the table. This puppie's liver has special healing properties and will heal you if eaten.");
+
 	do
 	{
 		end(); cout << ">>"; getline(cin, input);
@@ -106,17 +118,35 @@ void House::dineRoomHouse()
 		{
 			House::livingRoom();
 		}
+		if (input == "attack puppie")
+		{
+			print("YOU ATTACKED THE INNOCENT CUTE LITTLE PUPPIE, HOW DARE YOU.");
+			P_ "You kill the puppie and it's liver falls onto the ground" T_
+			
+		}
 		if (input == "n" && input == "w" && input == "e")
 		{
 			cout << "That is a wall" << endl;
 		}
-		not_equal("open package", "use disc", "s", "pick up note");
-	} while (input != "open package" && input != "s");
+		not_equal("open package", "attack puppie", "s", "");
+		
+	} while (input != "s");
+}
+
+void House::killPuppy()
+{
+	while (input != "s")
+	{
+		getline(cin, input);
+		if (input == "take liver")
+		{
+			invPlayer[11] = "liver";
+		}
+	}
 }
 
 void House::action()
 {
-
 	if (input == "s")
 	{
 		Barracks::oHouse();
