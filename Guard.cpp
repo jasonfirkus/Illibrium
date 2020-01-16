@@ -12,6 +12,7 @@ bool keyEPressed = false;
 
 void Guard::airlock()
 {
+	CLS
 	print_slow_15(" Airlock.");
 	print_slow_15(" The airlock is a small white room. There are a couple space suits and an array of tools. ");
 	print_slow_15(" To the south is a corridor leaing to a bigger building");
@@ -86,10 +87,10 @@ void Guard::guardFight()
 		}
 		if (input == "s")
 		{
-			print("You walk towards the guard who becomes very confused and tells you to stop."); 
+			print("You walk towards the guard who becomes very confused and tells you to stop.");
 			P_ "You ignore him and continue walking straight into him. The guard raises his gun and fires at you" T_
 
-			Guard::walkedIntoGuard();
+				Guard::walkedIntoGuard();
 		}
 		Global::actions();
 
@@ -219,8 +220,8 @@ void Guard::attackEasy()
 		if (input == "gun")
 		{
 			end();
-			
-			int finalDamage = player.damage + gunBonus + Global::extraDamage(); - guard.easyReturnDefense();
+
+			int finalDamage = player.damage + gunBonus + Global::extraDamage(); -guard.easyReturnDefense();
 			guard.minusVariables("health", finalDamage);
 
 			cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
