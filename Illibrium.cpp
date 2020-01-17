@@ -22,6 +22,18 @@ const unsigned short int gunBonus = 5;
 //For colouring
 bool colour = true;
 
+void ifs(function_identifier one, function_identifier two, function_identifier three, function_identifier four)
+{
+	SP_
+		do
+		{
+
+		}
+	getline(cin, input);
+
+
+}
+
 void print_room_1(string title, string desc1)
 {
 	end();
