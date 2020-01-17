@@ -86,11 +86,6 @@ void Hanger::ifStealthy()
 	srand(time(NULL));
 	int yesno = ((rand() % 3) + 1);
 
-	string ranOutOfTime = " You didn't attack the guard in time.";
-	string pressedButton = " You attack the guard.";
-	string options = " '1' to attack the guard";
-	string timeDesc = " seconds until the guard reaches you.";
-
 	if (yesno == 1)
 	{
 		print(" You snuck past the guard!");
