@@ -22,18 +22,6 @@ const unsigned short int gunBonus = 5;
 //For colouring
 bool colour = true;
 
-void ifs(function_identifier one, function_identifier two, function_identifier three, function_identifier four)
-{
-	SP_
-		do
-		{
-
-		}
-	getline(cin, input);
-
-
-}
-
 void print_room_1(string title, string desc1)
 {
 	end();
@@ -227,10 +215,10 @@ int main()
 		Guard::guardAttacks();
 	}
 	IF_("help", Global::help();)
-	IF_("hanger", Hanger::landingBay();)
-	IF_("pak", House::dineRoomHouse();)
+		IF_("hanger", Hanger::landingBay();)
+		IF_("pak", House::dineRoomHouse();)
 
-	print(" Please run this game in fullscreen for an optimal experience");
+		print(" Please run this game in fullscreen for an optimal experience");
 	end();
 	system("pause");
 	end();
