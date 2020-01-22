@@ -35,30 +35,30 @@ void Hanger::landingBay()
 	WAIT
 	SP_
 
-		do
+	do
+	{
+		SP_ cout << ">>"; getline(cin, input);
+		SP_
+		if (input == "get on first ship")
 		{
-			SP_ cout << ">>"; getline(cin, input);
-			SP_
-			if (input == "get on first ship")
-			{
 				Hanger::firstShip();
-			}
-			if (input == "get on second ship")
-			{
-				Hanger::secondShip();
-			}
-			if (input == "get on third ship")
-			{
-				Hanger::thirdShip();
-			}
-			if (input == "get on fourth ship")
-			{
-				Hanger::firstShip();
-			}
-			Global::actions();
-			not_equal("get on first ship", "get on second ship", "get on third ship", "get on fourth ship");
+		}
+		if (input == "get on second ship")
+		{
+			Hanger::secondShip();
+		}
+		if (input == "get on third ship")
+		{
+			Hanger::thirdShip();
+		}
+		if (input == "get on fourth ship")
+		{
+			Hanger::firstShip();
+		}
+		Global::actions();
+		not_equal("get on first ship", "get on second ship", "get on third ship", "get on fourth ship");
 
-		} while (input != "get on first ship" && input != "get on second ship" && input != "get on third ship" && input != "get on fourth ship");
+	} while (input != "get on first ship" && input != "get on second ship" && input != "get on third ship" && input != "get on fourth ship");
 }
 
 void Hanger::firstShip()
@@ -86,6 +86,11 @@ void Hanger::ifStealthy()
 	srand(time(NULL));
 	int yesno = ((rand() % 3) + 1);
 
+	string ranOutOfTime = " You didn't attack the guard in time.";
+	string pressedButton = " You attack the guard.";
+	string options = " '1' to attack the guard";
+	string timeDesc = " seconds until the guard reaches you.";
+
 	if (yesno == 1)
 	{
 		print(" You snuck past the guard!");
@@ -96,7 +101,7 @@ void Hanger::ifStealthy()
 		SP_
 		system("pause");
 		SP_
-		thread one(Timer::hangerGuard);
+			thread one(Timer::hangerGuard);
 		while (timerHangerDone != true)
 		{
 			SHORT keyA = GetKeyState('A');
@@ -170,7 +175,7 @@ void Hanger::gShipAttacks()
 	Player::health = Player::health - finalDamageGuard;
 
 	SP_
-	cout << " The guard walks around the boxes and shoots you in the back. It does " << finalDamageGuard << " damage." << endl;
+		cout << " The guard walks around the boxes and shoots you in the back. It does " << finalDamageGuard << " damage." << endl;
 }
 
 void Hanger::playerAttacks()
@@ -222,9 +227,9 @@ void Timer::hangerGuard()
 			timerHangerDone = true;
 			break;
 		}
-		if (keyA_Pressed == true && keyT_Pressed == true && keyT2_Pressed == true && keyA2_Pressed == true 
-		&& keyC_Pressed == true && keyK_Pressed == true && keySpace_Pressed == true && keyG_Pressed == true 
-		&& keyU_Pressed == true && keyA3_Pressed == true && keyR_Pressed == true && keyD_Pressed == true)
+		if (keyA_Pressed == true && keyT_Pressed == true && keyT2_Pressed == true && keyA2_Pressed == true
+			&& keyC_Pressed == true && keyK_Pressed == true && keySpace_Pressed == true && keyG_Pressed == true
+			&& keyU_Pressed == true && keyA3_Pressed == true && keyR_Pressed == true && keyD_Pressed == true)
 		{
 			system("cls");
 			P_ "You jump out of cover and blast the guard at point-blank range." T_
@@ -240,57 +245,47 @@ void Timer::hangerGuard()
 		if (keyA_Pressed == true)
 		{ //You cannnot fix the multiple typing do to the screen refreshing maybe if s
 			cout << "a";
-			
 		}
 		if (keyT_Pressed == true)
 		{
 			cout << "t";
-			
 		}
 		if (keyT2_Pressed == true)
 		{
 			cout << "t";
-			
 		}
 		if (keyA2_Pressed == true)
 		{
 			cout << "a";
-			
 		}
 		if (keyC_Pressed == true)
 		{
 			cout << "c";
-			
 		}
 		if (keyK_Pressed == true)
 		{
 			cout << "k";
-			
 		}
 		if (keySpace_Pressed == true)
 		{
 			cout << " ";
-			
 		}
 		if (keyG_Pressed == true)
 		{
 			cout << "g";
-			
 		}
 		if (keyU_Pressed == true)
 		{
 			cout << "u";
-			
 		}
 		if (keyA3_Pressed == true)
 		{
 			cout << "a";
-			
 		}
 		if (keyR_Pressed == true)
 		{
 			cout << "r";
-			
+
 		}
 		if (keyD_Pressed == true)
 		{
@@ -300,7 +295,7 @@ void Timer::hangerGuard()
 		Sleep(70);
 	}
 	SP_
-	system("pause");
+		system("pause");
 
 	//Put this in the function that you are calling the timer function
 	/*thread one(Timer::hangerGuard);
@@ -391,10 +386,10 @@ void seconds()
 	LONGLONG displayedNumber = 11; // Prevent 31 to be displayed
 
 	GetSystemTimeAsFileTime(&ft); // 100 nano seconds
-	currentTime.LowPart = ft.dwLowDateTime;
+	currentTime.LowPart = ft.dwLowDateTime;  
 	currentTime.HighPart = ft.dwHighDateTime;
 
-		//// Game Logic ////
+	//// Game Logic ////
 	LONGLONG elapsedTime = currentTime.QuadPart - initialTime.QuadPart;
 	LONGLONG currentNumber_100ns = countdownStartTime - elapsedTime;
 	LONGLONG currentNumber_s = currentNumber_100ns / 10000000 + 1;
@@ -402,4 +397,4 @@ void seconds()
 	cout << "You have " << currentNumber_s << " seconds until the guard reaches you." << endl;
 	displayedNumber = currentNumber_s;
 	Sleep(70);
-}
+} 
