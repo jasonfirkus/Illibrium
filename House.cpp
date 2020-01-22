@@ -93,19 +93,19 @@ void House::packActions()
 
 void House::dineRoomHouse()
 {
-	srand(time(NULL));
-	int rands = ((rand() % 3) + 1);
+	srand(time(0));
+	int rands = ((rand() % 4) + 1);
 	print_slow_15(" Dining room.\n You go to the dining table and see a package");
 	print_slow_no_space(" You see ", 30);
-	if (rands == 1)
+	if (rands <= 2)   
 	{
-		print_slow_no_space("your golden brown puppie", 30);
+		print_slow_no_space("your golden brown puppy", 30);
 	}
-	if (rands == 2)
+	if (rands > 2)
 	{
-		print_slow_no_space(" a golden brown puppie", 30);
+		print_slow_no_space(" a golden brown puppy", 30);  
 	}
-	print_slow_15(" sitting next to the table. This puppie's liver has special healing properties and will heal you if eaten.");
+	print_slow_15(" sitting next to the table. This puppy's liver has special healing properties and will heal you if eaten.");
 
 	do
 	{
@@ -118,18 +118,18 @@ void House::dineRoomHouse()
 		{
 			House::livingRoom();
 		}
-		if (input == "attack puppie")
+		if (input == "attack puppy")
 		{
-			print("YOU ATTACKED THE INNOCENT CUTE LITTLE PUPPIE, HOW DARE YOU.");
-			P_ "You kill the puppie and it's liver falls onto the ground" T_
-			
+			print("YOU ATTACKED THE INNOCENT CUTE LITTLE puppy, HOW DARE YOU.");
+			P_ "You kill the puppy and it's liver falls onto the ground" T_
+
 		}
 		if (input == "n" && input == "w" && input == "e")
 		{
 			cout << "That is a wall" << endl;
 		}
-		not_equal("open package", "attack puppie", "s", "");
-		
+		not_equal("open package", "attack puppy", "s", "");
+
 	} while (input != "s");
 }
 
@@ -140,7 +140,7 @@ void House::killPuppy()
 		getline(cin, input);
 		if (input == "take liver")
 		{
-			invPlayer[11] = "liver";
+			invPlayer[10] = "liver";
 		}
 	}
 }
