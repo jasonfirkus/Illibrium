@@ -41,7 +41,6 @@ extern bool keyD2Pressed;
 extern bool keyGPressed;
 extern bool keyEPressed;
 
-void room_complete();
 void refresh();
 void seconds();
 void print_room_1(string, string);
