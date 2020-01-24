@@ -1,7 +1,5 @@
 #include "precompiled.h"
 #include "declarations.h"
-#include <Mmsystem.h>
-#include <mciapi.h>
 using namespace std;
 
 #pragma comment(lib, "Winmm.lib")
