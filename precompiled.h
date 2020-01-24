@@ -9,3 +9,5 @@
 #include <ctime>
 #include <time.h>
 #include <fstream>
+#include <Mmsystem.h>
+#include <mciapi.h>
