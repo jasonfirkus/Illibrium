@@ -94,6 +94,7 @@ namespace Global
 	void no();
 	void timer(int, int, string, string, string, string, function_identifier, function_identifier);
 	int extraDamage();
+	void menu();
 }
 
 namespace Barracks
