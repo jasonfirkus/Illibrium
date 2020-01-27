@@ -24,6 +24,13 @@ const unsigned short int gunBonus = 5;
 //For colouring
 bool colour = true;
 
+void center(string words)
+{
+	int console_width = 240;
+	int len = words.length();
+	cout << setw((console_width / 2) + len / 2) << right << words << endl;
+}
+
 void print_room_1(string title, string desc1)
 {
 	end();
@@ -196,20 +203,22 @@ int main()
 {
 	system("color 3");
 
-	mciSendString(TEXT("open \"undetale.mp3\" type mpegvideo alias undertale"), NULL, 0, NULL);
+	mciSendString(TEXT("open \"undertale.mp3\" type mpegvideo alias undertale"), NULL, 0, NULL);
 	mciSendString(TEXT("play undertale"), NULL, 0, NULL);
 
-	SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
-	cout << " ___       __   _______   ___       ________  ________  _____ ______   _______        _________  ________       ___  ___       ___       ___  ________  ________  ___  ___  ___  ______   ____" << endl;
-	cout << "|\\  \\     |\\  \\|\\  ___ \\ |\\  \\     |\\   ____\\|\\   __  \\|\\   _ \\  _   \\|\\  ___ \\      |\\___   ___|\\   __  \\     |\\  \\|\\  \\     |\\  \\     |\\  \\|\\   __  \\|\\   __  \\|\\  \\|\\  \\|\\  \\|\\   _ \\  \\\\  \\ " << endl;
-	cout << "\\ \\  \\    \\ \\  \\ \\   __/|\\ \\  \\    \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|     \\|___ \\  \\_\\ \\  \\|\\  \\    \\ \\  \\ \\  \\    \\ \\  \\    \\ \\  \\ \\  \\|\\ /\\ \\  \\|\\  \\ \\  \\ \\  \\\\\\  \\ \\  \\\\ \\__\\\\  \\" << endl;
-	cout << " \\ \\  \\  __\\ \\  \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\|__| \\  \\ \\  \\_|/__        \\ \\  \\ \\ \\  \\\\\\  \\    \\ \\  \\ \\  \\    \\ \\  \\    \\ \\  \\ \\   __  \\ \\   _  _\\ \\  \\ \\  \\\\\\  \\ \\  \\\\|__| \\  \\" << endl;
-	cout << "  \\ \\  \\|\\__\\_\\  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\\\\\  \\ \\  \\    \\ \\  \\ \\  \\_|\\ \\        \\ \\  \\ \\ \\  \\\\\\  \\    \\ \\  \\ \\  \\____\\ \\  \\____\\ \\  \\ \\  \\|\\  \\ \\  \\\\  \\\\ \\  \\ \\  \\\\\\  \\ \\  \\    \\ \\  \\" << endl;
-	cout << "   \\ \\____________\\ \\_______\\ \\_______\\ \\_______\\ \\_______\\ \\__\\    \\ \\__\\ \\_______\\        \\ \\__\\ \\ \\_______\\    \\ \\__\\ \\_______\\ \\_______\\ \\__\\ \\_______\\ \\__\\\\ _\\\\ \\__\\ \\_______\\ \\__\\    \\ \\__\\" << endl;
-	cout << "    \\|____________|\\|_______|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|_______|         \\|__|  \\|_______|     \\|__|\\|_______|\\|_______|\\|__|\\|_______|\\|__|\\|__|\\|__|\\|_______|\\|__|     \\|__|" << endl;
+
+	SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
+
+	cout << "                                                                       ___   ___        ___        ___   ________   ________   ___   ___  ___   _____ ______      " << endl;
+	cout << "                                                                      |\\  \\ |\\  \\      |\\  \\      |\\  \\ |\\   __  \\ |\\   __  \\ |\\  \\ |\\  \\|\\  \\ |\\   _ \\  _   \\    " << endl;
+	cout << "                                                                      \\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\  \\|\\ /_\\ \\  \\|\\  \\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\\\__\\ \\  \\   " << endl;
+	cout << "                                                                       \\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\   __  \\\\ \\   _  _\\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\|__| \\  \\  " << endl;
+	cout << "                                                                        \\ \\  \\\\ \\  \\____ \\ \\  \\____ \\ \\  \\\\ \\  \\|\\  \\\\ \\  \\\\  \\|\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\    \\ \\  \\ " << endl;
+	cout << "                                                                         \\ \\__\\\\ \\_______\\\\ \\_______\\\\ \\__\\\\ \\_______\\\\ \\__\\\\ _\\ \\ \\__\\\\ \\_______\\\\ \\__\\    \\ \\__\\" << endl;
+	cout << "                                                                          \\|__| \\|_______| \\|_______| \\|__| \\|_______| \\|__|\\|__| \\|__| \\|_______| \\|__|     \\|__|\n \n \n \n" << endl;
 #if VERSION == 1
-	SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
-	cout << "                                                                                      Press enter to continue ";
+	// SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
+	cout << "                                                                                                          Press enter to continue ";
 	getline(cin, input);
 	if (input == "guard airlock")
 	{
@@ -231,12 +240,12 @@ int main()
 	IF_("hanger", Hanger::landingBay();)
 	IF_("pak", House::dineRoomHouse();)
 #else
-	print_slow_15("Press space to continue");	
+	print_slow_15("Press space to continue");
 #endif
 
 	Global::menu();
 
-
+	CLS
 	Sleep(200);
 	print_slow(" You are in the year 2070 and an evil organization is plotting to take over the world and you must stop them.", 15);
 	end();
