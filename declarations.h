@@ -40,7 +40,9 @@ extern bool keyOPressed;
 extern bool keyD2Pressed;
 extern bool keyGPressed;
 extern bool keyEPressed;
+extern bool clicked;
 
+void center(string);
 void refresh();
 void seconds();
 void print_room_1(string, string);
@@ -86,6 +88,8 @@ namespace House
 
 namespace Global
 {
+	void buttons();
+	void setColour(WORD color);
 	void fullInvPlayer();
 	void stats();
 	void help();
