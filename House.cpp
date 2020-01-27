@@ -97,13 +97,13 @@ void House::dineRoomHouse()
 	int rands = ((rand() % 4) + 1);
 	print_slow_15(" Dining room.\n You go to the dining table and see a package");
 	print_slow_no_space(" You see ", 30);
-	if (rands <= 2)   
+	if (rands <= 2)
 	{
 		print_slow_no_space("your golden brown puppy", 30);
 	}
 	if (rands > 2)
 	{
-		print_slow_no_space(" a golden brown puppy", 30);  
+		print_slow_no_space(" a golden brown puppy", 30);
 	}
 	print_slow_15(" sitting next to the table. This puppy's liver has special healing properties and will heal you if eaten.");
 
