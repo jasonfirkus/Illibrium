@@ -5,6 +5,7 @@ using namespace std;
 bool clicked = false;
 bool colourPlay = false;
 bool done = false;
+bool colourRanOnce = false;
 
 void Global::setColour(WORD color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
@@ -15,10 +16,16 @@ void Global::buttons()
 {
 	while (done == false)
 	{
-		CLS
 		if (colourPlay == true)
 		{
+			CLS
 			setColour(14);
+			colourRanOnce = true;
+		}
+		if (colourPlay == false && colourRanOnce == true)
+		{
+			CLS
+			setColour(3);
 		}
 		SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
 		center("___________________________________________________");
@@ -58,6 +65,7 @@ void Global::buttons()
 		center("|                               \\|_________|                 |");
 		center("|____________________________________________________________|");
 		Sleep(100);
+		colourRanOnce = false;
 	}
 }
 
@@ -81,11 +89,17 @@ void Global::menu()
 		if (point.x < 1162 && point.x > 750 && point.y < 242 && point.y > 117 && clicked == true)
 		{
 			done = true;
-			colourPlay = true;
+			break;
+		}
+		if (point.x < 1162 && point.x > 750 && point.y < 242 && point.y > 117) 
+		{
+			//If user hovers over "play" button
+			colourPLay = true;
 			break;
 		}
 		if (point.x > 1162 && point.x < 750 && point.y > 242 && point.y < 117)
 		{
+			//If the cursor leavs the play button
 			colourPlay = false;
 		}
 		clicked = false;
