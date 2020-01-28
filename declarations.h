@@ -88,7 +88,7 @@ namespace House
 
 namespace Global
 {
-	void buttons();
+	void buttonPlayOffHover();
 	void setColour(WORD color);
 	void fullInvPlayer();
 	void stats();
@@ -99,6 +99,7 @@ namespace Global
 	void timer(int, int, string, string, string, string, function_identifier, function_identifier);
 	int extraDamage();
 	void menu();
+	void buttonPlayHover();
 }
 
 namespace Barracks
