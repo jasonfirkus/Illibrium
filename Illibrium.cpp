@@ -98,7 +98,7 @@ void not_equal(string notA, string notB, string notC, string notD)
 	}
 	if (!valid && input != "help" && input != "stats" && input != "i")
 	{
-		Global::no();
+		print("Nani? Doiu imidesu ka?");
 	}
 }
 
@@ -158,7 +158,7 @@ void print_slow(const string& message, unsigned int typeSpeed)
 			stop = true;
 		}
 	}
-	end();
+	SP_
 }
 
 void print_slow_no_space(const string& message, unsigned int typeSpeed)
@@ -202,10 +202,9 @@ void print_slow_15(const string& message)
 int main()
 {
 	system("color 3");
-
-	mciSendString(TEXT("open \"undertale.mp3\" type mpegvideo alias undertale"), NULL, 0, NULL);
+	thread xp(Global::xp);
+	mciSendString(TEXT("open \"undetale.mp3\" type mpegvideo alias undertale"), NULL, 0, NULL);
 	mciSendString(TEXT("play undertale"), NULL, 0, NULL);
-
 
 	SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
 
@@ -246,6 +245,9 @@ int main()
 	Global::menu();
 
 	CLS
+	WAIT
+	CLS
+
 	Sleep(200);
 	print_slow(" You are in the year 2070 and an evil organization is plotting to take over the world and you must stop them.", 15);
 	end();
