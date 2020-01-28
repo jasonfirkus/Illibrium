@@ -100,6 +100,7 @@ namespace Global
 	int extraDamage();
 	void menu();
 	void buttonPlayHover();
+	void button(int, int, int, int, function_identifier, function_identifier);
 }
 
 namespace Barracks
