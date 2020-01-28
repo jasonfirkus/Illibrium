@@ -17,20 +17,24 @@ bool keyD_Pressed = false;
 
 bool timerHangerDone = false;
 
+int finalDamageGuard = GuardShip::easyReturnDamage() - Player::defense + Global::extraDamage();
 
 void Hanger::landingBay()
 {
 	system("cls");
 	SP_
-
+											
 	print_slow(" Landing Bay", 30);
 	print_slow_15(" You walk down the corridor and come to the end. There is a doorway which you walk through into the shipping bay. It is massive.");
 	print_slow_15(" The ceiling is about 100 metres high and you see many workers preparing ships for takeoff and doing maintenance.");
 	print_slow_15(" There are four landing pads which each contain a ship. Each one has a guard protecting it. But you see some boxes that allow might allow you to sneak past then guard unoticed.");
+	print_slow_15("Or you can try to outright overpower the guard.");
+	SP_
 	print_slow_15(" The first ship has the least health of the bunch but has the most speed. It is blue with white highlights.");
 	print_slow_15(" The second ship has the most attack power out of the bunch but the least defense. It is black with golden highlights.");
 	print_slow_15(" The third ship has  the most defense but least attack power. It is green with black highlights.");
 	print_slow_15(" The fourth ship has the most health but least speed. It is silver and has black highlights.");
+
 	SP_
 	WAIT
 	SP_
@@ -41,7 +45,7 @@ void Hanger::landingBay()
 		SP_
 		if (input == "get on first ship")
 		{
-				Hanger::firstShip();
+			Hanger::firstShip();
 		}
 		if (input == "get on second ship")
 		{
@@ -53,32 +57,89 @@ void Hanger::landingBay()
 		}
 		if (input == "get on fourth ship")
 		{
-			Hanger::firstShip();
+			Hanger::fourthShip();
+		}
+		if (input == "sneak on first ship")
+		{
+			Hanger::ifStealthy();
+		}
+		if (input == "sneak on second ship")
+		{
+			Hanger::ifStealthy();
+		}
+		if (input == "sneak on third ship")
+		{
+			Hanger::ifStealthy();
+		}
+		if (input == "sneak on fourth ship")
+		{
+			Hanger::ifStealthy();
 		}
 		Global::actions();
-		not_equal("get on first ship", "get on second ship", "get on third ship", "get on fourth ship");
+		if (input != "get on first ship" && input != "get on second ship" && input != "get on third ship" && input != "get on fourth ship"
+		&& input != "sneak on first ship" && input != "sneak on second ship" && input != "sneak on third ship" && input != "sneak on fourth ship")
+		{
+			print("Nani? Doiu imidesu ka?");
+		}
 
-	} while (input != "get on first ship" && input != "get on second ship" && input != "get on third ship" && input != "get on fourth ship");
+	} while (input != "get on first ship" && input != "get on second ship" && input != "get on third ship" && input != "get on fourth ship" 
+	&& input != "sneak on first ship" && input != "sneak on second ship" && input != "sneak on third ship" && input != "sneak on fourth ship");
 }
 
 void Hanger::firstShip()
 {
-	Hanger::ifStealthy();
+	print("You get closer to the first ship and spot the guard");
+	do
+	{
+		getline(cin, input);
+		if (input == "attack guard")
+		{
+			Hanger::playerAttacks();
+		}
+		if (input == "n")
+		{
+			Hanger::landingBay();
+		}
+		Global::actions();
+		not_equal("n", "attack guard", "adadadadadadwd", "diajdoijawd");
+	} while (input != "attack guard" && input != "n");
+
+	Player::health = Player::health - finalDamageGuard;
+	cout << "The guard shoots back at you. It does" << finalDamageGuard << endl;
+
+	do
+	{
+		getline(cin, input);
+		if (input == "attack guard")
+		{
+			Hanger::playerAttacks();
+			print("You killed the guard");
+		}
+		if (input == "n")
+		{
+			Hanger::landingBay();
+		}
+		Global::actions();
+		not_equal("n", "attack guard", "adadadadadadwd", "diajdoijawd");
+	} while (input != "attack guard" && input != "n");
+
+
+
 }
 
 void Hanger::secondShip()
 {
-	Hanger::ifStealthy();
+	
 }
 
 void Hanger::thirdShip()
 {
-	Hanger::ifStealthy();
+	
 }
 
 void Hanger::fourthShip()
 {
-	Hanger::ifStealthy();
+	
 }
 
 void Hanger::ifStealthy()
@@ -93,15 +154,15 @@ void Hanger::ifStealthy()
 
 	if (yesno == 1)
 	{
-		print(" You snuck past the guard!");
+		print(" You snuck past the guard!");//////////
 	}
 	else
 	{
 		print(" You weren't sneaky enough.\n The guard heard a sound coming from the boxes and he starts walking over to them.");
 		SP_
-		system("pause");
+		WAIT
 		SP_
-			thread one(Timer::hangerGuard);
+		thread one(Timer::hangerGuard);
 		while (timerHangerDone != true)
 		{
 			SHORT keyA = GetKeyState('A');
@@ -169,15 +230,6 @@ void Hanger::ifStealthy()
 	}
 }
 
-void Hanger::gShipAttacks()
-{
-	int finalDamageGuard = GuardShip::easyReturnDamage() - Player::defense + Global::extraDamage();
-	Player::health = Player::health - finalDamageGuard;
-
-	SP_
-		cout << " The guard walks around the boxes and shoots you in the back. It does " << finalDamageGuard << " damage." << endl;
-}
-
 void Hanger::playerAttacks()
 {
 	SP_
@@ -193,7 +245,7 @@ void Hanger::playerAttacks()
 	GuardShip::showVariables("health");
 	cout << " health left" << endl;
 
-	SP_ cout << ">>"; getline(cin, input);
+
 }
 
 void Timer::hangerGuard()
@@ -204,10 +256,9 @@ void Timer::hangerGuard()
 	GetSystemTimeAsFileTime(&ft);
 	initialTime.LowPart = ft.dwLowDateTime;
 	initialTime.HighPart = ft.dwHighDateTime;
-	LONGLONG countdownStartTime = 100000000; // 100 Nano seconds
-	LONGLONG displayedNumber = 11; // Prevent 31 to be displayed
+	LONGLONG countdownStartTime = 20000000; // 100 Nano seconds
+	LONGLONG displayedNumber = 3; // Prevent 31 to be displayed
 
-	// Game loop
 	while (true)
 	{
 		GetSystemTimeAsFileTime(&ft); // 100 nano seconds
@@ -225,16 +276,21 @@ void Timer::hangerGuard()
 			P_ "You didn't attack the guard in time." T_
 
 			timerHangerDone = true;
+
+			Player::health = Player::health - finalDamageGuard;
+			SP_
+			cout << " The guard walks around the boxes and shoots you in the back. It does " << finalDamageGuard << " damage." << endl;
+
 			break;
 		}
 		if (keyA_Pressed == true && keyT_Pressed == true && keyT2_Pressed == true && keyA2_Pressed == true
 			&& keyC_Pressed == true && keyK_Pressed == true && keySpace_Pressed == true && keyG_Pressed == true
 			&& keyU_Pressed == true && keyA3_Pressed == true && keyR_Pressed == true && keyD_Pressed == true)
 		{
-			system("cls");
+			CLS
 			P_ "You jump out of cover and blast the guard at point-blank range." T_
 			SP_
-
+			
 			break;
 		}
 		LONGLONG currentNumber_s = currentNumber_100ns / 10000000 + 1;
@@ -370,7 +426,7 @@ void refresh()
 	while (timerHangerDone != true)
 	{
 		CLS
-		Sleep(70);
+			Sleep(70);
 	}
 }
 
@@ -386,7 +442,7 @@ void seconds()
 	LONGLONG displayedNumber = 11; // Prevent 31 to be displayed
 
 	GetSystemTimeAsFileTime(&ft); // 100 nano seconds
-	currentTime.LowPart = ft.dwLowDateTime;  
+	currentTime.LowPart = ft.dwLowDateTime;
 	currentTime.HighPart = ft.dwHighDateTime;
 
 	//// Game Logic ////
@@ -397,4 +453,4 @@ void seconds()
 	cout << "You have " << currentNumber_s << " seconds until the guard reaches you." << endl;
 	displayedNumber = currentNumber_s;
 	Sleep(70);
-} 
+}
