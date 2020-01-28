@@ -8,12 +8,25 @@ bool went = false;
 bool alreadyRan = false;
 bool alreadyRan2 = false;
 
+void Global::xp()
+{
+	while (1)
+	{
+		if (Player::xp == 100)
+		{
+			Player::damage = Player::damage + 8;
+			Player::defense = Player::defense + 8;
+			Player::health = Player::health + 30;
+		}
+	}
+}
+
 void Global::setColour(WORD color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 	return;
 }
 
-void Global::button(int x1, int x2, int y1, int y2, function identifier func1, function identifier func2)
+void Global::button(int x1, int x2, int y1, int y2, void_Func func1, void_Func func2)
 {
 	while (1)
 	{
@@ -35,7 +48,6 @@ void Global::button(int x1, int x2, int y1, int y2, function identifier func1, f
 		{
 			//If user hovers over "play" button
 			func1();
-
 		}
 		if (point.x > x1 || point.x < x2 && point.y > y1 || point.y < y2 && went == true)
 		{
@@ -210,7 +222,7 @@ int Global::extraDamage()
 	return random;
 }
 
-void Global::timer(int time1, int time2, string desc1, string desc2, string desc3, string desc4, function_identifier func1, function_identifier func2)
+void Global::timer(int time1, int time2, string desc1, string desc2, string desc3, string desc4, void_Func func1, void_Func func2)
 {
 	ULARGE_INTEGER initialTime;
 	ULARGE_INTEGER currentTime;
