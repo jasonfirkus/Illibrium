@@ -13,7 +13,7 @@ bool keyEPressed = false;
 void Guard::airlock()
 {
 	CLS
-		print_slow_15(" Airlock.");
+	print_slow_15(" Airlock.");
 	print_slow_15(" The airlock is a small white room. There are a couple space suits and an array of tools. ");
 	print_slow_15(" To the south is a corridor leaing to a bigger building");
 	print_slow_15(" To the east is another corridor which goes to a small building.");
@@ -322,6 +322,7 @@ void Guard::guardAttacks()
 	srand(time(NULL));
 	int randomIfDodged = ((rand() % 4) + 1);
 
+	// Initialization
 	ULARGE_INTEGER initialTime;
 	ULARGE_INTEGER currentTime;
 	FILETIME ft;
@@ -336,6 +337,7 @@ void Guard::guardAttacks()
 		GetSystemTimeAsFileTime(&ft); // 100 nano seconds
 		currentTime.LowPart = ft.dwLowDateTime;
 		currentTime.HighPart = ft.dwHighDateTime;
+
 		LONGLONG elapsedTime = currentTime.QuadPart - initialTime.QuadPart;
 		LONGLONG currentNumber_100ns = countdownStartTime - elapsedTime;
 
@@ -404,8 +406,21 @@ void Guard::guardAttacks()
 	}
 	end();
 	system("pause");
-
-	Hanger::landingBay();
+	print("Where do you want to go?");
+	while (input != "s" && input != "n")
+	{
+		getline(cin, input);
+		if (input == "s")
+		{
+			Hanger::landingBay();
+		}
+		if (input == "n")
+		{
+			Guard::airlock();
+		}
+		Global::actions();
+		not_equal("s", "n", "", "");
+	}
 }
 
 void Guard::failDodge()
