@@ -20,7 +20,7 @@ any function with Guard:: means it is a function to do with the first with the g
 any function with DeadEndOne::, well that's kind of obvious
 */
 
-typedef void (*function_identifier)();
+typedef void (*void_Func)();
 
 extern string cyb1;
 extern string gun;
@@ -71,7 +71,6 @@ namespace Hanger
 	void secondShip();
 	void thirdShip();
 	void fourthShip();
-	void gShipAttacks();
 	void playerAttacks();
 }
 
@@ -88,6 +87,7 @@ namespace House
 
 namespace Global
 {
+	void xp();
 	void buttonPlayOffHover();
 	void setColour(WORD color);
 	void fullInvPlayer();
@@ -96,11 +96,11 @@ namespace Global
 	void actions();
 	void gameOver();
 	void no();
-	void timer(int, int, string, string, string, string, function_identifier, function_identifier);
+	void timer(int, int, string, string, string, string, void_Func, void_Func);
 	int extraDamage();
 	void menu();
 	void buttonPlayHover();
-	void button(int, int, int, int, function_identifier, function_identifier);
+	void button(int, int, int, int, void_Func, void_Func);
 }
 
 namespace Barracks
@@ -140,6 +140,7 @@ public:
 	static int damage;
 	static int defense;
 	static int health;
+	static int xp;
 };
 
 class GuardEasy
