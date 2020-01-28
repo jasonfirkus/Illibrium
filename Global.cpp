@@ -13,6 +13,39 @@ void Global::setColour(WORD color) {
 	return;
 }
 
+void Global::button(int x1, int x2, int y1, int y2, function identifier func1, function identifier func2)
+{
+	while (1)
+	{
+		if (GetKeyState(VK_LBUTTON) & 0x8000)
+		{
+			clicked = true;
+		}
+		POINT point;
+		if (GetCursorPos(&point))
+		{
+			//cout << point.x << "," << point.y << "\n";
+		}
+		if (point.x < x1 && point.x > x2 && point.y < y1 && point.y > y2 && clicked == true)
+		{
+			done = true;
+			break;
+		}
+		if (point.x < x1 && point.x > x2 && point.y < y1 && point.y > y2)
+		{
+			//If user hovers over "play" button
+			func1();
+
+		}
+		if (point.x > x1 || point.x < x2 && point.y > y1 || point.y < y2 && went == true)
+		{
+			//If the cursor leaves the play button
+			func2();
+		}
+		clicked = false;
+	}
+}
+
 void Global::buttonPlayHover()
 {
 	if (alreadyRan == false)
