@@ -24,11 +24,40 @@ const unsigned short int gunBonus = 5;
 //For colouring
 bool colour = true;
 
+winsz_t myconsole{};
+
+winsz_t* get_console_size(winsz_t* wsz)
+{
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+
+	wsz->rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+	wsz->cols = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+
+	return wsz;
+}
+
 void center(string words)
 {
-	int console_width = 240;
 	int len = words.length();
-	cout << setw((console_width / 2) + len / 2) << right << words << endl;
+	cout << setw((myconsole.cols / 2) + len / 2) << right << words << endl;
+}
+
+void get_coords()
+{
+	POINT point;
+	if (GetCursorPos(&point))
+	{
+
+	}
+	while (1)
+	{
+		if (GetKeyState(VK_SPACE) & 0x8000)
+		{
+			cout << point.x << "," << point.y << endl;
+		}
+	}
 }
 
 void print_room_1(string title, string desc1)
@@ -207,17 +236,17 @@ int main()
 	mciSendString(TEXT("play undertale"), NULL, 0, NULL);
 
 	SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
-
-	cout << "                                                                       ___   ___        ___        ___   ________   ________   ___   ___  ___   _____ ______      " << endl;
-	cout << "                                                                      |\\  \\ |\\  \\      |\\  \\      |\\  \\ |\\   __  \\ |\\   __  \\ |\\  \\ |\\  \\|\\  \\ |\\   _ \\  _   \\    " << endl;
-	cout << "                                                                      \\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\  \\|\\ /_\\ \\  \\|\\  \\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\\\__\\ \\  \\   " << endl;
-	cout << "                                                                       \\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\   __  \\\\ \\   _  _\\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\|__| \\  \\  " << endl;
-	cout << "                                                                        \\ \\  \\\\ \\  \\____ \\ \\  \\____ \\ \\  \\\\ \\  \\|\\  \\\\ \\  \\\\  \\|\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\    \\ \\  \\ " << endl;
-	cout << "                                                                         \\ \\__\\\\ \\_______\\\\ \\_______\\\\ \\__\\\\ \\_______\\\\ \\__\\\\ _\\ \\ \\__\\\\ \\_______\\\\ \\__\\    \\ \\__\\" << endl;
-	cout << "                                                                          \\|__| \\|_______| \\|_______| \\|__| \\|_______| \\|__|\\|__| \\|__| \\|_______| \\|__|     \\|__|\n \n \n \n" << endl;
+	Sleep(2000);
+	center("___   ___        ___        ___   ________   ________   ___   ___  ___   _____ ______");
+	center("|\\  \\ |\\  \\      |\\  \\      |\\  \\ |\\   __  \\ |\\   __  \\ |\\  \\ |\\  \\|\\  \\ |\\   _ \\  _   \\");
+	center("\\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\  \\|\\ /_\\ \\  \\|\\  \\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\\\__\\ \\  \\");
+	center("\\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\   __  \\\\ \\   _  _\\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\|__| \\  \\");
+	center("\\ \\  \\\\ \\  \\____ \\ \\  \\____ \\ \\  \\\\ \\  \\|\\  \\\\ \\  \\\\  \\|\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\    \\ \\  \\");
+	center("\\ \\__\\\\ \\_______\\\\ \\_______\\\\ \\__\\\\ \\_______\\\\ \\__\\\\ _\\ \\ \\__\\\\ \\_______\\\\ \\__\\    \\ \\__\\");
+	center("\\|__| \\|_______| \\|_______| \\|__| \\|_______| \\|__|\\|__| \\|__| \\|_______| \\|__|     \\|__|\n \n \n \n");
 #if VERSION == 1
 	// SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
-	cout << "                                                                                                          Press enter to continue ";
+	center("Press enter to continue");
 	getline(cin, input);
 	if (input == "guard airlock")
 	{
@@ -236,8 +265,8 @@ int main()
 		Guard::guardAttacks();
 	}
 	IF_("help", Global::help();)
-	IF_("hanger", Hanger::landingBay();)
-	IF_("pak", House::dineRoomHouse();)
+		IF_("hanger", Hanger::landingBay();)
+		IF_("pak", House::dineRoomHouse();)
 #else
 	print_slow_15("Press space to continue");
 #endif
@@ -245,10 +274,10 @@ int main()
 	Global::menu();
 
 	CLS
-	WAIT
-	CLS
+		WAIT
+		CLS
 
-	Sleep(200);
+		Sleep(200);
 	print_slow(" You are in the year 2070 and an evil organization is plotting to take over the world and you must stop them.", 15);
 	end();
 	system("pause");
@@ -447,5 +476,8 @@ system("pause");
 			}
 			one.join();
 */
+
+
+
 
 
