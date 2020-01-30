@@ -20,7 +20,8 @@ any function with Guard:: means it is a function to do with the first with the g
 any function with DeadEndOne::, well that's kind of obvious
 */
 
-typedef void (*void_Func)();
+typedef void (*FUNCTION)();
+
 typedef struct {
 	int rows, cols;
 } winsz_t;
@@ -45,6 +46,7 @@ extern bool keyGPressed;
 extern bool keyEPressed;
 extern bool clicked;
 
+winsz_t* get_console_size(winsz_t*);
 void get_coords();
 void center(string);
 void refresh();
@@ -61,6 +63,7 @@ void print_slow_no_space(const string&, unsigned int);
 void print_slow_15(const string&);
 void print(string);
 
+winsz_t console{};
 
 namespace Timer
 {
@@ -101,11 +104,11 @@ namespace Global
 	void actions();
 	void gameOver();
 	void no();
-	void timer(int, int, string, string, string, string, void_Func, void_Func);
+	void timer(int, int, string, string, string, string, FUNCTION, FUNCTION);
 	int extraDamage();
 	void menu();
 	void buttonPlayHover();
-	void button(int, int, int, int, void_Func, void_Func);
+	void button(FUNCTION, FUNCTION);
 }
 
 namespace Barracks
