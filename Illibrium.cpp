@@ -24,8 +24,6 @@ const unsigned short int gunBonus = 5;
 //For colouring
 bool colour = true;
 
-winsz_t myconsole{};
-
 winsz_t* get_console_size(winsz_t* wsz)
 {
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -41,7 +39,7 @@ winsz_t* get_console_size(winsz_t* wsz)
 void center(string words)
 {
 	int len = words.length();
-	cout << setw((myconsole.cols / 2) + len / 2) << right << words << endl;
+	cout << setw((console.cols / 2) + len / 2 + 1.5) << right << words << endl;
 }
 
 void get_coords()
@@ -235,17 +233,22 @@ int main()
 	mciSendString(TEXT("open \"undetale.mp3\" type mpegvideo alias undertale"), NULL, 0, NULL);
 	mciSendString(TEXT("play undertale"), NULL, 0, NULL);
 
-	SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
-	Sleep(2000);
+	WAIT
+
+	CLS
+	SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ 
+
+	get_console_size(&console);
 	center("___   ___        ___        ___   ________   ________   ___   ___  ___   _____ ______");
 	center("|\\  \\ |\\  \\      |\\  \\      |\\  \\ |\\   __  \\ |\\   __  \\ |\\  \\ |\\  \\|\\  \\ |\\   _ \\  _   \\");
-	center("\\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\  \\|\\ /_\\ \\  \\|\\  \\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\\\__\\ \\  \\");
-	center("\\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\   __  \\\\ \\   _  _\\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\|__| \\  \\");
-	center("\\ \\  \\\\ \\  \\____ \\ \\  \\____ \\ \\  \\\\ \\  \\|\\  \\\\ \\  \\\\  \\|\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\    \\ \\  \\");
-	center("\\ \\__\\\\ \\_______\\\\ \\_______\\\\ \\__\\\\ \\_______\\\\ \\__\\\\ _\\ \\ \\__\\\\ \\_______\\\\ \\__\\    \\ \\__\\");
-	center("\\|__| \\|_______| \\|_______| \\|__| \\|_______| \\|__|\\|__| \\|__| \\|_______| \\|__|     \\|__|\n \n \n \n");
+	center("  \\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\  \\|\\ /_\\ \\  \\|\\  \\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\\\__\\ \\  \\");
+	center("   \\ \\  \\\\ \\  \\     \\ \\  \\     \\ \\  \\\\ \\   __  \\\\ \\   _  _\\\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\\\|__| \\  \\");
+	center("     \\ \\  \\\\ \\  \\____ \\ \\  \\____ \\ \\  \\\\ \\  \\|\\  \\\\ \\  \\\\  \\|\\ \\  \\\\ \\  \\\\\\  \\\\ \\  \\    \\ \\  \\");
+	center("       \\ \\__\\\\ \\_______\\\\ \\_______\\\\ \\__\\\\ \\_______\\\\ \\__\\\\ _\\ \\ \\__\\\\ \\_______\\\\ \\__\\    \\ \\__\\");
+	center("        \\|__| \\|_______| \\|_______| \\|__| \\|_______| \\|__|\\|__| \\|__| \\|_______| \\|__|     \\|__|");
 #if VERSION == 1
 	// SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_
+	SP_ SP_ SP_
 	center("Press enter to continue");
 	getline(cin, input);
 	if (input == "guard airlock")
@@ -265,8 +268,8 @@ int main()
 		Guard::guardAttacks();
 	}
 	IF_("help", Global::help();)
-		IF_("hanger", Hanger::landingBay();)
-		IF_("pak", House::dineRoomHouse();)
+	IF_("hanger", Hanger::landingBay();)
+	IF_("pak", House::dineRoomHouse();)
 #else
 	print_slow_15("Press space to continue");
 #endif
@@ -274,10 +277,10 @@ int main()
 	Global::menu();
 
 	CLS
-		WAIT
-		CLS
+	WAIT
+	CLS
 
-		Sleep(200);
+	Sleep(200);
 	print_slow(" You are in the year 2070 and an evil organization is plotting to take over the world and you must stop them.", 15);
 	end();
 	system("pause");
