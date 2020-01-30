@@ -21,6 +21,9 @@ any function with DeadEndOne::, well that's kind of obvious
 */
 
 typedef void (*void_Func)();
+typedef struct {
+	int rows, cols;
+} winsz_t;
 
 extern string cyb1;
 extern string gun;
@@ -42,6 +45,7 @@ extern bool keyGPressed;
 extern bool keyEPressed;
 extern bool clicked;
 
+void get_coords();
 void center(string);
 void refresh();
 void seconds();
@@ -56,6 +60,7 @@ void print_slow(const string&, unsigned int);
 void print_slow_no_space(const string&, unsigned int);
 void print_slow_15(const string&);
 void print(string);
+
 
 namespace Timer
 {
