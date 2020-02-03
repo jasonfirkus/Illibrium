@@ -23,12 +23,12 @@ void Hanger::landingBay()
 {
 	system("cls");
 	SP_
-											
+
 	print_slow(" Landing Bay", 30);
 	print_slow_15(" You walk down the corridor and come to the end. There is a doorway which you walk through into the shipping bay. It is massive.");
 	print_slow_15(" The ceiling is about 100 metres high and you see many workers preparing ships for takeoff and doing maintenance.");
 	print_slow_15(" There are four landing pads which each contain a ship. Each one has a guard protecting it. But you see some boxes that allow might allow you to sneak past then guard unoticed.");
-	print_slow_15("Or you can try to outright overpower the guard.");
+	print_slow_15(" Or you can try to outright overpower the guard.");
 	SP_
 	print_slow_15(" The first ship has the least health of the bunch but has the most speed. It is blue with white highlights.");
 	print_slow_15(" The second ship has the most attack power out of the bunch but the least defense. It is black with golden highlights.");
@@ -36,59 +36,59 @@ void Hanger::landingBay()
 	print_slow_15(" The fourth ship has the most health but least speed. It is silver and has black highlights.");
 
 	SP_
-	WAIT
-	SP_
-
-	do
-	{
-		SP_ cout << ">>"; getline(cin, input);
+		WAIT
 		SP_
-		if (input == "get on first ship")
-		{
-			Hanger::firstShip();
-		}
-		if (input == "get on second ship")
-		{
-			Hanger::secondShip();
-		}
-		if (input == "get on third ship")
-		{
-			Hanger::thirdShip();
-		}
-		if (input == "get on fourth ship")
-		{
-			Hanger::fourthShip();
-		}
-		if (input == "sneak on first ship")
-		{
-			Hanger::ifStealthy();
-		}
-		if (input == "sneak on second ship")
-		{
-			Hanger::ifStealthy();
-		}
-		if (input == "sneak on third ship")
-		{
-			Hanger::ifStealthy();
-		}
-		if (input == "sneak on fourth ship")
-		{
-			Hanger::ifStealthy();
-		}
-		Global::actions();
-		if (input != "get on first ship" && input != "get on second ship" && input != "get on third ship" && input != "get on fourth ship"
-		&& input != "sneak on first ship" && input != "sneak on second ship" && input != "sneak on third ship" && input != "sneak on fourth ship")
-		{
-			print("Nani? Doiu imidesu ka?");
-		}
 
-	} while (input != "get on first ship" && input != "get on second ship" && input != "get on third ship" && input != "get on fourth ship" 
-	&& input != "sneak on first ship" && input != "sneak on second ship" && input != "sneak on third ship" && input != "sneak on fourth ship");
+		do
+		{
+			SP_ cout << ">>"; getline(cin, input);
+			SP_
+			if (input == "get on first ship")
+			{
+				Hanger::firstShip();
+			}
+			if (input == "get on second ship")
+			{
+				Hanger::secondShip();
+			}
+			if (input == "get on third ship")
+			{
+				Hanger::thirdShip();
+			}
+			if (input == "get on fourth ship")
+			{
+				Hanger::fourthShip();
+			}
+			if (input == "sneak on first ship")
+			{
+				Hanger::ifStealthy();
+			}
+			if (input == "sneak on second ship")
+			{
+				Hanger::ifStealthy();
+			}
+			if (input == "sneak on third ship")
+			{
+				Hanger::ifStealthy();
+			}
+			if (input == "sneak on fourth ship")
+			{
+				Hanger::ifStealthy();
+			}
+			Global::actions();
+			if (input != "get on first ship" && input != "get on second ship" && input != "get on third ship" && input != "get on fourth ship"
+				&& input != "sneak on first ship" && input != "sneak on second ship" && input != "sneak on third ship" && input != "sneak on fourth ship")
+			{
+				print("Nani? Doiu imidesu ka?");
+			}
+
+		} while (input != "get on first ship" && input != "get on second ship" && input != "get on third ship" && input != "get on fourth ship"
+		&& input != "sneak on first ship" && input != "sneak on second ship" && input != "sneak on third ship" && input != "sneak on fourth ship");
 }
 
 void Hanger::firstShip()
 {
-	print("You get closer to the first ship and spot the guard");
+	print("You get closer and spot the guard");
 	do
 	{
 		getline(cin, input);
@@ -105,15 +105,31 @@ void Hanger::firstShip()
 	} while (input != "attack guard" && input != "n");
 
 	Player::health = Player::health - finalDamageGuard;
-	cout << "The guard shoots back at you. It does" << finalDamageGuard << endl;
+	cout << "The guard shoots back at you. It does " << finalDamageGuard << " damage" << endl;
 
 	do
 	{
 		getline(cin, input);
 		if (input == "attack guard")
 		{
-			Hanger::playerAttacks();
-			print("You killed the guard");
+			SP_
+			srand(time(NULL));
+
+			int random = ((rand() % 5) + 1);
+			int finalDamage = Player::damage + gunBonus + random - GuardShip::easyReturnDefense();
+			GuardShip::minusVariables("health", finalDamage);
+
+			cout << "You attack the guard with your gun. It does " << finalDamage << " damage" << endl;
+			if (GuardShip::easyReturnHealth > 0)
+			{
+				print("u kil boi");
+				exit(0);
+			}
+			else
+			{
+				print("You killed the guard");
+				exit(0);
+			}
 		}
 		if (input == "n")
 		{
@@ -122,24 +138,21 @@ void Hanger::firstShip()
 		Global::actions();
 		not_equal("n", "attack guard", "adadadadadadwd", "diajdoijawd");
 	} while (input != "attack guard" && input != "n");
-
-
-
 }
 
 void Hanger::secondShip()
 {
-	
+
 }
 
 void Hanger::thirdShip()
 {
-	
+
 }
 
 void Hanger::fourthShip()
 {
-	
+
 }
 
 void Hanger::ifStealthy()
@@ -256,12 +269,12 @@ void Timer::hangerGuard()
 	GetSystemTimeAsFileTime(&ft);
 	initialTime.LowPart = ft.dwLowDateTime;
 	initialTime.HighPart = ft.dwHighDateTime;
-	LONGLONG countdownStartTime = 20000000; // 100 Nano seconds
-	LONGLONG displayedNumber = 3; // Prevent 31 to be displayed
+	LONGLONG countdownStartTime = 50000000; 
+	LONGLONG displayedNumber = 6; 
 
 	while (true)
 	{
-		GetSystemTimeAsFileTime(&ft); // 100 nano seconds
+		GetSystemTimeAsFileTime(&ft); 
 		currentTime.LowPart = ft.dwLowDateTime;
 		currentTime.HighPart = ft.dwHighDateTime;
 
@@ -290,12 +303,12 @@ void Timer::hangerGuard()
 			CLS
 			P_ "You jump out of cover and blast the guard at point-blank range." T_
 			SP_
+
 			
-			break;
 		}
 		LONGLONG currentNumber_s = currentNumber_100ns / 10000000 + 1;
 		CLS
-		cout << "You have " << currentNumber_s << " seconds until the guard reaches you." << endl;
+			cout << "You have " << currentNumber_s << " seconds until the guard reaches you." << endl;
 		displayedNumber = currentNumber_s;
 
 		if (keyA_Pressed == true)
