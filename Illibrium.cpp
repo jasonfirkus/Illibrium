@@ -232,11 +232,9 @@ int main()
 	thread xp(Global::xp);
 	mciSendString(TEXT("open \"undetale.mp3\" type mpegvideo alias undertale"), NULL, 0, NULL);
 	mciSendString(TEXT("play undertale"), NULL, 0, NULL);
-
 	WAIT
-
 	CLS
-	SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ 
+	SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ SP_ 
 
 	get_console_size(&console);
 	center("___   ___        ___        ___   ________   ________   ___   ___  ___   _____ ______");
