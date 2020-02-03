@@ -46,7 +46,9 @@ extern bool keyGPressed;
 extern bool keyEPressed;
 extern bool clicked;
 
+__declspec(selectany) winsz_t console {};
 winsz_t* get_console_size(winsz_t*);
+
 void get_coords();
 void center(string);
 void refresh();
@@ -62,8 +64,6 @@ void print_slow(const string&, unsigned int);
 void print_slow_no_space(const string&, unsigned int);
 void print_slow_15(const string&);
 void print(string);
-
-winsz_t console{};
 
 namespace Timer
 {
